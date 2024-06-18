@@ -1,0 +1,20 @@
+[
+  {
+    "objectID": "notebooks/hello.html",
+    "href": "notebooks/hello.html",
+    "title": "Example notebook",
+    "section": "",
+    "text": "These should not be executed by Quarto.\n\nimport geopandas\n\ngeopandas.show_versions()\n\n\nSYSTEM INFO\n-----------\npython     : 3.11.4 | packaged by conda-forge | (main, Jun 10 2023, 18:08:41) [Clang 15.0.7 ]\nexecutable : /Users/martin/miniforge3/envs/stable/bin/python\nmachine    : macOS-14.5-arm64-arm-64bit\n\nGEOS, GDAL, PROJ INFO\n---------------------\nGEOS       : 3.12.1\nGEOS lib   : None\nGDAL       : 3.7.3\nGDAL data dir: /Users/martin/miniforge3/envs/stable/share/gdal\nPROJ       : 9.3.0\nPROJ data dir: /Users/martin/miniforge3/envs/stable/share/proj\n\nPYTHON DEPENDENCIES\n-------------------\ngeopandas  : 0.14.4\nnumpy      : 1.26.4\npandas     : 2.2.2\npyproj     : 3.6.1\nshapely    : 2.0.4\nfiona      : 1.9.5\ngeoalchemy2: None\ngeopy      : 2.4.1\nmatplotlib : 3.8.4\nmapclassify: 2.6.1\npygeos     : None\npyogrio    : 0.7.2\npsycopg2   : None\npyarrow    : 16.1.0\nrtree      : 1.2.0",
+    "crumbs": [
+      "Notebooks",
+      "Example notebook"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "EuroFab research project",
+    "section": "",
+    "text": "The landing page of the EuroFab project."
+  }
+]
