@@ -1,0 +1,7 @@
+---
+title: "EuroFab research project"
+---
+
+The landing page of the EuroFab project.
+
+![](assets/logos.png)

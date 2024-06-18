@@ -1,0 +1,31 @@
+on:
+    push:
+        branches: main
+
+name: Render and Publish
+
+jobs:
+    build-deploy:
+        name: "Build and deploy"
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash -l {0}
+        steps:
+        - name: Check out repository
+          uses: actions/checkout@v4
+
+        - name: Set up Quarto
+          uses: quarto-dev/quarto-actions/setup@v2
+
+        - name: Render the website
+          run: quarto render
+
+        - name: Deploy
+          uses: peaceiris/actions-gh-pages@v4
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./_site
+
+permissions:
+    contents: write

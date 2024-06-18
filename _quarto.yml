@@ -1,0 +1,35 @@
+project:
+  type: website
+
+website:
+  title: "Urban morphometrics | EuroFab"
+  sidebar:
+    tools:
+    - icon: github
+      href: https://github.com/eurofab-project/morphometrics
+    contents:
+    - section: "About"
+      contents:
+      - text: Project homepage
+        href:  https://eurofab-project.github.io/
+      - text: Talks
+        href:  https://eurofab-project.github.io/talks/
+      - section: "Other work streams"
+        contents:
+        - text: Earth observation
+          href:  https://eurofab-project.github.io/eo/
+    - section: "Notebooks"
+      contents:
+      - notebooks/hello.ipynb
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    mainfont: "Open Sans"
+    include-in-header: assets/font.html
+
+
+
+
