@@ -1,5 +1,75 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "EuroFab research project",
+    "section": "",
+    "text": "The landing page of the EuroFab project."
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html",
+    "href": "notebooks/download_microsoft_buildings.html",
+    "title": "Download country MS buildings",
+    "section": "",
+    "text": "import geopandas as gpd\nimport pandas as pd\ncountry = 'Czechia'\ndef read_ms_buildings(url):\n    from shapely.geometry import shape\n    df = pd.read_json(url, lines=True)\n    df['geometry'] = df['geometry'].apply(shape)\n    gdf = gpd.GeoDataFrame(df, crs=4326).to_crs(epsg=3035)\n    return gdf\ndef read_microsoft_country_data(country):\n\n    dataset_links = pd.read_csv(\"https://minedbuildings.blob.core.windows.net/global-buildings/dataset-links.csv\")\n    location_links = dataset_links[dataset_links.Location == location]\n\n    from joblib import Parallel, delayed    \n    n_jobs = -1\n    all_data = Parallel(n_jobs=n_jobs)(\n        delayed(read_ms_buildings)(row.Url) for _, row in location_links.iterrows()\n    )\n\n    return pd.concat(all_data, ignore_index=True)\n%%time\ngdf = read_microsoft_country_data(country)\n\nCPU times: user 2.58 s, sys: 1.33 s, total: 3.91 s\nWall time: 3min 5s\ngdf = gdf.sort_values('geometry').reset_index(drop=True)\n%%time\ngdf.to_parquet(f'../data/ms_{country.lower()}.parquet', geometry_encoding='geoarrow', write_covering_bbox=True, schema_version='1.1.0')\n\nCPU times: user 5.83 s, sys: 724 ms, total: 6.55 s\nWall time: 6.53 s"
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html#define-regions-on-ms-data",
+    "href": "notebooks/download_microsoft_buildings.html#define-regions-on-ms-data",
+    "title": "Download country MS buildings",
+    "section": "Define regions on MS data",
+    "text": "Define regions on MS data\n\nimport dask.dataframe as dd\nimport geopandas as gpd\nimport numpy as np\nimport pandas as pd\nfrom sklearn.cluster import DBSCAN\n\n\ngdf = gpd.read_parquet('../data/ms_czechia.parquet')\n\n\ncents = gdf.centroid\ngdf['x'], gdf['y'] = cents.x, cents.y\ngdf['id'] = gdf.index.values\ndata = gdf[[\"x\", \"y\", 'id']]\n\n\ndata[[\"x_100\", \"y_100\"]] = np.around(data[[\"x\", \"y\"]], decimals=-2)\ngrid = data[[\"id\", \"x_100\", \"y_100\"]].groupby([\"x_100\", \"y_100\"]).count().reset_index()\n\n/tmp/ipykernel_2572923/4289293720.py:1: SettingWithCopyWarning: \nA value is trying to be set on a copy of a slice from a DataFrame.\nTry using .loc[row_indexer,col_indexer] = value instead\n\nSee the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy\n  data[[\"x_100\", \"y_100\"]] = np.around(data[[\"x\", \"y\"]], decimals=-2)\n/tmp/ipykernel_2572923/4289293720.py:1: SettingWithCopyWarning: \nA value is trying to be set on a copy of a slice from a DataFrame.\nTry using .loc[row_indexer,col_indexer] = value instead\n\nSee the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy\n  data[[\"x_100\", \"y_100\"]] = np.around(data[[\"x\", \"y\"]], decimals=-2)\n\n\n\ndbscan = DBSCAN(400, n_jobs=-1).fit(grid[[\"x_100\", \"y_100\"]], sample_weight=grid[\"id\"])\ngrid[\"labels\"] = dbscan.labels_\n\n\ndata = pd.merge(data, grid, \"left\", on=[\"x_100\", \"y_100\"])\n\n\ncounts = data.labels.value_counts()\ndata[\"core\"] = data.labels.isin(counts[counts &gt; 10000].index.drop(-1))\n\n\ncores = data[data.core]\n\n\ngrid[\"core\"] = grid.labels.isin(counts[counts &gt; 10000].index.drop(-1))\ngrid_cores = grid[grid.core]\ngrid_cores = gpd.GeoDataFrame(\n    grid_cores[\"labels\"],\n    geometry=gpd.points_from_xy(grid_cores[\"x_100\"], grid_cores[\"y_100\"]),\n    crs=3035,\n)\ngrid_cores_dissolved = grid_cores.dissolve(\"labels\")\n\n\ngrid_non_cores = grid[~grid.core]\ngrid_non_cores = gpd.GeoDataFrame(\n    grid_non_cores[\"labels\"],\n    geometry=gpd.points_from_xy(grid_non_cores[\"x_100\"], grid_non_cores[\"y_100\"]),\n    crs=3035,\n)\n\n\ngrid_non_cores_clustered = grid_non_cores[grid_non_cores.labels != -1]\ngrid_non_cores_outliers = grid_non_cores[grid_non_cores.labels == -1]\n\n\ngrid_non_cores_clustered_dissolved = grid_non_cores_clustered.dissolve(\"labels\")\n\n\n%%time\nnearest = grid_cores.sindex.nearest(\n    grid_non_cores_clustered_dissolved.geometry, return_all=False\n)\n\nCPU times: user 1.5 s, sys: 0 ns, total: 1.5 s\nWall time: 1.5 s\n\n\n\ngrid_non_cores_clustered_dissolved[\"nearest_core\"] = grid_cores.labels.values[\n    nearest[1]\n]\n\n\n%%time\nnearest_outliers = grid_cores.sindex.nearest(\n    grid_non_cores_outliers.geometry, return_all=False\n)\n\nCPU times: user 130 ms, sys: 0 ns, total: 130 ms\nWall time: 130 ms\n\n\n\ngrid_non_cores_outliers[\"nearest_core\"] = grid_cores.labels.values[nearest_outliers[1]]\n\n/home/krasen/miniconda3/envs/urban_taxonomy/lib/python3.12/site-packages/geopandas/geodataframe.py:1819: SettingWithCopyWarning: \nA value is trying to be set on a copy of a slice from a DataFrame.\nTry using .loc[row_indexer,col_indexer] = value instead\n\nSee the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy\n  super().__setitem__(key, value)\n\n\n\ngrid_non_cores = pd.concat(\n    [\n        grid_non_cores_clustered_dissolved.reset_index().explode(ignore_index=True),\n        grid_non_cores_outliers,\n    ],\n    ignore_index=True,\n)\n\n\ngrid_non_cores[\"x_100\"] = grid_non_cores.geometry.x\ngrid_non_cores[\"y_100\"] = grid_non_cores.geometry.y\n\n\ndata = pd.merge(\n    data,\n    grid_non_cores[[\"x_100\", \"y_100\", \"nearest_core\"]],\n    \"left\",\n    on=[\"x_100\", \"y_100\"],\n)\n\n\ndata[\"region\"] = data.labels\ndata.loc[~data.core, \"region\"] = data.loc[~data.core, \"nearest_core\"]\n\n\ndata = data.rename(\n    columns={\n        \"id_x\": \"id\",\n        \"id_y\": \"weight\",\n        \"labels\": \"dbscan_cluster\",\n    }\n)\n\n\ndata\n\n\n\n\n\n\n\n\nx\ny\nid\nx_100\ny_100\nweight\ndbscan_cluster\ncore\nnearest_core\nregion\n\n\n\n\n0\n4.555524e+06\n2.895213e+06\n0\n4555500.0\n2895200.0\n2\n1465\nFalse\n1395.0\n1395\n\n\n1\n4.555513e+06\n2.895226e+06\n1\n4555500.0\n2895200.0\n2\n1465\nFalse\n1395.0\n1395\n\n\n2\n4.555531e+06\n2.895390e+06\n2\n4555500.0\n2895400.0\n3\n1465\nFalse\n1395.0\n1395\n\n\n3\n4.556668e+06\n2.895443e+06\n3\n4556700.0\n2895400.0\n2\n1553\nFalse\n1395.0\n1395\n\n\n4\n4.556712e+06\n2.895217e+06\n4\n4556700.0\n2895200.0\n1\n1553\nFalse\n1395.0\n1395\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n3397211\n4.833569e+06\n2.863265e+06\n3397211\n4833600.0\n2863300.0\n1\n-1\nFalse\n9750.0\n9750\n\n\n3397212\n4.832729e+06\n2.862271e+06\n3397212\n4832700.0\n2862300.0\n1\n-1\nFalse\n9750.0\n9750\n\n\n3397213\n4.833350e+06\n2.861897e+06\n3397213\n4833400.0\n2861900.0\n1\n-1\nFalse\n9750.0\n9750\n\n\n3397214\n4.833168e+06\n2.861214e+06\n3397214\n4833200.0\n2861200.0\n1\n-1\nFalse\n9750.0\n9750\n\n\n3397215\n4.833230e+06\n2.860820e+06\n3397215\n4833200.0\n2860800.0\n1\n-1\nFalse\n9750.0\n9750\n\n\n\n\n3397216 rows × 10 columns\n\n\n\n\npd.concat(\n    [\n        grid_cores,\n        grid_non_cores[[\"nearest_core\", \"geometry\"]].rename(\n            columns={\"nearest_core\": \"labels\"}\n        ),\n    ]\n).dissolve(\"labels\").convex_hull.to_frame(\"convex_hull\").to_parquet(\n    \"../data/ms_czechia_regions_hull.parquet\"\n)"
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html#processing",
+    "href": "notebooks/download_microsoft_buildings.html#processing",
+    "title": "Download country MS buildings",
+    "section": "Processing",
+    "text": "Processing\n\nimport geopandas as gpd\nimport pandas as pd\n\n\nregion_name = 4182\n\n\nbuildings_dir = '../data/ms_buildings/'\nstreets_dir = '../data/ms_buildings/'\nenclosures_dir = '../data/ms_buildings/'\ntessellations_dir = '../data/ms_buildings/'\ngraph_dir = '../data/ms_buildings/'\nchars_dir = '../data/ms_buildings/chars/'\n\n\nregion_hulls = gpd.read_parquet(\"../data/ms_buildings/ms_czechia_regions_hull.parquet\")\n\n\nregion_id, region_hull = region_hulls.loc[region_name].name, region_hulls.loc[region_name].convex_hull"
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html#process-buildings",
+    "href": "notebooks/download_microsoft_buildings.html#process-buildings",
+    "title": "Download country MS buildings",
+    "section": "process buildings",
+    "text": "process buildings\n\nfrom core.generate_buildings import read_region_buildings, process_region_buildings\n\n\nbuildings = gpd.read_parquet('../data/ms_buildings/ms_czechia.parquet', bbox=region_hull.bounds)\nbuildings = buildings.iloc[buildings.sindex.query(region_hull, predicate='intersects')]\nbuildings.shape\n\n(234287, 3)\n\n\n\nbuildings = process_region_buildings(buildings, True, simplification_tolerance=.1, merge_limit=25)\n\nPercent polygons:  1.0\nFinal polygons:  231507 , dropped:  0.011865788541404299\n\n\n\nbuildings.to_parquet(buildings_dir + f\"buildings_{region_id}.parquet\")"
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html#process-streets",
+    "href": "notebooks/download_microsoft_buildings.html#process-streets",
+    "title": "Download country MS buildings",
+    "section": "process streets",
+    "text": "process streets\n\nfrom core.generate_streets import process_region_streets\n\n\n## overture is indexed based on 4326\noverture_hull = region_hulls.loc[[region_name], ].to_crs(epsg=4326).convex_hull.iloc[0]\n\n\n%%time\n## processs streets\nstreets = process_region_streets(overture_hull, region_id)\n\nCPU times: user 3.06 s, sys: 1.31 s, total: 4.37 s\nWall time: 2min 26s\n\n\n/home/krasen/urban_taxonomy/core/generate_streets.py:62: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`\n  streets = streets[~streets.road.str.contains('is_tunnel').fillna(False)]\n\n\n\nstreets.plot()\n\n\n\n\n\n\n\n\n\n## save streets\nstreets.to_parquet(streets_dir + f'streets_{region_id}.parquet')"
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html#process-elements",
+    "href": "notebooks/download_microsoft_buildings.html#process-elements",
+    "title": "Download country MS buildings",
+    "section": "process elements",
+    "text": "process elements\n\nfrom core.generate_elements import process_region_elements\n\n\nenclosures, tesselations = process_region_elements(buildings_dir, streets_dir, region_id)\n\n---- Processing region:  4182 2024-07-20 11:28:45.153144\n\n\n\nenclosures.to_parquet(enclosures_dir + f\"enclosure_{region_id}.parquet\")\nprint(\"Processed enclosures\")\n\n## save files\ntesselations.to_parquet(\n    tessellations_dir + f\"tessellation_{region_id}.parquet\"\n)\nprint(\"processed tesselations\")\n\nProcessed enclosures\nprocessed tesselations\n\n\n\n# import lonboard\n# layer = lonboard.PolygonLayer.from_geopandas(tesselations, opacity=.15)\n# m = lonboard.Map(layer)"
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html#process-graphs",
+    "href": "notebooks/download_microsoft_buildings.html#process-graphs",
+    "title": "Download country MS buildings",
+    "section": "process graphs",
+    "text": "process graphs\n\nprocess_region_graphs(\n    region_id,\n    graph_dir,\n    buildings_dir,\n    streets_dir,\n    enclosures_dir,\n    tessellations_dir,\n)\n\nBuilt tess graph knn=1\nBuilt buildings graph knn=1\nBuilt streets graph knn=1\nBuilt enclosure graph knn=1\n\n\n/home/krasen/miniconda3/envs/urban_taxonomy/lib/python3.12/site-packages/libpysal/weights/weights.py:1685: UserWarning: The weights matrix is not fully connected: \n There are 266 disconnected components.\n  w = W(neighbors, weights, ids, silence_warnings=silence_warnings)\n\n\nBuilt nodes graph knn=1"
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html#process-chars",
+    "href": "notebooks/download_microsoft_buildings.html#process-chars",
+    "title": "Download country MS buildings",
+    "section": "process chars",
+    "text": "process chars\n\nfrom core.generate_chars import process_single_region_chars\n\n\nprocess_single_region_chars(\n    region_id,\n    graph_dir,\n    buildings_dir,\n    streets_dir,\n    enclosures_dir,\n    tessellations_dir,\n    chars_dir\n)\n\n2024-07-20 12:24:44.261120 ----Processing ------ 4182\nProcessing streets\n\n\n/home/krasen/momepy/momepy/functional/_diversity.py:73: RuntimeWarning: invalid value encountered in cast\n  ).values.astype(bool)\n\n\nProcessing enclosures\nProcessing buildings\nProcessing tessellation"
+  },
+  {
+    "objectID": "notebooks/download_microsoft_buildings.html#merge-data",
+    "href": "notebooks/download_microsoft_buildings.html#merge-data",
+    "title": "Download country MS buildings",
+    "section": "merge data",
+    "text": "merge data\n\ntessellation = gpd.read_parquet(chars_dir + f\"tessellations_chars_{region_id}.parquet\")\nbuildings = gpd.read_parquet(chars_dir + f\"buildings_chars_{region_id}.parquet\")\nenclosures = gpd.read_parquet(chars_dir + f\"enclosures_chars_{region_id}.parquet\")\nstreets = gpd.read_parquet(chars_dir + f\"streets_chars_{region_id}.parquet\")\nnodes = gpd.read_parquet(chars_dir + f\"nodes_chars_{region_id}.parquet\")\n\nmerged = pd.merge(\n    tessellation.drop(columns=[\"geometry\"]),\n    buildings.drop(columns=[\"nodeID\", \"geometry\", 'nID']),\n    right_index=True,\n    left_index=True,\n    how=\"left\",\n)\n\nmerged = merged.merge(\n    enclosures.drop(columns=\"geometry\"),\n    right_on=\"eID\",\n    left_on=\"enclosure_index\",\n    how=\"left\",\n)\n\nmerged = merged.merge(streets.drop(columns=\"geometry\"), on=\"nID\", how=\"left\")\nmerged = merged.merge(nodes.drop(columns=\"geometry\"), on=\"nodeID\", how=\"left\")\n\nmerged = merged.drop(\n    columns=[\n        \"nID\",\n        \"eID\",\n        \"nodeID\",\n        \"mm_len\",\n        \"cdsbool\",\n        \"node_start\",\n        \"node_end\",\n        \"x\",\n        \"y\",\n        \"enclosure_index\",\n        # \"id\",\n        # \"osm_id\",\n    ]\n)\nmerged = merged.set_index(tessellation.index)\n\nfrom core.utils import used_keys\nprimary = merged[list(used_keys.keys())]\nprimary.to_parquet(chars_dir + f'primary_chars_{region_id}.parquet')"
+  },
+  {
     "objectID": "notebooks/hello.html",
     "href": "notebooks/hello.html",
     "title": "Example notebook",
@@ -9,12 +79,5 @@
       "Notebooks",
       "Example notebook"
     ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "EuroFab research project",
-    "section": "",
-    "text": "The landing page of the EuroFab project."
   }
 ]
