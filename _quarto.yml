@@ -20,7 +20,7 @@ website:
           href:  https://eurofab-project.github.io/eo/
     - section: "Notebooks"
       contents:
-      - notebooks/hello.ipynb
+      - notebooks/download_microsoft_buildings.ipynb
 
 format:
   html:
