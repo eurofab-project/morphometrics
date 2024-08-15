@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Download country MS buildings – Urban morphometrics | EuroFab</title>
+<title>Download data from Microsoft Building Footprints project – Urban morphometrics | EuroFab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -120,9 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Urban morphometrics | EuroFab
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/download_microsoft_buildings.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/download_microsoft_buildings.html">Download data from Microsoft Building Footprints project</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -201,8 +199,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/hello.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Example notebook</span></a>
+  <a href="../notebooks/download_microsoft_buildings.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Download data from Microsoft Building Footprints project</span></a>
   </div>
 </li>
       </ul>
@@ -217,7 +215,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#read-region-data" id="toc-read-region-data" class="nav-link active" data-scroll-target="#read-region-data">Read region data</a></li>
+  <li><a href="#download-country-ms-buildings" id="toc-download-country-ms-buildings" class="nav-link active" data-scroll-target="#download-country-ms-buildings">Download country MS buildings</a>
+  <ul class="collapse">
+  <li><a href="#read-region-data" id="toc-read-region-data" class="nav-link" data-scroll-target="#read-region-data">Read region data</a></li>
+  </ul></li>
   <li><a href="#define-regions-on-ms-data" id="toc-define-regions-on-ms-data" class="nav-link" data-scroll-target="#define-regions-on-ms-data">Define regions on MS data</a></li>
   <li><a href="#processing" id="toc-processing" class="nav-link" data-scroll-target="#processing">Processing</a></li>
   <li><a href="#process-buildings" id="toc-process-buildings" class="nav-link" data-scroll-target="#process-buildings">process buildings</a></li>
@@ -232,9 +233,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/download_microsoft_buildings.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/download_microsoft_buildings.html">Download data from Microsoft Building Footprints project</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Download country MS buildings</h1>
+<h1 class="title">Download data from Microsoft Building Footprints project</h1>
 </div>
 
 
@@ -255,6 +256,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="download-country-ms-buildings" class="level2">
+<h2 class="anchored" data-anchor-id="download-country-ms-buildings">Download country MS buildings</h2>
 <div id="cf85ec74-87ba-4d2d-b209-072b58ca7752" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>country <span class="op">=</span> <span class="st">'Czechia'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -333,6 +336,7 @@ Wall time: 6.53 s</code></pre>
 <div id="b5cfd0ca-b3ab-4398-944d-bc5e61f6b021" class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 </section>
 <section id="define-regions-on-ms-data" class="level2">
 <h2 class="anchored" data-anchor-id="define-regions-on-ms-data">Define regions on MS data</h2>
