@@ -163,3 +163,5 @@ cython_debug/
 
 /.quarto/
 /_site/
+manual_deps/
+.pixi/

@@ -13,35 +13,46 @@ from typing import Optional
 import pyarrow.parquet as pq
 import shapely.wkb
 import geopandas as gpd
+import sgeop
 
 regions_datadir = "/data/uscuni-ulce/"
 data_dir = "/data/uscuni-ulce/processed_data/"
 eubucco_files = glob.glob(regions_datadir + "eubucco_raw/*")
+buildings_dir = '/data/uscuni-ulce/processed_data/buildings/'
+overture_streets_dir = '/data/uscuni-ulce/overture_streets/'
+streets_dir = '/data/uscuni-ulce/processed_data/streets/'
+from core.utils import largest_regions
 
+def process_regions(largest):
 
-def process_all_regions_streets():
     region_hulls = gpd.read_parquet(
-        regions_datadir + "regions/" + "regions_hull.parquet"
+        regions_datadir + "regions/" + "cadastre_regions_hull.parquet"
     )
 
-    for region_id, region_hull in region_hulls.to_crs('epsg:4326').iterrows():
-        region_hull = region_hull["convex_hull"]
-
-        if region_id != 69300: continue
-
-        print("----", "Processing region: ", region_id, datetime.datetime.now())
-
-        ## processs streets
-        streets = process_region_streets(region_hull, region_id)
-
-        ## save streets
-        streets.to_parquet(data_dir + f"streets/streets_{region_id}.parquet")
-        del streets
-        gc.collect()
+    if largest:
+        for region_id in largest_regions:
+            process_single_region_streets(region_id)
+            
+    else:
+        regions_hulls = region_hulls[~region_hulls.index.isin(largest_regions)]
+        from joblib import Parallel, delayed
+        n_jobs = -1
+        new = Parallel(n_jobs=n_jobs)(
+            delayed(process_single_region_streets)(region_id) for region_id, _ in regions_hulls.iterrows()
+        )
 
 
-def process_region_streets(region_hull, region_id):
-    streets = read_overture_region_streets(region_hull, region_id)
+def process_single_region_streets(region_id):
+    print("----", "Processing region: ", region_id, datetime.datetime.now())
+    streets = process_region_streets(region_id, overture_streets_dir, buildings_dir)
+    streets.to_parquet(streets_dir + f'streets_{region_id}.parquet')
+
+
+def process_region_streets(region_id, streets_dir, buildings_dir):
+    '''Filter streets, then drop tunnels, and lastly - simplify.'''
+    
+    streets = gpd.read_parquet(streets_dir + f'streets_{region_id}.pq')
+    
     ## service road removed
     approved_roads = ['living_street',
                      'motorway',
@@ -58,28 +69,56 @@ def process_region_streets(region_hull, region_id):
                      'trunk_link',
                      'unclassified']
     streets = streets[streets['class'].isin(approved_roads)]
+
+    
     ## drop tunnels
-    streets = streets[~streets.road.str.contains('is_tunnel').fillna(False)]
+    to_filter = streets.loc[~streets.road_flags.isna(), ].set_crs(epsg=4236).to_crs(epsg=3035)
+    tunnels_to_drop = to_filter.apply(to_drop_tunnel, axis=1)
+    streets = streets.drop(to_filter[tunnels_to_drop].index)
+    
     streets = streets.set_crs(epsg=4326).to_crs(epsg=3035)
     streets = streets.sort_values('id')[['id', 'geometry', 'class']].reset_index(drop=True)
-    return streets
+
+    ## simplify
+    buildings = gpd.read_parquet(buildings_dir + f'buildings_{region_id}.parquet', columns=["geometry"])
+    simplified = sgeop.simplify_network(
+    streets,
+    exclusion_mask=buildings.geometry,
+    artifact_threshold_fallback=7,
+    )
+    
+    return simplified
+    
+
+def to_drop_tunnel(row):
+    '''Find whether or not a road segment has a tunnel thats more than 50 metres.'''
+    tunnel_length = row.geometry.length
+    flags = row.road_flags
+
+    total_tunnel_proportion = -1
+    for flag in flags:
+        if 'values' in flag and ('is_tunnel' in flag['values']) :
+            # between could be missing to show the whole thing is a tunnel
+            total_tunnel_proportion = 0.0 if total_tunnel_proportion < 0 else total_tunnel_proportion
+            # betweencould be None to indicate the whole thing is a tunnel 
+            if ('between' in flag) and (flag['between'] is not None):
+                s,e = flag['between'][0], flag['between'][1]
+                total_tunnel_proportion += (e - s)
+    
+    if (total_tunnel_proportion*tunnel_length) > 50:
+        return True
+    elif total_tunnel_proportion == 0.0:
+        return True
+    return False
+
 
 def read_overture_region_streets(region_hull, region_id):
-
+    '''Download overture streets within the region_hull.'''
     batches = record_batch_reader('segment', region_hull.bounds).read_all()
     gdf = gpd.GeoDataFrame.from_arrow(batches)
     gdf = gdf.iloc[gdf.sindex.query(region_hull, predicate='intersects')]
     return gdf
 
-def read_region_streets(region_hull, region_id):
-    read_mask = region_hull.buffer(100)
-
-    streets = gpd.read_parquet(
-        regions_datadir + "streets/central_europe_streets_eubucco_crs.parquet"
-    )
-    streets = streets[streets.intersects(read_mask)].reset_index(drop=True)
-
-    return streets
 
 
 
@@ -102,7 +141,7 @@ def record_batch_reader(overture_type, bbox=None) -> Optional[pa.RecordBatchRead
         filter = None
 
     dataset = ds.dataset(
-        path, filesystem=fs.S3FileSystem(anonymous=True, region="us-west-2")
+        path, filesystem=fs.S3FileSystem(anonymous=True, region="us-west-2", connect_timeout=5, request_timeout=5)
     )
     batches = dataset.to_batches(filter=filter)
 
@@ -176,8 +215,19 @@ def _dataset_path(overture_type: str) -> str:
     # complete s3 path. Could be discovered by reading from the top-level s3
     # location but this allows to only read the files in the necessary partition.
     theme = type_theme_map[overture_type]
-    return f"overturemaps-us-west-2/release/2024-06-13-beta.1/theme={theme}/type={overture_type}/"
+    return f"overturemaps-us-west-2/release/2024-08-20.0/theme={theme}/type={overture_type}/"
     
 
+def read_region_streets(region_hull, region_id):
+    read_mask = region_hull.buffer(100)
+
+    streets = gpd.read_parquet(
+        regions_datadir + "streets/central_europe_streets_eubucco_crs.parquet"
+    )
+    streets = streets[streets.intersects(read_mask)].reset_index(drop=True)
+
+    return streets
+
 if __name__ == "__main__":
-    process_all_regions_streets()
+    process_regions(False)
+    process_regions(True)
