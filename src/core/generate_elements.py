@@ -85,7 +85,8 @@ def process_region_elements(buildings_data_dir, streets_data_dir, region_id):
 
 
     tesselations = None
-
+    num_problem_buildings = 0
+    
     ## we need a try/except block here because shapely.voronoi_polygons throws a top. exception
     ## for some buildings and there is no way to filter them out before running it
     ## there are only 2 buildings in the entire dataset that have the issue in regions - 47090,21894
@@ -106,6 +107,7 @@ def process_region_elements(buildings_data_dir, streets_data_dir, region_id):
         tesselations = generate_tess(buildings,
                              enclosures,
                              n_workers=-1)
+        num_problem_buildings += problem_building.shape[0]
 
 
 
@@ -115,7 +117,7 @@ def process_region_elements(buildings_data_dir, streets_data_dir, region_id):
     tesselation_coverage = np.isin(
         buildings.index.values, tesselations.index.values
     )
-    num_problem_buildings = 0
+    
     
     while (not tesselation_coverage.all()):
         print(
