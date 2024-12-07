@@ -165,3 +165,4 @@ cython_debug/
 /_site/
 manual_deps/
 .pixi/
+*.geojson
