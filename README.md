@@ -14,6 +14,10 @@ Morphometric modules of the EuroFab project
 
 4. To run the analysis on the whole dataset - first, make sure you have the correct folder structure and the target label data in place. Then, run:
 
-    - `notebooks/download_data.ipynb` to download all the Microsoft building footprints, split them into regions, and then download the overture streets.
-    - `notebooks/process_regions.ipynb` to run the entire processing pipeline from building, street preprocessing, element generation and characters calculations.
-    - `notebooks/eurofab_model.ipynb` to train and test the model.
+    - `notebooks/1_download_data.ipynb` to download all the Microsoft building footprints, split them into regions, and then download the overture streets.
+    - `notebooks/2_process_regions.ipynb` to run the entire processing pipeline from building, street preprocessing, element generation and characters calculations.
+    - `notebooks/3_assign_targets.ipynb` to assign target labels to each generated element.
+    - `notebooks/4_assign_buildings_to_h3.ipynb` to assign buildings to h3 hexagons, in preparation for train/test splitting.
+    - `notebooks/5_train_test_split.ipynb` to split the data into 5 training and test sets, based on the country of origin.
+    - `notebooks/6_eurofab_model.ipynb` to train and test the model.
+    - `notebooks/interactive_exploration.ipynb` to interactively explore the morphometric characters.
