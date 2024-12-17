@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a5f7c7d3e14c0249f40a958cfc36173a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -106,6 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -120,9 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Urban morphometrics | EuroFab
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/interactive_exploration.html">Visualize data on an interactive map</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -200,8 +199,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">notebooks/download_microsoft_buildings.ipynb</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/1_download_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download country MS buildings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2_process_regions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Morphometic processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/3_assign_targets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assign target labels from the cadastre-level classification to the tessellation cells</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/4_assign_buildings_to_h3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore assignment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/5_train_test_split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train test split</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/6_eurofab_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eurofab model training</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/interactive_exploration.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Visualize data on an interactive map</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -219,13 +257,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#enclosures" id="toc-enclosures" class="nav-link" data-scroll-target="#enclosures">Enclosures</a></li>
   <li><a href="#streets" id="toc-streets" class="nav-link" data-scroll-target="#streets">Streets</a></li>
   <li><a href="#nodes" id="toc-nodes" class="nav-link" data-scroll-target="#nodes">Nodes</a></li>
+  <li><a href="#compare-buildings-across-the-pipeline" id="toc-compare-buildings-across-the-pipeline" class="nav-link" data-scroll-target="#compare-buildings-across-the-pipeline">Compare buildings across the pipeline</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/interactive_exploration.html">Visualize data on an interactive map</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Visualize data on an interactive map</h1>
 </div>
@@ -245,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This notebook uses <code>lonboard</code> for interactive visualisation of data.</p>
-<div id="cell-2" class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lonboard</span>
@@ -256,17 +295,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sidecar <span class="im">import</span> Sidecar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define data path</p>
-<div id="cell-4" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>chars_dir <span class="op">=</span> <span class="st">"/data/uscuni-eurofab/processed_data/chars/"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define region</p>
-<div id="cell-6" class="cell" data-execution_count="3">
+<div id="cell-6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>region <span class="op">=</span> <span class="dv">65806</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="buildings" class="level2">
 <h2 class="anchored" data-anchor-id="buildings">Buildings</h2>
 <p>Load building data and ensure the geometries are all valid Polygons.</p>
-<div id="cell-9" class="cell" data-execution_count="4">
+<div id="cell-9" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>buildings <span class="op">=</span> gpd.read_parquet(<span class="ss">f"</span><span class="sc">{</span>chars_dir<span class="sc">}</span><span class="ss">buildings_chars_</span><span class="sc">{</span>region<span class="sc">}</span><span class="ss">.parquet"</span>).to_crs(<span class="dv">4326</span>).reset_index()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>buildings.geometry <span class="op">=</span> buildings.make_valid()</span>
@@ -274,31 +313,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>buildings <span class="op">=</span> buildings[buildings.geom_type.<span class="bu">str</span>.contains(<span class="st">"Polygon"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a lonboard layer</p>
-<div id="cell-11" class="cell" data-execution_count="5">
+<div id="cell-11" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> lonboard.PolygonLayer.from_geopandas(buildings, opacity<span class="op">=</span><span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 2.07 s, sys: 269 ms, total: 2.33 s
-Wall time: 2.34 s</code></pre>
+<pre><code>CPU times: user 2.05 s, sys: 226 ms, total: 2.28 s
+Wall time: 2.27 s</code></pre>
 </div>
 </div>
 <p>Create a Sidecar view (assumes JupyterLab) for more comfortable experience.</p>
-<div id="cell-13" class="cell" data-execution_count="6">
+<div id="cell-13" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> Sidecar(title<span class="op">=</span><span class="st">'buildings'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a Map object</p>
-<div id="cell-15" class="cell" data-execution_count="7">
+<div id="cell-15" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> lonboard.Map(layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display map within the sidecar plugin</p>
-<div id="cell-17" class="cell" data-execution_count="8">
+<div id="cell-17" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sc:</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    display(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>List avaialable columns</p>
-<div id="cell-19" class="cell" data-execution_count="9">
+<div id="cell-19" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>buildings.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>Index(['index', 'type', 'properties', 'x', 'y', 'id', 'iid', 'geometry',
        'ssbCCo', 'ssbCor', 'ssbSqu', 'ssbCCM', 'ssbCCD', 'sdbAre', 'sdbPer',
        'sdbCoA', 'ssbERI', 'ssbElo', 'stbOri', 'mtbSWR', 'libNCo', 'ldbPWL',
@@ -309,25 +348,25 @@ Wall time: 2.34 s</code></pre>
 </div>
 </div>
 <p>Specify a column and pass its values into a choropleth representation within the map.</p>
-<div id="cell-21" class="cell" data-execution_count="10">
+<div id="cell-21" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># buildings.explore()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="13">
+<div id="cell-22" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>column <span class="op">=</span> <span class="st">'sdbAre'</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>used_keys[column]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>'area of building'</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="14">
+<div id="cell-23" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> classify(buildings[column], <span class="st">'quantiles'</span>, k<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>normalizer <span class="op">=</span> mpl.colors.Normalize(<span class="dv">0</span>, classifier.bins.shape[<span class="dv">0</span>])</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>vals <span class="op">=</span> normalizer(classifier.yb)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>layer.get_fill_color <span class="op">=</span> apply_continuous_cmap(vals, mpl.colormaps[<span class="st">'viridis'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="15">
+<div id="cell-25" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>buildings[column].describe().iloc[<span class="dv">1</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>mean       200.075974
 std        772.615975
 min          4.158652
@@ -342,54 +381,53 @@ Name: sdbAre, dtype: float64</code></pre>
 <section id="tessellation" class="level2">
 <h2 class="anchored" data-anchor-id="tessellation">Tessellation</h2>
 <p>Load tessellation data and ensure the geometries are all valid Polygons.</p>
-<div id="cell-28" class="cell" data-execution_count="16">
+<div id="cell-34" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tess <span class="op">=</span> gpd.read_parquet(<span class="ss">f"</span><span class="sc">{</span>chars_dir<span class="sc">}</span><span class="ss">tessellations_chars_</span><span class="sc">{</span>region<span class="sc">}</span><span class="ss">.parquet"</span>).to_crs(<span class="dv">4326</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>tess.geometry <span class="op">=</span> tess.make_valid()</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>tess <span class="op">=</span> tess[tess.geom_type.<span class="bu">str</span>.contains(<span class="st">"Polygon"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>tess[<span class="st">'geometry'</span>] <span class="op">=</span> tess.geometry.make_valid()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>tess <span class="op">=</span> tess[tess.geom_type.<span class="bu">str</span>.contains(<span class="st">"Polygon"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a lonboard layer</p>
-<div id="cell-30" class="cell" data-execution_count="17">
+<div id="cell-36" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> lonboard.SolidPolygonLayer.from_geopandas(tess, opacity<span class="op">=</span><span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 5.14 s, sys: 459 ms, total: 5.6 s
-Wall time: 5.6 s</code></pre>
+<pre><code>CPU times: user 5.13 s, sys: 406 ms, total: 5.53 s
+Wall time: 5.52 s</code></pre>
 </div>
 </div>
 <p>Create a Sidecar view (assumes JupyterLab) for more comfortable experience.</p>
-<div id="cell-32" class="cell" data-execution_count="18">
+<div id="cell-38" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> Sidecar(title<span class="op">=</span><span class="st">'tess'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a Map object</p>
-<div id="cell-34" class="cell" data-execution_count="19">
+<div id="cell-40" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> lonboard.Map(layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display map within the sidecar plugin</p>
-<div id="cell-36" class="cell" data-execution_count="20">
+<div id="cell-42" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sc:</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    display(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>List avaialable columns</p>
-<div id="cell-38" class="cell" data-execution_count="21">
+<div id="cell-44" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tess.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>Index(['enclosure_index', 'geometry', 'stcOri', 'sdcLAL', 'sdcAre', 'sscCCo',
        'sscERI', 'mtcWNe', 'mdcAre', 'ltcWRB', 'sicCAR', 'stcSAl', 'nID',
        'nodeID'],
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="22">
+<div id="cell-45" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>column <span class="op">=</span> <span class="st">'mtcWNe'</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>used_keys[column]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>'perimeter-weighted neighbours of ETC'</code></pre>
 </div>
 </div>
 <p>Specify a column and pass its values into a choropleth representation within the map.</p>
-<div id="cell-41" class="cell" data-execution_count="23">
+<div id="cell-47" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> classify(tess[column], <span class="st">'quantiles'</span>, k<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>normalizer <span class="op">=</span> mpl.colors.Normalize(<span class="dv">0</span>, classifier.bins.shape[<span class="dv">0</span>])</span>
@@ -400,7 +438,7 @@ Wall time: 5.6 s</code></pre>
 <section id="enclosures" class="level2">
 <h2 class="anchored" data-anchor-id="enclosures">Enclosures</h2>
 <p>Load data and ensure the geometries are all valid Polygons.</p>
-<div id="cell-44" class="cell" data-execution_count="35">
+<div id="cell-50" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>enc <span class="op">=</span> gpd.read_parquet(<span class="ss">f"</span><span class="sc">{</span>chars_dir<span class="sc">}</span><span class="ss">enclosures_chars_</span><span class="sc">{</span>region<span class="sc">}</span><span class="ss">.parquet"</span>).to_crs(<span class="dv">4326</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>enc.geometry <span class="op">=</span> enc.make_valid()</span>
@@ -408,7 +446,7 @@ Wall time: 5.6 s</code></pre>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>enc <span class="op">=</span> enc[enc.geom_type.<span class="bu">str</span>.contains(<span class="st">"Polygon"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a lonboard layer</p>
-<div id="cell-46" class="cell" data-execution_count="36">
+<div id="cell-52" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> lonboard.SolidPolygonLayer.from_geopandas(enc, opacity<span class="op">=</span><span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -417,20 +455,20 @@ Wall time: 200 ms</code></pre>
 </div>
 </div>
 <p>Create a Sidecar view (assumes JupyterLab) for more comfortable experience.</p>
-<div id="cell-48" class="cell" data-execution_count="37">
+<div id="cell-54" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> Sidecar(title<span class="op">=</span><span class="st">'enclosures'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a Map object</p>
-<div id="cell-50" class="cell" data-execution_count="38">
+<div id="cell-56" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> lonboard.Map(layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display map within the sidecar plugin</p>
-<div id="cell-52" class="cell" data-execution_count="39">
+<div id="cell-58" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sc:</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    display(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>List avaialable columns</p>
-<div id="cell-54" class="cell" data-execution_count="40">
+<div id="cell-60" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>enc.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="40">
 <pre><code>Index(['eID', 'geometry', 'ldkAre', 'ldkPer', 'lskCCo', 'lskERI', 'lskCWA',
@@ -438,7 +476,7 @@ Wall time: 200 ms</code></pre>
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="cell-55" class="cell" data-execution_count="41">
+<div id="cell-61" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>column <span class="op">=</span> <span class="st">'ldkPer'</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>used_keys[column]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="41">
@@ -446,7 +484,7 @@ Wall time: 200 ms</code></pre>
 </div>
 </div>
 <p>Specify a column and pass its values into a choropleth representation within the map.</p>
-<div id="cell-57" class="cell" data-execution_count="42">
+<div id="cell-63" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> classify(enc[column], <span class="st">'quantiles'</span>, k<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>normalizer <span class="op">=</span> mpl.colors.Normalize(<span class="dv">0</span>, classifier.bins.shape[<span class="dv">0</span>])</span>
@@ -457,13 +495,13 @@ Wall time: 200 ms</code></pre>
 <section id="streets" class="level2">
 <h2 class="anchored" data-anchor-id="streets">Streets</h2>
 <p>Load data and ensure the geometries are all valid Polygons.</p>
-<div id="cell-60" class="cell" data-execution_count="24">
+<div id="cell-66" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>streets <span class="op">=</span> gpd.read_parquet(<span class="ss">f"</span><span class="sc">{</span>chars_dir<span class="sc">}</span><span class="ss">streets_chars_</span><span class="sc">{</span>region<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>streets.geometry <span class="op">=</span> streets.make_valid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a lonboard layer</p>
-<div id="cell-63" class="cell" data-execution_count="25">
+<div id="cell-69" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> lonboard.PathLayer.from_geopandas(streets.to_crs(<span class="dv">4326</span>), width_min_pixels<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -472,26 +510,26 @@ Wall time: 272 ms</code></pre>
 </div>
 </div>
 <p>Create a Sidecar view (assumes JupyterLab) for more comfortable experience.</p>
-<div id="cell-65" class="cell" data-execution_count="26">
+<div id="cell-71" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> Sidecar(title<span class="op">=</span><span class="st">'streets'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a Map object</p>
-<div id="cell-67" class="cell" data-execution_count="27">
+<div id="cell-73" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> lonboard.Map(layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display map within the sidecar plugin</p>
-<div id="cell-69" class="cell" data-execution_count="28">
+<div id="cell-75" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sc:</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    display(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>List avaialable columns</p>
-<div id="cell-72" class="cell" data-execution_count="29">
+<div id="cell-78" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.allclose(streets[<span class="st">'sdsLen'</span>] , streets.geometry.length)</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'mm_len'</span> <span class="kw">in</span> streets.columns:</span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> np.allclose(streets[<span class="st">'mm_len'</span>] , streets.geometry.length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-73" class="cell" data-execution_count="30">
+<div id="cell-79" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>streets.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>Index(['geometry', '_status', 'mm_len', 'cdsbool', 'node_start', 'node_end',
@@ -500,7 +538,7 @@ Wall time: 272 ms</code></pre>
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="cell-74" class="cell" data-execution_count="31">
+<div id="cell-80" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>streets[[<span class="st">'sdsLen'</span>, <span class="st">'sssLin'</span>, <span class="st">'ldsMSL'</span>, <span class="st">'sdsAre'</span>, <span class="st">'ldsRea'</span>, <span class="st">'ldsAre'</span>,</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">'sisBpM'</span>, <span class="st">'sdsSPW'</span>, <span class="st">'sdsSPO'</span>, <span class="st">'sdsSWD'</span>]].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
@@ -635,17 +673,17 @@ Wall time: 272 ms</code></pre>
 </div>
 </div>
 <p>Specify a column and pass its values into a choropleth representation within the map.</p>
-<div id="cell-76" class="cell" data-execution_count="35">
+<div id="cell-82" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>column <span class="op">=</span> <span class="st">'sdsSPW'</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>used_keys[column]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>'width of street profile'</code></pre>
 </div>
 </div>
-<div id="cell-77" class="cell" data-execution_count="36">
+<div id="cell-83" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>streets[column] <span class="op">=</span> streets[column].fillna(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-78" class="cell" data-execution_count="37">
+<div id="cell-84" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> classify(streets[column].astype(<span class="bu">int</span>), <span class="st">'equalinterval'</span>, k<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>normalizer <span class="op">=</span> mpl.colors.Normalize(<span class="dv">0</span>, classifier.bins.shape[<span class="dv">0</span>])</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>vals <span class="op">=</span> normalizer(classifier.yb)</span>
@@ -655,11 +693,11 @@ Wall time: 272 ms</code></pre>
 <section id="nodes" class="level2">
 <h2 class="anchored" data-anchor-id="nodes">Nodes</h2>
 <p>Load data and ensure the geometries are all valid Polygons.</p>
-<div id="cell-81" class="cell" data-execution_count="151">
+<div id="cell-87" class="cell" data-execution_count="151">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> gpd.read_parquet(<span class="ss">f"</span><span class="sc">{</span>chars_dir<span class="sc">}</span><span class="ss">nodes_chars_</span><span class="sc">{</span>region<span class="sc">}</span><span class="ss">.parquet"</span>).to_crs(<span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a lonboard layer</p>
-<div id="cell-83" class="cell" data-execution_count="152">
+<div id="cell-89" class="cell" data-execution_count="152">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> lonboard.ScatterplotLayer.from_geopandas(nodes, radius_min_pixels<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -668,20 +706,20 @@ Wall time: 73.6 ms</code></pre>
 </div>
 </div>
 <p>Create a Sidecar view (assumes JupyterLab) for more comfortable experience.</p>
-<div id="cell-85" class="cell" data-execution_count="153">
+<div id="cell-91" class="cell" data-execution_count="153">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> Sidecar(title<span class="op">=</span><span class="st">'nodes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a Map object</p>
-<div id="cell-87" class="cell" data-execution_count="154">
+<div id="cell-93" class="cell" data-execution_count="154">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> lonboard.Map(layer, basemap_style<span class="op">=</span>lonboard.basemap.CartoBasemap.Positron)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Display map within the sidecar plugin</p>
-<div id="cell-89" class="cell" data-execution_count="155">
+<div id="cell-95" class="cell" data-execution_count="155">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sc:</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>    display(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>List avaialable columns</p>
-<div id="cell-91" class="cell" data-execution_count="156">
+<div id="cell-97" class="cell" data-execution_count="156">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>nodes.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="156">
 <pre><code>Index(['x', 'y', 'mtdDeg', 'lcdMes', 'linP3W', 'linP4W', 'linPDE', 'lcnClo',
@@ -691,7 +729,7 @@ Wall time: 73.6 ms</code></pre>
 </div>
 </div>
 <p>Specify a column and pass its values into a choropleth representation within the map.</p>
-<div id="cell-93" class="cell" data-execution_count="161">
+<div id="cell-99" class="cell" data-execution_count="161">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>nodes[[<span class="st">'mtdDeg'</span>, <span class="st">'lcdMes'</span>, <span class="st">'linP3W'</span>, <span class="st">'linP4W'</span>, <span class="st">'linPDE'</span>, <span class="st">'lcnClo'</span>,</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">'lddNDe'</span>, <span class="st">'linWID'</span>, <span class="st">'ldsCDL'</span>, <span class="st">'xcnSCl'</span>, <span class="st">'mtdMDi'</span>, <span class="st">'nodeID'</span>, <span class="st">'geometry'</span>,</span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">'sddAre'</span>, <span class="st">'midRea'</span>, <span class="st">'midAre'</span>]].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -871,19 +909,148 @@ Wall time: 73.6 ms</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-94" class="cell" data-execution_count="185">
+<div id="cell-100" class="cell" data-execution_count="185">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>column <span class="op">=</span> <span class="st">'mtdMDi'</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>used_keys[column]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="185">
 <pre><code>'mean distance to neighbouring nodes of street network'</code></pre>
 </div>
 </div>
-<div id="cell-95" class="cell" data-execution_count="186">
+<div id="cell-101" class="cell" data-execution_count="186">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> classify(nodes[column], <span class="st">'quantiles'</span>, k<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>normalizer <span class="op">=</span> mpl.colors.Normalize(<span class="dv">0</span>, classifier.bins.shape[<span class="dv">0</span>])</span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>vals <span class="op">=</span> normalizer(classifier.yb)</span>
 <span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>layer.get_fill_color <span class="op">=</span> apply_continuous_cmap(vals, mpl.colormaps[<span class="st">'viridis'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compare-buildings-across-the-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="compare-buildings-across-the-pipeline">Compare buildings across the pipeline</h2>
+<div id="cell-107" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-108" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>all_gdf <span class="op">=</span> gpd.read_parquet(<span class="ss">f'/data/uscuni-eurofab/microsoft_buildings/ms_ce.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-110" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>regions_datadir <span class="op">=</span> <span class="st">"/data/uscuni-eurofab/"</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>region_hulls <span class="op">=</span> gpd.read_parquet(</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>        regions_datadir <span class="op">+</span> <span class="st">"regions/"</span> <span class="op">+</span> <span class="st">"ms_ce_region_hulls.parquet"</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>region_hulls.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>(474, 1)</code></pre>
+</div>
+</div>
+<div id="cell-111" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>bidxs <span class="op">=</span> all_gdf.sindex.query(region_hulls.loc[<span class="dv">65806</span>, <span class="st">'convex_hull'</span>], predicate<span class="op">=</span><span class="st">'intersects'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 11.3 s, sys: 1.68 s, total: 12.9 s
+Wall time: 12.8 s</code></pre>
+</div>
+</div>
+<div id="cell-113" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>plotting <span class="op">=</span> all_gdf.iloc[bidxs]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-115" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>plotting[<span class="st">'geometry'</span>] <span class="op">=</span> plotting.simplify(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 1.28 s, sys: 52.6 ms, total: 1.33 s
+Wall time: 1.34 s</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/krasen/eurofab_morphometrics/.pixi/envs/default/lib/python3.12/site-packages/geopandas/geodataframe.py:1819: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  super().__setitem__(key, value)</code></pre>
+</div>
+</div>
+<div id="cell-116" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard <span class="im">import</span> SolidPolygonLayer, Map</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard.basemap <span class="im">import</span> CartoBasemap</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard.colormap <span class="im">import</span> apply_categorical_cmap</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palettable.colorbrewer.qualitative <span class="im">import</span> Set3_12</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.cluster_validation <span class="im">import</span> get_color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-117" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> SolidPolygonLayer.from_geopandas(</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>    gdf<span class="op">=</span>plotting, opacity<span class="op">=</span><span class="fl">0.15</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/krasen/eurofab_morphometrics/.pixi/envs/default/lib/python3.12/site-packages/lonboard/_geoarrow/ops/reproject.py:97: UserWarning: Input being reprojected to EPSG:4326 CRS
+  warnings.warn("Input being reprojected to EPSG:4326 CRS")</code></pre>
+</div>
+</div>
+<div id="cell-118" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(layer, basemap_style<span class="op">=</span>CartoBasemap.Positron)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"f2c658bc61ec4725ac956d3e5d245219","version_major":2,"version_minor":1,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<div id="cell-120" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>region_id <span class="op">=</span> <span class="dv">65806</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>regions_buildings_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/regions/buildings/'</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>buildings <span class="op">=</span> gpd.read_parquet(regions_buildings_dir <span class="op">+</span> <span class="ss">f'buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-121" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> SolidPolygonLayer.from_geopandas(</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>    gdf<span class="op">=</span>buildings, opacity<span class="op">=</span><span class="fl">0.15</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(layer, basemap_style<span class="op">=</span>CartoBasemap.Positron)</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/krasen/eurofab_morphometrics/.pixi/envs/default/lib/python3.12/site-packages/lonboard/_geoarrow/ops/reproject.py:97: UserWarning: Input being reprojected to EPSG:4326 CRS
+  warnings.warn("Input being reprojected to EPSG:4326 CRS")</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"de88b4339fe046df82ee4d63daa8b5bb","version_major":2,"version_minor":1,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<div id="cell-123" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>region_id <span class="op">=</span> <span class="dv">65806</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>buildings_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/simplified_buildings/'</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>buildings <span class="op">=</span> gpd.read_parquet(buildings_dir <span class="op">+</span> <span class="ss">f'buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-124" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> SolidPolygonLayer.from_geopandas(</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>    gdf<span class="op">=</span>buildings, opacity<span class="op">=</span><span class="fl">0.15</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(layer, basemap_style<span class="op">=</span>CartoBasemap.Positron)</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/krasen/eurofab_morphometrics/.pixi/envs/default/lib/python3.12/site-packages/lonboard/_geoarrow/ops/reproject.py:97: UserWarning: Input being reprojected to EPSG:4326 CRS
+  warnings.warn("Input being reprojected to EPSG:4326 CRS")</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"4c139b6b98f64fb29d9cb29de2789661","version_major":2,"version_minor":1,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<div id="cell-126" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>region_id <span class="op">=</span> <span class="dv">65806</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>buildings_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/buildings/'</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>buildings <span class="op">=</span> gpd.read_parquet(buildings_dir <span class="op">+</span> <span class="ss">f'buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-127" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="co"># layer = SolidPolygonLayer.from_geopandas(</span></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     gdf=buildings, opacity=0.15</span></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="co"># m = Map(layer, basemap_style=CartoBasemap.Positron)</span></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="co"># m</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -972,8 +1139,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1084,7 +1249,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

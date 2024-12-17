@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>EuroFab research project – Urban morphometrics | EuroFab</title>
+<title>assign_buildings_to_h3 – Urban morphometrics | EuroFab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,25 +20,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a5f7c7d3e14c0249f40a958cfc36173a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a5f7c7d3e14c0249f40a958cfc36173a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -71,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -83,9 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Urban morphometrics | EuroFab
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/4_assign_buildings_to_h3.html">Explore assignment</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -100,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Urban morphometrics | EuroFab</a> 
+      <a href="../">Urban morphometrics | EuroFab</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/eurofab-project/morphometrics" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
 </div>
@@ -164,43 +196,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/1_download_data.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/1_download_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Download country MS buildings</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/2_process_regions.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/2_process_regions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Morphometic processing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/3_assign_targets.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/3_assign_targets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Assign target labels from the cadastre-level classification to the tessellation cells</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/4_assign_buildings_to_h3.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/4_assign_buildings_to_h3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Explore assignment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/5_train_test_split.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/5_train_test_split.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Train test split</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/6_eurofab_model.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/6_eurofab_model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Eurofab model training</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/interactive_exploration.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/interactive_exploration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualize data on an interactive map</span></a>
   </div>
 </li>
@@ -211,35 +243,578 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#explore-assignment" id="toc-explore-assignment" class="nav-link active" data-scroll-target="#explore-assignment">Explore assignment</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/4_assign_buildings_to_h3.html">Explore assignment</a></li></ol></nav></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">EuroFab research project</h1>
+
+
+
+<p>Assign all ETCs in all regions to h3 hexagons, which will be used to limit spatial linkage in the model train/test split.</p>
+<div id="0c4c2e77-3368-4c74-84d4-dd672ff68605" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h3</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shapely</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tobler</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="579ef7f1-022b-4d35-b26c-5f180c3ae789" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>h3_resolution <span class="op">=</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="0482ab48-2015-4625-888c-ccd885291b07" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>regions_datadir <span class="op">=</span> <span class="st">"/data/uscuni-eurofab/"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tessellations_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/tessellations/'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>buildings_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/buildings/'</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>region_hulls <span class="op">=</span> gpd.read_parquet(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        regions_datadir <span class="op">+</span> <span class="st">"regions/"</span> <span class="op">+</span> <span class="st">"ms_ce_region_hulls.parquet"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>region_hulls.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>(474, 1)</code></pre>
+</div>
+</div>
+<div id="2c8c92fc-c5fc-4e4e-8a52-3a6524637fdc" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assign_hexagons(region_id, region_hull):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Assign all ETCs in a reigion to h3 hexagons.'''</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">## split region hull into hexagons</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    bounds <span class="op">=</span> region_hull.iloc[<span class="dv">0</span>]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    poly <span class="op">=</span> h3.geo_to_cells(bounds, res<span class="op">=</span>h3_resolution)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> [shapely.geometry.shape(h3.cells_to_geo([p])) <span class="cf">for</span> p <span class="kw">in</span> poly]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    hexagons <span class="op">=</span> gpd.GeoSeries(res, index<span class="op">=</span>poly,name<span class="op">=</span><span class="st">'geometry'</span>, crs<span class="op">=</span><span class="st">'epsg:4326'</span>).to_crs(epsg<span class="op">=</span><span class="dv">3035</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    tess <span class="op">=</span> gpd.read_parquet(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            tessellations_dir <span class="op">+</span> <span class="ss">f"tessellation_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign hexagons to tessellation cells</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    inp, res <span class="op">=</span> tess.sindex.query(hexagons, predicate<span class="op">=</span><span class="st">'intersects'</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># polygons should be assigned to only one h3 grid</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    duplicated <span class="op">=</span> pd.Series(res).duplicated()</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    inp <span class="op">=</span> inp[<span class="op">~</span>duplicated]</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> res[<span class="op">~</span>duplicated]</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    hex_assignments <span class="op">=</span> pd.Series(hexagons.index[inp].values, tess.index[res], name<span class="op">=</span><span class="st">'hexagons'</span>).sort_index()</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> hex_assignments</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="06a72dfe-5cd8-4774-b142-ab456bfdba3f" class="cell" data-scrolled="true" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, region_hull <span class="kw">in</span> region_hulls.to_crs(epsg<span class="op">=</span><span class="dv">4326</span>).iterrows():</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(region_id)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    hex_assignments <span class="op">=</span> assign_hexagons(region_id, region_hull)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    hex_assignments.reset_index().to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/hexagons/</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">_hexagon.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>19
+24
+33
+478
+754
+817
+1049
+1485
+1677
+2415
+2513
+2707
+2785
+2790
+2820
+3228
+3307
+3313
+3357
+3540
+3661
+3762
+3806
+4271
+4285
+4640
+4763
+5175
+5189
+5320
+5429
+5874
+6337
+6351
+6477
+6858
+6881
+7113
+7381
+7411
+7640
+7693
+7728
+7921
+7924
+8014
+8087
+8147
+8440
+8659
+8927
+8960
+9560
+9840
+9887
+10197
+10283
+10600
+10673
+10764
+10875
+11024
+11178
+11550
+11623
+11640
+12080
+12222
+12247
+12347
+12401
+12546
+12614
+12649
+12695
+12736
+13285
+13496
+13497
+14086
+14327
+14383
+14605
+14836
+15151
+15308
+15362
+15415
+15540
+15560
+15646
+16446
+16582
+16687
+17219
+17720
+17763
+17808
+17857
+17874
+17951
+18006
+18143
+18215
+19325
+19474
+20008
+20063
+20356
+20573
+20597
+20811
+21128
+22022
+22398
+22633
+22770
+23227
+23621
+23941
+24079
+24141
+24683
+24737
+25065
+25497
+25588
+25814
+25964
+26146
+26642
+26773
+27374
+27700
+27783
+27997
+28059
+28060
+28237
+28601
+28751
+28795
+28961
+29387
+30259
+30571
+30662
+30938
+31101
+31696
+31807
+32671
+32890
+33094
+33150
+33415
+33718
+33769
+33803
+34553
+34902
+36043
+36064
+36227
+36327
+36396
+36457
+37246
+37360
+37371
+37637
+37789
+37937
+38374
+38429
+38584
+38606
+38877
+39130
+39903
+40933
+41257
+41618
+41686
+42224
+42437
+42465
+42570
+43084
+44353
+44577
+44580
+44676
+44853
+44980
+45035
+45263
+45342
+45356
+45491
+45681
+45951
+45966
+46050
+46338
+46835
+47308
+47311
+47899
+48569
+48590
+50170
+50415
+50466
+50669
+51186
+51454
+51525
+51553
+51595
+52243
+53006
+53082
+53490
+53658
+54059
+54551
+54724
+55117
+55544
+56004
+56381
+56860
+57118
+57279
+57491
+57959
+57961
+58553
+58714
+59253
+60585
+60752
+60840
+60950
+61323
+61799
+61852
+62599
+62847
+63185
+63950
+64170
+64620
+64720
+64762
+64900
+65086
+65153
+65186
+65204
+65806
+66259
+66807
+66864
+67836
+68214
+68368
+68705
+68900
+69027
+70379
+70515
+70529
+70612
+70786
+71286
+71490
+72623
+73070
+73089
+73094
+73296
+73452
+74302
+74923
+75752
+75990
+76214
+77130
+77145
+77166
+77454
+78090
+78925
+79739
+79783
+80776
+81352
+81530
+81666
+81810
+82184
+82214
+82385
+82403
+83044
+83798
+84160
+84183
+84268
+84986
+85331
+86349
+87058
+87257
+87464
+87553
+87669
+88485
+89034
+89093
+89706
+90747
+90960
+91242
+92304
+92816
+94055
+94482
+95277
+95332
+95578
+95656
+96235
+97027
+97307
+97413
+97707
+97848
+97855
+98159
+98760
+98887
+99047
+99125
+99281
+99430
+99460
+99507
+99758
+99898
+100224
+100304
+100594
+100635
+100722
+100975
+101123
+101252
+101332
+101518
+101969
+102322
+102334
+102389
+102490
+102508
+102938
+103001
+103298
+103643
+103658
+103698
+103735
+103818
+104251
+104358
+104396
+104415
+104653
+105293
+105313
+105392
+105846
+105995
+106753
+106930
+106999
+107265
+107428
+107916
+108140
+108308
+108376
+108648
+109005
+109050
+109585
+109676
+109949
+110157
+110373
+111252
+111314
+111594
+111672
+111683
+111801
+112098
+112842
+112966
+113249
+113487
+114261
+114334
+114685
+114948
+115294
+115954
+116035
+116242
+116830
+117162
+117200
+118465
+118956
+119645
+119966
+119991
+120673
+120825
+121214
+122230
+122372
+122404
+122529
+122904
+122940
+123004
+123370
+123547
+124008
+124022
+124219
+124768
+125010
+125294
+125389
+125591
+125840
+126119
+126381
+126542
+126723
+127149
+127562
+128338
+129117
+129193
+129335
+129409
+129600
+130732
+131498
+131560
+132469
+132728
+132805
+133611
+133765
+133801
+134054
+134356
+CPU times: user 3min 2s, sys: 46.8 s, total: 3min 49s
+Wall time: 3min 41s</code></pre>
+</div>
+</div>
+<section id="explore-assignment" class="level2">
+<h2 class="anchored" data-anchor-id="explore-assignment">Explore assignment</h2>
+<div id="c84efe3e-7f62-4c25-b4ae-9f3bd079523c" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>region_id <span class="op">=</span> <span class="dv">65806</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>hex_assignments <span class="op">=</span> pd.read_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/hexagons/</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">_hexagon.pq'</span>).set_index(<span class="st">'index'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8cd22581-af8a-4e53-b14a-b34f0aa9e5be" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>selected <span class="op">=</span> hex_assignments[hex_assignments.hexagons <span class="op">==</span> <span class="st">'871e354ddffffff'</span>].index</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>selected.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>(1021,)</code></pre>
+</div>
+</div>
+<div id="bdd444f8-c013-4d7d-a323-9328ed1e05a0" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tess <span class="op">=</span> gpd.read_parquet(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>            tessellations_dir <span class="op">+</span> <span class="ss">f"tessellation_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8a7ce26f-11a7-4f76-a3d4-23969f1e20e4" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tess.loc[selected].explore()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p>The landing page of the EuroFab project.</p>
-<p><img src="assets/logos.png" class="img-fluid"></p>
-
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

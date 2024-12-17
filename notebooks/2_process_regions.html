@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Processing – Urban morphometrics | EuroFab</title>
+<title>Morphometic processing – Urban morphometrics | EuroFab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a5f7c7d3e14c0249f40a958cfc36173a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -117,9 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Urban morphometrics | EuroFab
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/2_process_regions.html">Morphometic processing</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -197,8 +195,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">notebooks/download_microsoft_buildings.ipynb</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/1_download_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download country MS buildings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2_process_regions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Morphometic processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/3_assign_targets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assign target labels from the cadastre-level classification to the tessellation cells</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/4_assign_buildings_to_h3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore assignment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/5_train_test_split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train test split</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/6_eurofab_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eurofab model training</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/interactive_exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualize data on an interactive map</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -211,21 +248,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#process-buildings" id="toc-process-buildings" class="nav-link active" data-scroll-target="#process-buildings">process buildings</a></li>
-  <li><a href="#process-streets" id="toc-process-streets" class="nav-link" data-scroll-target="#process-streets">process streets</a></li>
-  <li><a href="#process-elements" id="toc-process-elements" class="nav-link" data-scroll-target="#process-elements">process elements</a></li>
-  <li><a href="#process-graphs" id="toc-process-graphs" class="nav-link" data-scroll-target="#process-graphs">process graphs</a></li>
-  <li><a href="#process-chars" id="toc-process-chars" class="nav-link" data-scroll-target="#process-chars">process chars</a></li>
-  <li><a href="#merge-data" id="toc-merge-data" class="nav-link" data-scroll-target="#merge-data">merge data</a></li>
+  <li><a href="#process-buildings" id="toc-process-buildings" class="nav-link active" data-scroll-target="#process-buildings">Process buildings</a></li>
+  <li><a href="#process-streets" id="toc-process-streets" class="nav-link" data-scroll-target="#process-streets">Process streets</a></li>
+  <li><a href="#process-elements" id="toc-process-elements" class="nav-link" data-scroll-target="#process-elements">Process elements</a></li>
+  <li><a href="#process-graphs" id="toc-process-graphs" class="nav-link" data-scroll-target="#process-graphs">Process graphs</a></li>
+  <li><a href="#process-morphometrics" id="toc-process-morphometrics" class="nav-link" data-scroll-target="#process-morphometrics">Process morphometrics</a></li>
+  <li><a href="#merge-data" id="toc-merge-data" class="nav-link" data-scroll-target="#merge-data">Merge data</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/2_process_regions.html">Morphometic processing</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Processing</h1>
+<h1 class="title">Morphometic processing</h1>
 </div>
 
 
@@ -265,163 +302,174 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>regions_datadir <span class="op">=</span> <span class="st">"/data/uscuni-eurofab/"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="0d602309-e709-4a8a-a6d7-f516a68f9365" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>region_hulls <span class="op">=</span> gpd.read_parquet(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        regions_datadir <span class="op">+</span> <span class="st">"regions/"</span> <span class="op">+</span> <span class="st">"ms_ce_region_hulls.parquet"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>region_hulls.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>regions_datadir <span class="op">=</span> <span class="st">"/data/uscuni-eurofab/"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>region_hulls <span class="op">=</span> gpd.read_parquet(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        regions_datadir <span class="op">+</span> <span class="st">"regions/"</span> <span class="op">+</span> <span class="st">"ms_ce_region_hulls.parquet"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>region_hulls.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(474, 1)</code></pre>
 </div>
 </div>
+<div id="c34a5a4a-30aa-4924-b24a-2674cba66116" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>region_id <span class="op">=</span> <span class="dv">53490</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="process-buildings" class="level2">
-<h2 class="anchored" data-anchor-id="process-buildings">process buildings</h2>
+<h2 class="anchored" data-anchor-id="process-buildings">Process buildings</h2>
+<p>Run the building processing pipeline for all regions</p>
 <div id="927bd34d-fe7e-4f30-be1e-fe0954f33ffd" class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_buildings <span class="im">import</span> read_region_buildings, process_region_buildings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_buildings <span class="im">import</span> read_region_buildings, process_region_buildings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="88dbe42c-d588-4661-9117-ae3c3249b5da" class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_single_region_buildings(region_id):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'processing'</span>, region_id)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    buildings <span class="op">=</span> gpd.read_parquet(regions_buildings_dir <span class="op">+</span> <span class="ss">f'buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.pq'</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    buildings <span class="op">=</span> process_region_buildings(buildings, <span class="va">True</span>, simplification_tolerance<span class="op">=</span><span class="fl">.1</span>, merge_limit<span class="op">=</span><span class="dv">25</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    buildings.to_parquet(simplfied_buildings_dir <span class="op">+</span> <span class="ss">f"buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_single_region_buildings(region_id):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'processing'</span>, region_id)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    buildings <span class="op">=</span> gpd.read_parquet(regions_buildings_dir <span class="op">+</span> <span class="ss">f'buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    buildings <span class="op">=</span> process_region_buildings(buildings, <span class="va">True</span>, simplification_tolerance<span class="op">=</span><span class="fl">.1</span>, merge_limit<span class="op">=</span><span class="dv">25</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    buildings.to_parquet(simplfied_buildings_dir <span class="op">+</span> <span class="ss">f"buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="e31afbd6-a2f5-4e60-8b6d-8d231a472fa3" class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture cap</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    process_single_region_buildings(region_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture cap</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    process_single_region_buildings(region_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Copy over the simplified buildings to the processed data folder.</p>
 <div id="4cdd656e-b991-4de0-8e6b-4d368fefdd0f" class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !cp -r /data/uscuni-eurofab/processed_data/simplified_buildings/ /data/uscuni-eurofab/processed_data/buildings/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !cp -r /data/uscuni-eurofab/processed_data/simplified_buildings/ /data/uscuni-eurofab/processed_data/buildings/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="process-streets" class="level2">
-<h2 class="anchored" data-anchor-id="process-streets">process streets</h2>
+<h2 class="anchored" data-anchor-id="process-streets">Process streets</h2>
+<p>Run the street processing pipeline for all regions.</p>
 <div id="59385b22-8499-445a-a949-1d663c8bb200" class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_streets <span class="im">import</span> process_region_streets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_streets <span class="im">import</span> process_region_streets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="e0f28aea-2eff-451c-9b7f-d5c7abe34440" class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture cap</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    streets <span class="op">=</span> process_region_streets(region_id, overture_streets_dir, buildings_dir)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    streets.to_parquet(streets_dir <span class="op">+</span> <span class="ss">f'streets_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture cap</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    streets <span class="op">=</span> process_region_streets(region_id, overture_streets_dir, buildings_dir)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    streets.to_parquet(streets_dir <span class="op">+</span> <span class="ss">f'streets_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="be1a1c1e-8d25-4946-84a2-a4393c857cbf" class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>region_id  <span class="op">=</span> <span class="dv">109005</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>region_id  <span class="op">=</span> <span class="dv">109005</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="process-elements" class="level2">
-<h2 class="anchored" data-anchor-id="process-elements">process elements</h2>
+<h2 class="anchored" data-anchor-id="process-elements">Process elements</h2>
+<p>Run the element generating pipeline for all regions.</p>
 <div id="c3306a8a-ea1d-425e-a5c5-df2c7daddfd8" class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_elements <span class="im">import</span> process_region_elements, generate_enclosures_representative_points, generate_tess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_elements <span class="im">import</span> process_region_elements, generate_enclosures_representative_points, generate_tess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="64ec42c5-1490-4a08-bedd-b563ddb98893" class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>processed_region_ids <span class="op">=</span> get_processed_region_ids(tessellations_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>processed_region_ids <span class="op">=</span> get_processed_region_ids(tessellations_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="fdb775d5-3871-43c5-abab-8619908d5892" class="cell" data-scrolled="true">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls[<span class="op">~</span>region_hulls.index.isin(processed_region_ids)].iterrows():</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    enclosures, tesselations <span class="op">=</span> process_region_elements(buildings_dir, streets_dir, region_id)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    enclosures.to_parquet(enclosures_dir <span class="op">+</span> <span class="ss">f"enclosure_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Processed enclosures"</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">## save files</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    tesselations.to_parquet(</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        tessellations_dir <span class="op">+</span> <span class="ss">f"tessellation_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"processed tesselations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls[<span class="op">~</span>region_hulls.index.isin(processed_region_ids)].iterrows():</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    enclosures, tesselations <span class="op">=</span> process_region_elements(buildings_dir, streets_dir, region_id)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    enclosures.to_parquet(enclosures_dir <span class="op">+</span> <span class="ss">f"enclosure_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Processed enclosures"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">## save files</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    tesselations.to_parquet(</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        tessellations_dir <span class="op">+</span> <span class="ss">f"tessellation_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"processed tesselations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="process-graphs" class="level2">
-<h2 class="anchored" data-anchor-id="process-graphs">process graphs</h2>
+<h2 class="anchored" data-anchor-id="process-graphs">Process graphs</h2>
+<p>Run the graph generating pipeline for all regions.</p>
 <div id="2a1ce453-9cd8-4c11-b0d6-ccd3aa532c8b" class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_ngraphs <span class="im">import</span> process_region_graphs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_ngraphs <span class="im">import</span> process_region_graphs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="593734a4-db1e-479b-b96f-033592d0d9f1" class="cell" data-scrolled="true">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    process_region_graphs(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        region_id,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        graph_dir,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        buildings_dir,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        streets_dir,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        enclosures_dir,</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        tessellations_dir,</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    process_region_graphs(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        region_id,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        graph_dir,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        buildings_dir,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        streets_dir,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        enclosures_dir,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        tessellations_dir,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="process-chars" class="level2">
-<h2 class="anchored" data-anchor-id="process-chars">process chars</h2>
+<section id="process-morphometrics" class="level2">
+<h2 class="anchored" data-anchor-id="process-morphometrics">Process morphometrics</h2>
+<p>Run the morphometric character processing pipeline for all regions.</p>
 <div id="d3acf6ac-2c12-4713-b880-9198a2570bda" class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_chars <span class="im">import</span> process_single_region_chars, process_building_chars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_chars <span class="im">import</span> process_single_region_chars, process_building_chars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="c0c61870-b740-4502-9c28-a70017f90c7d" class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    process_single_region_chars(</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        region_id,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        graph_dir,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        buildings_dir,</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        streets_dir,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        enclosures_dir,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        tessellations_dir,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        chars_dir</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    process_single_region_chars(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        region_id,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        graph_dir,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        buildings_dir,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        streets_dir,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        enclosures_dir,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        tessellations_dir,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        chars_dir</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="merge-data" class="level2">
-<h2 class="anchored" data-anchor-id="merge-data">merge data</h2>
+<h2 class="anchored" data-anchor-id="merge-data">Merge data</h2>
+<p>Merge all the building, street, nodes, enclosures and ETCs morphometric.</p>
 <div id="a9a83bef-5691-49df-9c5c-53ec10b5bf7e" class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_merged_primary_chars <span class="im">import</span> merge_into_primary</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.utils <span class="im">import</span> used_keys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_merged_primary_chars <span class="im">import</span> merge_into_primary</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.utils <span class="im">import</span> used_keys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="d08d4735-3b29-4a3e-8922-b0a58e3b1132" class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    tessellation <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"tessellations_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    buildings <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"buildings_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    enclosures <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"enclosures_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    streets <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"streets_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    nodes <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"nodes_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> pd.merge(</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        tessellation.drop(columns<span class="op">=</span>[<span class="st">"geometry"</span>]),</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        buildings.drop(columns<span class="op">=</span>[<span class="st">"nodeID"</span>, <span class="st">"geometry"</span>, <span class="st">'nID'</span>]),</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        right_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        left_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span>,</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.merge(</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        enclosures.drop(columns<span class="op">=</span><span class="st">"geometry"</span>),</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        right_on<span class="op">=</span><span class="st">"eID"</span>,</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        left_on<span class="op">=</span><span class="st">"enclosure_index"</span>,</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span>,</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.merge(streets.drop(columns<span class="op">=</span><span class="st">"geometry"</span>), on<span class="op">=</span><span class="st">"nID"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.merge(nodes.drop(columns<span class="op">=</span><span class="st">"geometry"</span>), on<span class="op">=</span><span class="st">"nodeID"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.drop(</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span>[</span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"nID"</span>,</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"eID"</span>,</span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"nodeID"</span>,</span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"mm_len"</span>,</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cdsbool"</span>,</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_start"</span>,</span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_end"</span>,</span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "x",</span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "y",</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"enclosure_index"</span>,</span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "id",</span></span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "osm_id",</span></span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "index",  ## maybe keep</span></span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.set_index(tessellation.index)</span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>    primary <span class="op">=</span> merged[<span class="bu">list</span>(used_keys.keys())]</span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>    primary.to_parquet(chars_dir <span class="op">+</span> <span class="ss">f'primary_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region_id, _ <span class="kw">in</span> region_hulls.iterrows():</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    tessellation <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"tessellations_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    buildings <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"buildings_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    enclosures <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"enclosures_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    streets <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"streets_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    nodes <span class="op">=</span> gpd.read_parquet(chars_dir <span class="op">+</span> <span class="ss">f"nodes_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> pd.merge(</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        tessellation.drop(columns<span class="op">=</span>[<span class="st">"geometry"</span>]),</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>        buildings.drop(columns<span class="op">=</span>[<span class="st">"nodeID"</span>, <span class="st">"geometry"</span>, <span class="st">'nID'</span>]),</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>        right_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>        left_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.merge(</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>        enclosures.drop(columns<span class="op">=</span><span class="st">"geometry"</span>),</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>        right_on<span class="op">=</span><span class="st">"eID"</span>,</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>        left_on<span class="op">=</span><span class="st">"enclosure_index"</span>,</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span>,</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.merge(streets.drop(columns<span class="op">=</span><span class="st">"geometry"</span>), on<span class="op">=</span><span class="st">"nID"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.merge(nodes.drop(columns<span class="op">=</span><span class="st">"geometry"</span>), on<span class="op">=</span><span class="st">"nodeID"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.drop(</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span>[</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"nID"</span>,</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"eID"</span>,</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"nodeID"</span>,</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"mm_len"</span>,</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cdsbool"</span>,</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_start"</span>,</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_end"</span>,</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "x",</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "y",</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"enclosure_index"</span>,</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "id",</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "osm_id",</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>            <span class="co"># "index",  ## maybe keep</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>    merged <span class="op">=</span> merged.set_index(tessellation.index)</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>    primary <span class="op">=</span> merged[<span class="bu">list</span>(used_keys.keys())]</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>    primary.to_parquet(chars_dir <span class="op">+</span> <span class="ss">f'primary_chars_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -510,8 +558,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -622,7 +668,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

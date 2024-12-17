@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Train test split – Urban morphometrics | EuroFab</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a5f7c7d3e14c0249f40a958cfc36173a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/5_train_test_split.html">Train test split</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Urban morphometrics | EuroFab</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/eurofab-project/morphometrics" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">About</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://eurofab-project.github.io/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project homepage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://eurofab-project.github.io/talks/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Talks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Other work streams</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://eurofab-project.github.io/eo/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Earth observation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Notebooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/1_download_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download country MS buildings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2_process_regions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Morphometic processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/3_assign_targets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assign target labels from the cadastre-level classification to the tessellation cells</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/4_assign_buildings_to_h3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore assignment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/5_train_test_split.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Train test split</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/6_eurofab_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eurofab model training</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/interactive_exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualize data on an interactive map</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/5_train_test_split.html">Train test split</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Train test split</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Split the data into multiple train / test sets, so that the prediction accuracy of the model can be assest against every country.</p>
+<div id="9bc49b2a-60a7-4be5-bf50-c60f27f4b182" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d20e1f73-dd86-4c88-8cb5-331262db929f" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>country_names <span class="op">=</span> [<span class="st">'Germany'</span>, <span class="st">'Poland'</span>, <span class="st">'Czechia'</span>, <span class="st">'Slovakia'</span>, <span class="st">'Austria'</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>TRAINING1, TESTING1 <span class="op">=</span> [<span class="st">'Poland'</span>, <span class="st">'Germany'</span>, <span class="st">'Austria'</span>, <span class="st">'Czechia'</span>], [<span class="st">'Slovakia'</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>TRAINING2, TESTING2 <span class="op">=</span> [<span class="st">'Slovakia'</span>, <span class="st">'Germany'</span>, <span class="st">'Austria'</span>, <span class="st">'Czechia'</span>], [<span class="st">'Poland'</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>TRAINING3, TESTING3 <span class="op">=</span> [<span class="st">'Poland'</span>, <span class="st">'Slovakia'</span>, <span class="st">'Austria'</span>, <span class="st">'Czechia'</span>], [<span class="st">'Germany'</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>TRAINING4, TESTING4 <span class="op">=</span> [<span class="st">'Poland'</span>, <span class="st">'Germany'</span>, <span class="st">'Slovakia'</span>, <span class="st">'Czechia'</span>], [<span class="st">'Austria'</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>TRAINING5, TESTING5 <span class="op">=</span> [<span class="st">'Poland'</span>, <span class="st">'Germany'</span>, <span class="st">'Austria'</span>, <span class="st">'Slovakia'</span>], [<span class="st">'Czechia'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="39914ee7-675e-4c20-a3ac-2ace6703bcba" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>regions_datadir <span class="op">=</span> <span class="st">"/data/uscuni-eurofab/"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tessellations_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/tessellations/'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>buildings_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/buildings/'</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/chars/'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/target_clusters/'</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>hex_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/hexagons/'</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>region_hulls <span class="op">=</span> gpd.read_parquet(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        regions_datadir <span class="op">+</span> <span class="st">"regions/"</span> <span class="op">+</span> <span class="st">"ms_ce_region_hulls.parquet"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Download a shapefile of all EU countries, if not present.</p>
+<div id="8c7ae7ec-86ce-452c-ad98-05d25fa7d94f" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download countries</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !wget https://gisco-services.ec.europa.eu/distribution/v2/countries/geojson/CNTR_RG_01M_2024_3035.geojson</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Assign regions to countries</p>
+<div id="8662a286-5f22-429a-b2e8-5cb747cfc217" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>countries <span class="op">=</span> gpd.read_file(<span class="st">'CNTR_RG_01M_2024_3035.geojson'</span>).to_crs(epsg<span class="op">=</span><span class="dv">3035</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>country_polygons <span class="op">=</span> countries[countries[<span class="st">'NAME_ENGL'</span>].isin(country_names)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="950eff11-ea6b-402f-b4e7-e9714d5303b1" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>region_idxs, country_idxs <span class="op">=</span> country_polygons.sindex.query(region_hulls.geometry, predicate<span class="op">=</span><span class="st">'intersects'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>intersections <span class="op">=</span> region_hulls.iloc[region_idxs].intersection(country_polygons.iloc[country_idxs], align<span class="op">=</span><span class="va">False</span>).area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="79640b4d-c79c-444a-871d-1619f4bbd89c" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>country_polygons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CNTR_ID</th>
+<th data-quarto-table-cell-role="th">CNTR_NAME</th>
+<th data-quarto-table-cell-role="th">NAME_ENGL</th>
+<th data-quarto-table-cell-role="th">NAME_FREN</th>
+<th data-quarto-table-cell-role="th">ISO3_CODE</th>
+<th data-quarto-table-cell-role="th">SVRG_UN</th>
+<th data-quarto-table-cell-role="th">CAPT</th>
+<th data-quarto-table-cell-role="th">EU_STAT</th>
+<th data-quarto-table-cell-role="th">EFTA_STAT</th>
+<th data-quarto-table-cell-role="th">CC_STAT</th>
+<th data-quarto-table-cell-role="th">NAME_GERM</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11</td>
+<td>AT</td>
+<td>Österreich</td>
+<td>Austria</td>
+<td>Autriche</td>
+<td>AUT</td>
+<td>UN Member State</td>
+<td>Vienna</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>Österreich</td>
+<td>MULTIPOLYGON (((4354847.685 2714710.627, 43552...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">55</td>
+<td>CZ</td>
+<td>Česká Republika</td>
+<td>Czechia</td>
+<td>Tchéquie</td>
+<td>CZE</td>
+<td>UN Member State</td>
+<td>Prague</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>Tschechien</td>
+<td>MULTIPOLYGON (((4624842.426 3112217.365, 46255...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">56</td>
+<td>DE</td>
+<td>Deutschland</td>
+<td>Germany</td>
+<td>Allemagne</td>
+<td>DEU</td>
+<td>UN Member State</td>
+<td>Berlin</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>Deutschland</td>
+<td>MULTIPOLYGON (((4355225.354 2715902.995, 43548...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">170</td>
+<td>PL</td>
+<td>Polska</td>
+<td>Poland</td>
+<td>Pologne</td>
+<td>POL</td>
+<td>UN Member State</td>
+<td>Warsaw</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>Polen</td>
+<td>MULTIPOLYGON (((4852825.195 3556096.333, 48551...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">192</td>
+<td>SK</td>
+<td>Slovensko</td>
+<td>Slovakia</td>
+<td>Slovaquie</td>
+<td>SVK</td>
+<td>UN Member State</td>
+<td>Bratislava</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>Slowakei</td>
+<td>MULTIPOLYGON (((5003133.924 2988592.038, 50037...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="2d5461bf-c793-4fc9-8b80-7faf7dea48bc" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>intersection_df <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'region_id'</span>: region_hulls.index[region_idxs].values,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'country'</span>: country_polygons.iloc[country_idxs, <span class="dv">2</span>].values,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'intersection_area'</span>: intersections.values,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'geometry'</span>: region_hulls.iloc[region_idxs, <span class="dv">0</span>].values</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    crs<span class="op">=</span>region_hulls.crs</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                                   </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                                  </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>intersection_df <span class="op">=</span> intersection_df.sort_values(<span class="st">'intersection_area'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>intersection_df <span class="op">=</span> intersection_df[<span class="op">~</span>intersection_df.region_id.duplicated()].sort_values(<span class="st">'region_id'</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> (intersection_df.region_id <span class="op">==</span> region_hulls.index).<span class="bu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="09a67008-b1ba-4e89-b0b7-cbe3fc691eba" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> combine_regions_data(selected_regions):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Combine the morphometric data, target labels and hexagons from all of the 'selected_regions' into a single dataframe for model training."""</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    all_data <span class="op">=</span> []</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    all_labels <span class="op">=</span> []</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    all_hexagons <span class="op">=</span> []</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> trid <span class="kw">in</span> selected_regions:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> pd.read_parquet(<span class="ss">f'</span><span class="sc">{</span>data_dir<span class="sc">}</span><span class="ss">primary_chars_</span><span class="sc">{</span>trid<span class="sc">}</span><span class="ss">.parquet'</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        targets <span class="op">=</span> pd.read_parquet(<span class="ss">f'</span><span class="sc">{</span>target_dir<span class="sc">}{</span>trid<span class="sc">}</span><span class="ss">_target.pq'</span>).set_index(<span class="st">'index'</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        hexagons <span class="op">=</span> pd.read_parquet(<span class="ss">f'</span><span class="sc">{</span>hex_dir<span class="sc">}{</span>trid<span class="sc">}</span><span class="ss">_hexagon.pq'</span>).set_index(<span class="st">'index'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        common_index <span class="op">=</span> data.index.join(targets.index, how<span class="op">=</span><span class="st">'inner'</span>).join(hexagons.index, how<span class="op">=</span><span class="st">'inner'</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> data.loc[common_index]</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        targets <span class="op">=</span> targets.loc[common_index]</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        hexagons <span class="op">=</span> hexagons.loc[common_index]</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># record region_id in the index</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        common_index <span class="op">=</span> <span class="bu">str</span>(trid) <span class="op">+</span> <span class="st">'_'</span> <span class="op">+</span> common_index.astype(<span class="bu">str</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> data.set_index(common_index)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        targets <span class="op">=</span> targets.set_index(common_index)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        hexagons <span class="op">=</span> hexagons.set_index(common_index)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        all_data.append(data)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        all_labels.append(targets)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        all_hexagons.append(hexagons)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    all_data <span class="op">=</span> pd.concat(all_data)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    all_labels <span class="op">=</span> pd.concat(all_labels)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    all_hexagons <span class="op">=</span> pd.concat(all_hexagons)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> all_data, all_labels, all_hexagons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="80f563bd-e660-4cac-8a03-1436ae136be6" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Test</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># selected_regions = [65806]</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># all_data, all_labels, all_hexagons = combine_regions_data(selected_regions)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># all_data.to_parquet('/data/uscuni-eurofab/processed_data/train_test_data/training_data1.pq')</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># all_labels.to_parquet('/data/uscuni-eurofab/processed_data/train_test_data/training_labels1.pq')</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># all_hexagons.to_parquet('/data/uscuni-eurofab/processed_data/train_test_data/training_hexagons1.pq')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the final country level train/test datasets.</p>
+<div id="4cb169ba-0833-4d63-b5b5-7debf4c07d3b" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>training_countries <span class="op">=</span> TRAINING1</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>testing_countries <span class="op">=</span> TESTING1</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>training_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(training_countries)].region_id.values</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>testing_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(testing_countries)].region_id.values</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(training_regions)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="st">'/data/uscuni-eurofab/processed_data/train_test_data/training_data1.pq'</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="st">'/data/uscuni-eurofab/processed_data/train_test_data/training_labels1.pq'</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>all_hexagons.to_parquet(<span class="st">'/data/uscuni-eurofab/processed_data/train_test_data/training_hexagons1.pq'</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(testing_regions)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="st">'/data/uscuni-eurofab/processed_data/train_test_data/testing_data1.pq'</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="st">'/data/uscuni-eurofab/processed_data/train_test_data/testing_labels1.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 3min, sys: 1min 3s, total: 4min 3s
+Wall time: 2min 23s</code></pre>
+</div>
+</div>
+<div id="7cda9194-033e-420c-8fe7-857815cd96e1" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>training_countries <span class="op">=</span> TRAINING2</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>testing_countries <span class="op">=</span> TESTING2</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>training_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(training_countries)].region_id.values</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>testing_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(testing_countries)].region_id.values</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(training_regions)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_data</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_labels</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>all_hexagons.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_hexagons</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(testing_regions)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/testing_data</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/testing_labels</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5f097cd1-093f-446f-aef8-0e33c641fc52" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>training_countries <span class="op">=</span> TRAINING3</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>testing_countries <span class="op">=</span> TESTING3</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>training_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(training_countries)].region_id.values</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>testing_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(testing_countries)].region_id.values</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(training_regions)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_data</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_labels</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>all_hexagons.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_hexagons</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(testing_regions)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/testing_data</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/testing_labels</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="90e1275d-9b25-421d-a8b4-8d5c410155ca" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>training_countries <span class="op">=</span> TRAINING4</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>testing_countries <span class="op">=</span> TESTING4</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>training_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(training_countries)].region_id.values</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>testing_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(testing_countries)].region_id.values</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(training_regions)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_data</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_labels</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>all_hexagons.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_hexagons</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(testing_regions)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/testing_data</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/testing_labels</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+KeyboardInterrupt
+</code></pre>
+</div>
+</div>
+<div id="0f07494a-14da-4cab-9532-b0c251693f90" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>region_hulls.loc[testing_regions].explore()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
+    <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
+    
+            <meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
+            <style>
+                #map_c5d23295876a8a3bfb936187f3cbff64 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+</head>
+<body>
+    
+    
+            <div class=&quot;folium-map&quot; id=&quot;map_c5d23295876a8a3bfb936187f3cbff64&quot; ></div>
+        
+</body>
+<script>
+    
+    
+            var map_c5d23295876a8a3bfb936187f3cbff64 = L.map(
+                &quot;map_c5d23295876a8a3bfb936187f3cbff64&quot;,
+                {
+                    center: [47.75405563171462, 13.49086591776549],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_c5d23295876a8a3bfb936187f3cbff64);
+
+            
+
+        
+    
+            var tile_layer_1b7624cddde9f290b0da61cb8b5d635c = L.tileLayer(
+                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            );
+        
+    
+            tile_layer_1b7624cddde9f290b0da61cb8b5d635c.addTo(map_c5d23295876a8a3bfb936187f3cbff64);
+        
+    
+            map_c5d23295876a8a3bfb936187f3cbff64.fitBounds(
+                [[46.408846559553844, 9.693525128474668], [49.0992647038754, 17.28820670705631]],
+                {}
+            );
+        
+    
+        function geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.5, &quot;weight&quot;: 2};
+            }
+        }
+        function geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {&quot;fillOpacity&quot;: 0.75};
+            }
+        }
+        function geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_pointToLayer(feature, latlng) {
+            var opts = {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;#3388ff&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;#3388ff&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3};
+            
+            let style = geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                            geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === &quot;function&quot;){
+                        const highlightStyle = geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea = L.geoJson(null, {
+                onEachFeature: geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_onEachFeature,
+            
+                style: geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_styler,
+                pointToLayer: geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_pointToLayer,
+        });
+
+        function geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_add (data) {
+            geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea
+                .addData(data);
+        }
+            geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea_add({&quot;bbox&quot;: [9.693525128474668, 46.408846559553844, 17.28820670705631, 49.0992647038754], &quot;features&quot;: [{&quot;bbox&quot;: [9.693525128474668, 46.86800881972201, 10.202088666159145, 47.21274343781585], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[10.116626268347767, 46.86800881972201], [9.908169610206063, 46.9265547493466], [9.693525128474668, 47.065705161548586], [9.705332767506077, 47.071139483587395], [9.840681620295658, 47.11913596161396], [10.159598264849318, 47.210957031546045], [10.168837013757292, 47.21274343781585], [10.194932283105592, 47.13618213843765], [10.202088666159145, 46.94261065142822], [10.182211724627612, 46.88682542337535], [10.174337570948042, 46.8841373809592], [10.116626268347767, 46.86800881972201]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;0&quot;, &quot;properties&quot;: {&quot;labels&quot;: 22398}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [10.177231486910383, 46.79320717198824, 11.026732033263848, 47.40674082286556], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[10.897692698341897, 46.79320717198824], [10.50170860960795, 46.84889892009034], [10.49256442816494, 46.851642157175476], [10.206007833777827, 46.938101657530936], [10.177231486910383, 46.9651620592385], [10.177237550428433, 46.96696266193962], [10.193598535883629, 47.13168339689592], [10.206825338731154, 47.14606256477713], [10.2915318972136, 47.21698432144168], [10.52876653305792, 47.325910018155895], [10.565945336894941, 47.341025536131404], [10.780997638049934, 47.3964042926807], [10.843383514274485, 47.40674082286556], [10.863092247404403, 47.39758497682376], [10.877454777437189, 47.385768216951256], [10.899562179124146, 47.363083730296744], [10.90734173884822, 47.35401743930709], [11.026732033263848, 46.968537208137285], [11.026679344247418, 46.96583659292914], [11.007323440018553, 46.84626552772594], [10.989537536167806, 46.80591040733807], [10.988211936414935, 46.80502211204135], [10.897692698341897, 46.79320717198824]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;1&quot;, &quot;properties&quot;: {&quot;labels&quot;: 27700}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [10.833172460822588, 46.816131983748676, 12.046512576254658, 47.58265795913455], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[11.051264178539656, 46.816131983748676], [11.04608154712951, 46.818883696779785], [11.01650915928079, 46.847079851911175], [10.833172460822588, 47.18267121508121], [10.833244192233595, 47.18717188731738], [10.84369329938431, 47.26271024070027], [10.934083408400946, 47.36999435513939], [10.943425654259098, 47.37441465050848], [10.984678718503286, 47.386651775390966], [11.890641353365298, 47.58265795913455], [11.918589642883086, 47.547960512403414], [11.936159725788057, 47.52064177923132], [11.978714879341085, 47.45325498571308], [12.045368620140783, 47.29445725914504], [12.046512576254658, 47.28993362200547], [12.014155979355372, 47.20499675086214], [12.006975952729212, 47.18982199398391], [11.981374349990432, 47.14076691781186], [11.977151834098871, 47.13364017982707], [11.95625837937207, 47.10340285041705], [11.935555490890332, 47.07766043603775], [11.896969538893943, 47.029716228367185], [11.79073378659549, 46.99910809046588], [11.051264178539656, 46.816131983748676]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;2&quot;, &quot;properties&quot;: {&quot;labels&quot;: 33150}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [11.912919272618332, 47.28940799683899, 12.772287438215981, 47.75383695186581], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[12.074244739055693, 47.28940799683899], [12.057219395165735, 47.293333227840705], [12.045686663018474, 47.30255504266107], [11.964780460100823, 47.40038703662796], [11.963593141290996, 47.40400985150103], [11.918623038754028, 47.548860199053806], [11.912919272618332, 47.57416775032117], [11.920093930428578, 47.58844600086041], [12.256549660834828, 47.744070348253636], [12.306322486634418, 47.75383695186581], [12.311651954951815, 47.7537245990889], [12.318273158637494, 47.75268435692103], [12.702714357023648, 47.657428493633624], [12.742736643354666, 47.6339198104885], [12.75264860585682, 47.620163213128365], [12.765383368063263, 47.584721798667246], [12.772287438215981, 47.564735226346585], [12.6123681772467, 47.4245984456585], [12.475950417581704, 47.343136909534294], [12.422450564136714, 47.33083368408045], [12.401140823224537, 47.32770416207025], [12.074244739055693, 47.28940799683899]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;3&quot;, &quot;properties&quot;: {&quot;labels&quot;: 44853}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [11.940999506081155, 46.9174191347224, 12.926140162715514, 47.348789387934936], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[12.16979808593019, 46.9174191347224], [11.940999506081155, 47.04694598258032], [11.995938181031125, 47.21163635653449], [12.022211717120317, 47.24266575399299], [12.041422710977528, 47.261215628924255], [12.053691313177351, 47.27088922764143], [12.073850767239872, 47.27951075503419], [12.118005715035284, 47.2930663698678], [12.162146480055915, 47.30570416128731], [12.275247940338264, 47.32230624072977], [12.321814382907641, 47.32852595969805], [12.48383795743218, 47.3420565824139], [12.764728180768463, 47.348789387934936], [12.901747075618388, 47.313697022973635], [12.92334147457915, 47.29780665342801], [12.926140162715514, 47.27701505191211], [12.896727790080408, 47.12828098328253], [12.843099570911969, 47.06304417263173], [12.803134732276444, 47.054177622257555], [12.16979808593019, 46.9174191347224]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;4&quot;, &quot;properties&quot;: {&quot;labels&quot;: 47308}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [12.486610442549273, 47.29969684283698, 13.024232595930009, 47.56443124150743], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[12.808414227493634, 47.29993604544335], [12.487846157240957, 47.34286552238078], [12.486610442549273, 47.34469483063485], [12.486751529278097, 47.37530931539279], [12.486794588469538, 47.376208845430455], [12.496917473265427, 47.393987360220436], [12.770718939360732, 47.56027240023514], [12.78423274032883, 47.56443124150743], [13.006126955037939, 47.49460134045599], [13.020351699216596, 47.46538715084089], [13.024232595930009, 47.44096137020328], [13.023354097208655, 47.40315694064493], [12.98424145194658, 47.368208523232376], [12.94991127294401, 47.34662742478855], [12.877574759411086, 47.30713402816368], [12.817657631000431, 47.29969684283698], [12.808414227493634, 47.29993604544335]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;5&quot;, &quot;properties&quot;: {&quot;labels&quot;: 51595}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [12.205682334136235, 46.593021234136636, 13.346532876579033, 47.10847397281138], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.155864452956065, 46.593059497179766], [12.990711097786894, 46.60318853551887], [12.84770373833124, 46.61337913406397], [12.58240492610541, 46.659717598825424], [12.457723155331728, 46.703175094387475], [12.373110563687632, 46.74020374927065], [12.285118726367664, 46.7925471777074], [12.205682334136235, 46.896878352661005], [12.20643564574893, 46.914875919522935], [12.316268261259399, 47.02515832281413], [12.483075233253262, 47.04848001491732], [12.500289948884957, 47.0507858551774], [13.072122284929785, 47.10723653891528], [13.091960610950405, 47.10847397281138], [13.0985381227691, 47.10828608516765], [13.146940134236758, 47.10238676855359], [13.203932381053518, 47.08630184780051], [13.345573880142199, 47.03516809114675], [13.346532876579033, 46.98828611034183], [13.167411172517344, 46.611643497631434], [13.157167156560966, 46.593021234136636], [13.155864452956065, 46.593059497179766]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;6&quot;, &quot;properties&quot;: {&quot;labels&quot;: 53006}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [12.751382827689277, 47.89278705852149, 13.022902077925266, 48.113470181433684], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[12.93450979835162, 47.89278705852149], [12.926598735847714, 47.89479917690819], [12.782914410373106, 48.00748063548462], [12.757696801291614, 48.03692649695374], [12.751382827689277, 48.093804237858436], [12.754552329533885, 48.10272801291328], [12.758869122192618, 48.10802176949986], [12.76304007368279, 48.110618127100686], [12.792749851375014, 48.113470181433684], [12.808748658516182, 48.11126281370265], [12.856534641362034, 48.101030696589625], [13.001358784595256, 48.028748200862154], [13.005110990082704, 48.024143639249864], [13.01342032341792, 48.00590766470264], [13.022902077925266, 47.98493720340457], [13.019806861048515, 47.95530733308442], [13.009173714323172, 47.93398805900155], [12.968370661036165, 47.89998068742081], [12.93450979835162, 47.89278705852149]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;7&quot;, &quot;properties&quot;: {&quot;labels&quot;: 53658}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [12.904420746764494, 47.031039519792685, 13.752538716762565, 47.676850332773135], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.3913714928453, 47.031039519792685], [13.363905289888557, 47.03369882681005], [13.354768454589417, 47.034883455003246], [12.981845828977882, 47.09534533260533], [12.952963992644351, 47.120458019886634], [12.921612678893826, 47.17265159986089], [12.909176300545777, 47.20991641325181], [12.904420746764494, 47.266789285389905], [12.904972250133762, 47.27668232314579], [12.914703034439995, 47.30884700060536], [13.03798731336617, 47.49461898653834], [13.336514728143337, 47.676850332773135], [13.510377930041646, 47.647085588488906], [13.581170657565515, 47.59253998602969], [13.749430485471178, 47.12375859998149], [13.752538716762565, 47.111936129964775], [13.752205062239788, 47.070494503743326], [13.752011967670034, 47.06779769722824], [13.415187678137148, 47.03299356982528], [13.3913714928453, 47.031039519792685]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;8&quot;, &quot;properties&quot;: {&quot;labels&quot;: 56381}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [13.339770418344731, 47.50739944631164, 13.893771666605046, 47.82130235136257], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.70279526302597, 47.50739944631164], [13.68828189840823, 47.50879227825162], [13.589692935596373, 47.523793891222674], [13.394135324694206, 47.661566016665844], [13.35219686851019, 47.692583510240254], [13.340984147734815, 47.70463565506009], [13.339770418344731, 47.70647410468489], [13.38788601410518, 47.768944702562365], [13.398840993012437, 47.773108740731836], [13.74416392624383, 47.82130235136257], [13.775830608851594, 47.815711670854], [13.795494012470481, 47.81052806429668], [13.801691981576132, 47.80400710760722], [13.893771666605046, 47.64400755939758], [13.874741893505366, 47.621258526277394], [13.82240014625472, 47.561836651922555], [13.75313147706697, 47.52369779160692], [13.70279526302597, 47.50739944631164]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;9&quot;, &quot;properties&quot;: {&quot;labels&quot;: 60585}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [13.37967780979539, 47.952094981387525, 13.83909272478583, 48.17701894620302], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.406734668800045, 47.952094981387525], [13.402843805835682, 47.95401682347412], [13.37967780979539, 48.00876799544933], [13.389181650955695, 48.05080298218948], [13.401159936947618, 48.06934552707015], [13.46531001411558, 48.10426893426724], [13.711626723570161, 48.164694680051745], [13.76900356005191, 48.17625829750765], [13.773098145048916, 48.17701894620302], [13.774440718257217, 48.176972988779006], [13.823586799776587, 48.096913993911706], [13.83909272478583, 48.05313679012796], [13.801383296324207, 48.01571269706304], [13.798505547106307, 48.01310979696512], [13.788669763200712, 48.00714369766766], [13.721196584097488, 47.983326381417676], [13.67187920365094, 47.96877197324553], [13.406734668800045, 47.952094981387525]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;10&quot;, &quot;properties&quot;: {&quot;labels&quot;: 60752}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [13.520551539006055, 47.560521120682715, 15.166414732903304, 48.815279674623895], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[14.581937378706003, 47.560521120682715], [13.900891112151154, 47.65006054455095], [13.623459610457186, 47.79653421757199], [13.563111695469484, 47.85075682844], [13.55827498284611, 47.85811974693928], [13.520551539006055, 47.95120808074174], [13.599253854755325, 48.49532698277721], [13.602278833306519, 48.49973125123769], [13.606720395251626, 48.504989871799076], [13.608136480905818, 48.505844299058516], [14.231023366606067, 48.757655974303084], [15.053145512368948, 48.815279674623895], [15.130672359765095, 48.812636141346346], [15.166414732903304, 48.80197035941787], [15.144721306416582, 48.16928018577744], [15.14463009762727, 48.16838291929448], [14.974947946529314, 47.70198757098249], [14.963128249986324, 47.6763787498378], [14.960124712218732, 47.67290875506776], [14.768617641080187, 47.593087601780304], [14.746896455719057, 47.58862556910609], [14.581937378706003, 47.560521120682715]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;11&quot;, &quot;properties&quot;: {&quot;labels&quot;: 61799}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [13.171359369338253, 46.53557430005, 13.820803058380472, 47.065343313081236], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.659636074902298, 46.53561865948361], [13.24648567556144, 46.55972007093502], [13.227230600345495, 46.56480621063573], [13.189086976666138, 46.581264994876626], [13.182079663245803, 46.59498987387405], [13.171359369338253, 46.63405509379154], [13.181552644623027, 46.67340279438004], [13.206670372550562, 46.764568098633106], [13.36949106789306, 47.0182078849701], [13.397705513089234, 47.027236742387565], [13.444377546371548, 47.03657359721751], [13.602953791286927, 47.06475079906056], [13.612214314683419, 47.065343313081236], [13.71438918706263, 47.05738007520051], [13.783110985576643, 47.042383334033346], [13.795476844734278, 47.013111714621196], [13.820803058380472, 46.81844668795741], [13.804518760994567, 46.64686460831631], [13.797357495734033, 46.63810383074626], [13.66093705825474, 46.53557430005], [13.659636074902298, 46.53561865948361]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;12&quot;, &quot;properties&quot;: {&quot;labels&quot;: 61852}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [13.535682790854345, 47.049909890479064, 14.572761128350601, 47.69764438982228], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.740216362289319, 47.050182553757466], [13.669159139437337, 47.06973619683828], [13.645063953805042, 47.12101183246664], [13.535682790854345, 47.375108878628744], [13.543449501637559, 47.469451670181776], [13.554723197706261, 47.47899431924429], [13.880079470870244, 47.63908872973048], [13.903548564557306, 47.64996565325176], [13.906274195875783, 47.6507692485499], [14.093120252977089, 47.688083101348404], [14.173910715905658, 47.69764438982228], [14.265806251810229, 47.69590041984892], [14.318989129304954, 47.693812681465296], [14.405885302171233, 47.68043185217604], [14.408466487638378, 47.67942653521064], [14.506233749324219, 47.62316307712254], [14.517551282109194, 47.615484763420504], [14.545464459445386, 47.58458129930198], [14.572761128350601, 47.48699036693926], [14.411816009820432, 47.29802773860143], [14.199337173496383, 47.10905589372565], [14.195104715288144, 47.10561439690649], [13.98228163698256, 47.06407781528504], [13.912820274282183, 47.05128964561134], [13.748098094603705, 47.049909890479064], [13.740216362289319, 47.050182553757466]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;13&quot;, &quot;properties&quot;: {&quot;labels&quot;: 62599}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [13.6289633730258, 46.408846559553844, 14.64070950146911, 47.102121846284724], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[14.563259039540801, 46.40900098541019], [14.16595167638928, 46.43871494524599], [13.685095438627032, 46.526635175947234], [13.6289633730258, 46.5447721621306], [13.796179842778383, 47.041024466035275], [13.82205045933428, 47.05273075379495], [14.041750424439371, 47.08350503195784], [14.192187415643998, 47.102121846284724], [14.193502003164006, 47.10207095217271], [14.214836564789533, 47.088623235675975], [14.352490610864335, 46.98401212183173], [14.40234512455422, 46.93511186793945], [14.409528643821941, 46.92670461406782], [14.64070950146911, 46.44626055886476], [14.587983025973838, 46.408846559553844], [14.563259039540801, 46.40900098541019]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;14&quot;, &quot;properties&quot;: {&quot;labels&quot;: 65186}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [14.401755728556616, 46.44749468739659, 15.073729077471366, 47.06677043329185], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[14.653846697891286, 46.44749468739659], [14.619055190347837, 46.46703854025388], [14.616613575558224, 46.46894756414346], [14.529443015296236, 46.56285050699489], [14.462850188523312, 46.70270502297121], [14.401755728556616, 46.849484765864645], [14.414241041473574, 46.92020099774106], [14.435328018906977, 46.93646711680206], [14.48055566448315, 46.958042101952785], [14.742962216748495, 47.06677043329185], [14.746901921553242, 47.06659768087866], [14.86416459240125, 47.05147003520444], [14.995654596321103, 46.97873680697428], [15.02906740019892, 46.956442079936416], [15.073729077471366, 46.914665890135296], [15.039327289132716, 46.74760214958358], [15.016227279787145, 46.64223845501187], [14.994068205190528, 46.61530622933743], [14.985244821349978, 46.60489115527012], [14.983858904633554, 46.60405339710013], [14.81909198328514, 46.51686273186395], [14.653846697891286, 46.44749468739659]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;15&quot;, &quot;properties&quot;: {&quot;labels&quot;: 73094}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [14.092025291633462, 46.92801950601329, 15.01562469054842, 47.50157015551487], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[14.42015986669531, 46.92807313781568], [14.33314283498761, 46.956842494505594], [14.322157920839132, 46.967199147002205], [14.10897506478817, 47.16750170675737], [14.096728323460066, 47.17968197854533], [14.092025291633462, 47.187069849538815], [14.09369444524697, 47.19151328742428], [14.099385537165574, 47.19670605717538], [14.546062112425902, 47.50072729762836], [14.547465500791311, 47.50157015551487], [14.587404640324683, 47.48727625678188], [14.946973041780213, 47.31374322957838], [14.95173675641595, 47.30811576011858], [15.008219607735546, 47.23428448067447], [15.01562469054842, 47.21500422468178], [15.000648718688717, 47.196757652546815], [14.858933630024815, 47.066133742772855], [14.421469929400882, 46.92801950601329], [14.42015986669531, 46.92807313781568]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;16&quot;, &quot;properties&quot;: {&quot;labels&quot;: 73452}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [14.555728465549135, 47.239635377905145, 15.13814722678016, 47.69430885422294], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[15.0484302906655, 47.239635377905145], [15.01171784364345, 47.24314101554475], [14.945169870852862, 47.26693470413668], [14.669432210831538, 47.42429266157502], [14.61055838489958, 47.46376257378406], [14.571834169145266, 47.49153639540872], [14.555728465549135, 47.5048307083121], [14.556282736290964, 47.51111740077298], [14.569183103623395, 47.53671828925432], [14.708674605494831, 47.59298579676024], [15.004905099790992, 47.69430885422294], [15.12348345158018, 47.65184474454013], [15.135961824956704, 47.57641475967582], [15.13814722678016, 47.303966172731585], [15.077143065507745, 47.24911770218523], [15.0484302906655, 47.239635377905145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;17&quot;, &quot;properties&quot;: {&quot;labels&quot;: 75990}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [14.860163396220218, 46.61397554051264, 16.395717698509426, 47.56116046424462], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[15.466077095323667, 46.61397554051264], [15.035655835818757, 46.65395908027973], [15.029227173872588, 46.65516215650003], [14.863268691873843, 47.056019286264785], [14.860163396220218, 47.065176725427364], [14.916130814311877, 47.12757851004941], [15.129958340109821, 47.288119775857645], [15.148430991765478, 47.30077353033836], [15.319158153629097, 47.37642810099017], [15.504174054422878, 47.44389399188208], [15.800189232654855, 47.54671284626915], [16.016392460793167, 47.56116046424462], [16.16216512919752, 47.553918560419405], [16.184458528597368, 47.55085059761879], [16.220878750522036, 47.54336205668787], [16.300085691913633, 47.52617360329819], [16.312988215689447, 47.522718555017875], [16.395717698509426, 47.44838041761702], [16.266934468224562, 46.96658830737716], [16.036381366898322, 46.66918782188138], [15.473977859002435, 46.61447550730306], [15.466077095323667, 46.61397554051264]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;18&quot;, &quot;properties&quot;: {&quot;labels&quot;: 77130}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [14.948611277283291, 47.68160339567546, 15.527676841671047, 48.55828589629368], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[15.026354420190975, 47.68160339567546], [15.012265402871277, 47.68766024331078], [14.982835647600123, 47.70072673274581], [14.948611277283291, 47.788830790054305], [15.01354877837308, 48.341186306167266], [15.038320605127517, 48.413071133725055], [15.094958058619106, 48.5042212996919], [15.134413296854769, 48.55828589629368], [15.1497076704187, 48.54856266150819], [15.159869858921097, 48.54178030479093], [15.211710614286007, 48.50509990416748], [15.51969388495518, 48.17186609152392], [15.525026763338545, 48.15897353374585], [15.527676841671047, 48.14621527623403], [15.497310142608027, 48.02779565822811], [15.428110108747708, 47.7823327968094], [15.391053608865771, 47.76071645568099], [15.330583919049, 47.7321159567877], [15.154783891407689, 47.68463750188263], [15.141139287118719, 47.68167343984654], [15.026354420190975, 47.68160339567546]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;19&quot;, &quot;properties&quot;: {&quot;labels&quot;: 77166}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [15.018934815341954, 47.308329658360634, 15.399888707217412, 47.66541438063576], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[15.141228867282749, 47.308329658360634], [15.035938320355331, 47.34302128058931], [15.023434012027021, 47.350814138911865], [15.018934815341954, 47.35913785288465], [15.019542721809316, 47.36542210830239], [15.056087024045919, 47.508910990385864], [15.063935888720673, 47.53469650426093], [15.06561305980749, 47.53822545762491], [15.15527961159983, 47.66297276769747], [15.160861742866118, 47.66541438063576], [15.277328740715717, 47.53900364058063], [15.399678110778838, 47.3977148766052], [15.399888707217412, 47.37425216685637], [15.367290788305414, 47.35421855314479], [15.141228867282749, 47.308329658360634]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;20&quot;, &quot;properties&quot;: {&quot;labels&quot;: 77454}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [15.154242478457677, 47.39642371903915, 15.848067109183166, 47.77003642624503], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[15.407510020582496, 47.39642371903915], [15.154242478457677, 47.50611578052908], [15.169281087723093, 47.66952498286922], [15.171241340456497, 47.675744353279065], [15.275700060570943, 47.731170370889366], [15.395516692652437, 47.76500570415388], [15.421457262619604, 47.77003642624503], [15.43723194924938, 47.767449886344046], [15.646923911683267, 47.69187862225353], [15.743467333587482, 47.63542336688809], [15.770941458691738, 47.61863708812224], [15.774617946181282, 47.615736018541256], [15.78431914446905, 47.60710236891086], [15.847353278518035, 47.53968122199571], [15.848067109183166, 47.534229244355885], [15.836765144497054, 47.52851931571539], [15.51783712206963, 47.42245437233585], [15.407510020582496, 47.39642371903915]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;21&quot;, &quot;properties&quot;: {&quot;labels&quot;: 81352}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [15.120296833265227, 48.27535814699538, 16.143604031030627, 49.0992647038754], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[15.467632068820825, 48.27635876006452], [15.398430044692184, 48.286077862111874], [15.381340962834166, 48.29051909133223], [15.355115068188734, 48.310728847596664], [15.308837005411704, 48.35894438132293], [15.20844600579947, 48.47370245982303], [15.15790767034119, 48.54908284766038], [15.122883236759494, 48.60478888582473], [15.120296833265227, 48.61932992697873], [15.123520590798345, 48.65072837278135], [15.16084798534621, 48.78780738300601], [15.173249810975127, 48.81517287165921], [15.31652361423379, 48.94183245188171], [15.360392766059771, 48.98029726693086], [15.420401514015046, 49.015260955411236], [15.56354147297966, 49.09296831650312], [15.56920717215229, 49.09448944314542], [15.599966311576086, 49.0992647038754], [15.634036977708687, 49.0849319592774], [15.680805563846508, 49.061828961462396], [15.698976024096893, 49.052789432642236], [15.748203301190935, 49.027726652981805], [15.824201397124353, 48.985917064887474], [15.92568337629408, 48.929171117307554], [16.108523168735637, 48.812866506335446], [16.1366614178805, 48.77523581319625], [16.143604031030627, 48.75410465922386], [16.140444323539878, 48.70646850231023], [16.119446161067668, 48.557878192449586], [16.005997041348206, 48.439601488561856], [15.976871471800465, 48.41141148457794], [15.95723711170678, 48.39443035021324], [15.905608515985193, 48.37014074899154], [15.89276187896841, 48.36451266982171], [15.887064869506782, 48.362110409972324], [15.60253064673194, 48.286725179311226], [15.487786481250069, 48.27535814699538], [15.467632068820825, 48.27635876006452]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;22&quot;, &quot;properties&quot;: {&quot;labels&quot;: 81810}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [15.417359534014915, 47.789878490299216, 15.944519687253244, 48.373017457139014], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[15.439613872211535, 47.789878490299216], [15.42706816429008, 47.83559417490047], [15.417359534014915, 47.88297009422277], [15.42732106927201, 48.27834896291412], [15.713676238549974, 48.373017457139014], [15.766371248716908, 48.37208377552128], [15.851560152465835, 48.359486961760894], [15.863459776854171, 48.35705197280466], [15.873908301690332, 48.35379083519991], [15.936350909354308, 47.97607552849994], [15.944519687253244, 47.907968496632854], [15.944415149355269, 47.90707195397133], [15.908758846400461, 47.86569438195325], [15.891825971566345, 47.846758170328194], [15.832809908549704, 47.83458043266139], [15.439613872211535, 47.789878490299216]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;23&quot;, &quot;properties&quot;: {&quot;labels&quot;: 82403}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [15.695387718518695, 48.0305936401371, 16.156475829273138, 48.38199952958028], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[15.895644004026146, 48.0305936401371], [15.88248453357307, 48.03310331711875], [15.735357328048199, 48.07605965361526], [15.723797835889117, 48.09289758543085], [15.711498467557565, 48.11518401199815], [15.701942468840162, 48.14995344027983], [15.695387718518695, 48.17554666542516], [15.70492390283898, 48.20030697057514], [15.736110379793912, 48.2491960674443], [15.749099083781783, 48.26836213463846], [15.882399179189385, 48.356946956117085], [15.912969462740048, 48.37515914592539], [15.914420732572808, 48.37598348879688], [15.920120685647007, 48.378384296368544], [15.936800165890363, 48.38199952958028], [15.938146090023283, 48.38192720732876], [15.960989700472838, 48.36897043928545], [16.148417534677506, 48.20711981015635], [16.15499602494183, 48.172465839064124], [16.156475829273138, 48.16245793161648], [16.156366729957774, 48.16156174364628], [16.154481597355588, 48.15715571512247], [16.064209908507344, 48.079160848024515], [15.921667794812373, 48.03460677749596], [15.895644004026146, 48.0305936401371]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;24&quot;, &quot;properties&quot;: {&quot;labels&quot;: 84183}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [15.435904118572525, 47.50647720871115, 16.82990783794089, 48.785450716590546], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[16.123204355626722, 47.50647720871115], [15.86517587081282, 47.53240738141102], [15.861408117208116, 47.53441470878717], [15.475978748095404, 47.742067583770506], [15.446639806304912, 47.76788383222136], [15.435904118572525, 47.78014217687787], [16.144183641594672, 48.74775802896029], [16.180265969129824, 48.785450716590546], [16.196655412591603, 48.785441003502356], [16.267186327988185, 48.78148921559543], [16.27385430679632, 48.78021109133427], [16.514917215741743, 48.7329595539496], [16.66030105722977, 48.6972624127385], [16.82990783794089, 48.032420856575335], [16.77750244425299, 47.952603113740196], [16.26225601450125, 47.53286817241085], [16.245506176422143, 47.52660899298503], [16.242751113884353, 47.52586433250839], [16.137969319221355, 47.50745100815317], [16.123204355626722, 47.50647720871115]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;25&quot;, &quot;properties&quot;: {&quot;labels&quot;: 84986}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [16.052613290580204, 46.98064539062714, 16.539163006365257, 47.44000392280475], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[16.258065833735234, 46.98064539062714], [16.17127026195971, 46.993765962764826], [16.148637448397796, 47.003181539135596], [16.10045110958134, 47.0537560549094], [16.082803095814423, 47.08363546477185], [16.068762688409535, 47.11060050884699], [16.052613290580204, 47.176492201951895], [16.05628444375907, 47.18531287439907], [16.075826744478668, 47.216712007771385], [16.194841850330064, 47.35981521991832], [16.393066256170044, 47.43770323597483], [16.398571391077656, 47.43918500192318], [16.43060538788345, 47.44000392280475], [16.502006288639183, 47.42582703316515], [16.539163006365257, 47.41456969718601], [16.51850458204819, 47.134096963835525], [16.50529363983508, 47.05994382482859], [16.484625509324992, 46.9997817726857], [16.48320485579048, 46.998964065224484], [16.258065833735234, 46.98064539062714]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;26&quot;, &quot;properties&quot;: {&quot;labels&quot;: 89034}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [16.258396126273162, 47.419105832995626, 17.02818798284089, 47.94156065584331], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[16.523774122482017, 47.419105832995626], [16.41287825500067, 47.43653678119159], [16.401435065498504, 47.4408220085198], [16.355314775138122, 47.46609464393207], [16.311685733003365, 47.4902982405687], [16.266242315709885, 47.521807551305336], [16.26292609264703, 47.52741397943049], [16.25890408655649, 47.56013887040971], [16.258396126273162, 47.67660004310956], [16.258505413729424, 47.67749633024287], [16.271628855536637, 47.70833280328806], [16.30778139312323, 47.78477454781008], [16.350238641008904, 47.813908145280045], [16.512180915942405, 47.91722653943127], [16.517742124130972, 47.918701334607405], [16.679123515881656, 47.940583270578585], [16.707477833974966, 47.94156065584331], [16.768808759068598, 47.93779097050208], [16.787234177203427, 47.934845851451634], [16.792207954198016, 47.931829009326], [16.857430539067487, 47.87720031854621], [16.906803522469307, 47.83526603180333], [17.02808948963293, 47.73180444191375], [17.02818798284089, 47.722766026188665], [17.02297832524649, 47.71406909861263], [16.661264715041955, 47.46404336144918], [16.613763475089677, 47.43624169848738], [16.57571455525723, 47.419588045241895], [16.523774122482017, 47.419105832995626]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;27&quot;, &quot;properties&quot;: {&quot;labels&quot;: 90960}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [16.48829597377747, 48.18186665302891, 16.94672432853634, 48.71082981644737], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[16.77851494747413, 48.18186665302891], [16.675718166776946, 48.22154964519111], [16.63079099259482, 48.23960873615185], [16.5282319122057, 48.28273785694345], [16.48829597377747, 48.37173612490381], [16.660934725188902, 48.691809103612165], [16.664001375826246, 48.69433272654692], [16.675669899833775, 48.6999496614329], [16.779125982663874, 48.70812330222523], [16.881874088987207, 48.71082981644737], [16.907092677288116, 48.7056528374965], [16.910903739171367, 48.7036101281724], [16.91581859639901, 48.69969295337949], [16.93963225375616, 48.674733853808895], [16.94672432853634, 48.65713650669278], [16.936411587827163, 48.602709722249536], [16.86851601390155, 48.327067199136486], [16.79141370440305, 48.18739130575631], [16.77851494747413, 48.18186665302891]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;28&quot;, &quot;properties&quot;: {&quot;labels&quot;: 92816}, &quot;type&quot;: &quot;Feature&quot;}, {&quot;bbox&quot;: [16.78040832237338, 47.70881557867497, 17.28820670705631, 48.32231392500239], &quot;geometry&quot;: {&quot;coordinates&quot;: [[[17.06241824897315, 47.70881557867497], [17.057357372510726, 47.7109492972633], [16.982266278499846, 47.759128384854826], [16.981060182194142, 47.760108591273465], [16.796206952293907, 47.93158112429426], [16.78040832237338, 47.95422925596464], [16.784918572841587, 48.13903895152495], [16.81608295724632, 48.24003702996692], [16.831914129568474, 48.26704457683188], [16.861798836493627, 48.317553851619834], [16.886830971514563, 48.32231392500239], [17.27536844909302, 48.244975581070584], [17.278872927481206, 48.24113095240767], [17.286334468439723, 48.09610938752805], [17.286946434201823, 48.081615555143934], [17.28820670705631, 47.996617442170596], [17.06241824897315, 47.70881557867497]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;id&quot;: &quot;29&quot;, &quot;properties&quot;: {&quot;labels&quot;: 97413}, &quot;type&quot;: &quot;Feature&quot;}], &quot;type&quot;: &quot;FeatureCollection&quot;});
+
+        
+    
+    geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = [&quot;labels&quot;];
+    let aliases = [&quot;labels&quot;];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{&quot;className&quot;: &quot;foliumtooltip&quot;, &quot;sticky&quot;: true});
+                     
+    
+            geo_json_37b29af8dfd58cdfdaa34aaaa2d84aea.addTo(map_c5d23295876a8a3bfb936187f3cbff64);
+        
+</script>
+</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</div>
+</div>
+<div id="af8d9a83-3c1c-4c8e-bced-1cc341e6c706" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>training_countries <span class="op">=</span> TRAINING5</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>testing_countries <span class="op">=</span> TESTING5</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>training_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(training_countries)].region_id.values</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>testing_regions <span class="op">=</span> intersection_df[intersection_df[<span class="st">'country'</span>].isin(testing_countries)].region_id.values</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(training_regions)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_data</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_labels</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>all_hexagons.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/training_hexagons</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>all_data, all_labels, all_hexagons <span class="op">=</span> combine_regions_data(testing_regions)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>all_data.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/testing_data</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>all_labels.to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/train_test_data/testing_labels</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
