@@ -9,6 +9,7 @@ environments:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-2_gnu.tar.bz2
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/_py-xgboost-mutex-2.0-cpu_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/affine-2.4.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/alsa-lib-1.2.12-h4ab18f5_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/anyio-4.4.0-pyhd8ed1ab_0.conda
@@ -258,6 +259,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libwebp-base-1.4.0-hd590300_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libxcb-1.16-hb9d3cd8_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libxcrypt-4.4.36-hd590300_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/libxgboost-2.1.3-cpu_h3a1dfae_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libxkbcommon-1.7.0-h2c5496b_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libxml2-2.12.7-he7c6b58_4.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/libxslt-1.1.39-h76b75d6_0.conda
@@ -333,6 +335,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pthread-stubs-0.4-h36c2ea0_1001.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/ptyprocess-0.7.0-pyhd3deb0d_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/pure_eval-0.2.3-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/py-xgboost-2.1.3-cpu_pyhd3de297_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyarrow-17.0.0-py312h9cebb41_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyarrow-core-17.0.0-py312h9cafe31_1_cpu.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyarrow-hotfix-0.6-pyhd8ed1ab_0.conda
@@ -434,6 +437,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xcb-util-renderutil-0.3.10-hb711507_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xcb-util-wm-0.4.2-hb711507_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xerces-c-3.2.5-h666cd97_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/xgboost-2.1.3-cpu_pyhac85b48_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xkeyboard-config-2.42-h4ab18f5_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-fixesproto-5.0-h7f98852_1002.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-inputproto-2.3.2-h7f98852_1002.tar.bz2
@@ -497,6 +501,20 @@ packages:
   purls: []
   size: 23621
   timestamp: 1650670423406
+- kind: conda
+  name: _py-xgboost-mutex
+  version: '2.0'
+  build: cpu_0
+  build_number: 1
+  subdir: linux-64
+  url: https://conda.anaconda.org/conda-forge/linux-64/_py-xgboost-mutex-2.0-cpu_0.tar.bz2
+  sha256: 504b46c85d81269b24e7b22309064886cfc873955e77daf0eb794d8e7ec8cc06
+  md5: 23b8f98a355030331f40d0245492f715
+  license: Apache-2.0
+  license_family: APACHE
+  purls: []
+  size: 7938
+  timestamp: 1538887428262
 - kind: conda
   name: affine
   version: 2.4.0
@@ -1687,8 +1705,10 @@ packages:
   name: core
   version: 0.1.0
   path: .
-  sha256: 66712f2e29b469b008ad2a7eda767c451e81f1c39d1db8277300b42438985198
-  requires_python: '>=3.12.4'
+  sha256: 8198f2d5bafd968c5df43b8f8ac607d88ae93ecdd6c42ba7203c2193fb45d594
+  requires_dist:
+  - xgboost
+  requires_python: ==3.12.*
   editable: true
 - kind: conda
   name: cycler
@@ -5477,6 +5497,24 @@ packages:
   size: 100393
   timestamp: 1702724383534
 - kind: conda
+  name: libxgboost
+  version: 2.1.3
+  build: cpu_h3a1dfae_0
+  subdir: linux-64
+  url: https://conda.anaconda.org/conda-forge/linux-64/libxgboost-2.1.3-cpu_h3a1dfae_0.conda
+  sha256: 47e308fbf33627ddfb5a63afbb98dc5a1d017c937142353751bdf669d8a6fc04
+  md5: 184c045816b27002235aeca204a2bd7c
+  depends:
+  - __glibc >=2.17,<3.0.a0
+  - _openmp_mutex >=4.5
+  - libgcc >=13
+  - libstdcxx >=13
+  license: Apache-2.0
+  license_family: APACHE
+  purls: []
+  size: 3200738
+  timestamp: 1733180316440
+- kind: conda
   name: libxkbcommon
   version: 1.7.0
   build: h2c5496b_1
@@ -6972,6 +7010,29 @@ packages:
   - pkg:pypi/pure-eval?source=hash-mapping
   size: 16551
   timestamp: 1721585805256
+- kind: conda
+  name: py-xgboost
+  version: 2.1.3
+  build: cpu_pyhd3de297_0
+  subdir: noarch
+  noarch: python
+  url: https://conda.anaconda.org/conda-forge/noarch/py-xgboost-2.1.3-cpu_pyhd3de297_0.conda
+  sha256: 1083a191fa81a9d8fe6992e30ff5cc1b13584a8e66944d454a3ed8cb38716e9f
+  md5: e66139764b821715af0cdad4752a1571
+  depends:
+  - _py-xgboost-mutex 2.0 cpu_0
+  - libxgboost * cpu_h*_0
+  - libxgboost >=2.1.3,<2.1.4.0a0
+  - numpy
+  - python >=3.9
+  - scikit-learn
+  - scipy
+  license: Apache-2.0
+  license_family: APACHE
+  purls:
+  - pkg:pypi/xgboost?source=hash-mapping
+  size: 134782
+  timestamp: 1733180547759
 - kind: conda
   name: pyarrow
   version: 17.0.0
@@ -9035,6 +9096,23 @@ packages:
   purls: []
   size: 1631030
   timestamp: 1721031385061
+- kind: conda
+  name: xgboost
+  version: 2.1.3
+  build: cpu_pyhac85b48_0
+  subdir: noarch
+  noarch: python
+  url: https://conda.anaconda.org/conda-forge/noarch/xgboost-2.1.3-cpu_pyhac85b48_0.conda
+  sha256: a3052900944d3b48666e58664dbc396ea773379daeabffb6c24207c728594d46
+  md5: 044110787df9bd0add114ab78aeeab08
+  depends:
+  - py-xgboost 2.1.3 cpu_pyhd3de297_0
+  - python >=3.9
+  license: Apache-2.0
+  license_family: APACHE
+  purls: []
+  size: 15629
+  timestamp: 1733180602524
 - kind: conda
   name: xkeyboard-config
   version: '2.42'
