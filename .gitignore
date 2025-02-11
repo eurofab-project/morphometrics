@@ -167,3 +167,4 @@ manual_deps/
 .pixi/
 *.geojson
 notebooks/*.pkl
+data/

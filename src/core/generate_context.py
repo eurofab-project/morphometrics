@@ -32,7 +32,7 @@ def numba_limit_range(rows, cols, partial_vals, output_vals):
                 result[g, res_index + 2] = np.nan
                 continue
 
-            lower, med, higher = np.nanpercentile(col_vals, (5, 50, 95))
+            lower, med, higher = np.nanpercentile(col_vals, (15, 50, 85))
             result[g, res_index] = lower
             result[g, res_index + 1] = med
             result[g, res_index + 2] = higher
