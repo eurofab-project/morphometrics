@@ -168,3 +168,4 @@ manual_deps/
 *.geojson
 notebooks/*.pkl
 data/
+predictions.txt

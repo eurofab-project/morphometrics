@@ -20,6 +20,8 @@ from sklearn.datasets import make_moons
 from sklearn import model_selection
 from sklearn.metrics import accuracy_score, balanced_accuracy_score, make_scorer
 
+coredir = '/data/uscuni-eurofab-overture/'
+
 def get_level_cut(mapping_level, v = 'v3'):
     
     cluster_mapping = pd.read_parquet(f'/data/uscuni-ulce/processed_data/clusters/cluster_mapping_{v}.pq')
@@ -40,8 +42,8 @@ def get_level_cut(mapping_level, v = 'v3'):
 
 def read_train_test(train_test_iteration, mapping_level, sample_size):
     
-    X_train = pd.read_parquet(f'/data/uscuni-eurofab-overture/processed_data/train_test_data/training_data{train_test_iteration}.pq')
-    y = pd.read_parquet(f'/data/uscuni-eurofab-overture/processed_data/train_test_data/training_labels{train_test_iteration}.pq')
+    X_train = pd.read_parquet(f'{coredir}processed_data/train_test_data/training_data{train_test_iteration}.pq')
+    y = pd.read_parquet(f'{coredir}processed_data/train_test_data/training_labels{train_test_iteration}.pq')
     level_cut = get_level_cut(mapping_level)
 
     y['final_without_noise'] = y['final_without_noise'].map(level_cut.to_dict())
@@ -113,8 +115,8 @@ def get_cluster_names(mapping_level):
 def score_predictions(train_test_iteration, mapping_level, model):
     
     level_cut = get_level_cut(mapping_level)
-    X_test = pd.read_parquet(f'/data/uscuni-eurofab-overture/processed_data/train_test_data/testing_data{train_test_iteration}.pq')
-    y_test = pd.read_parquet(f'/data/uscuni-eurofab-overture/processed_data/train_test_data/testing_labels{train_test_iteration}.pq')
+    X_test = pd.read_parquet(f'{coredir}processed_data/train_test_data/testing_data{train_test_iteration}.pq')
+    y_test = pd.read_parquet(f'{coredir}processed_data/train_test_data/testing_labels{train_test_iteration}.pq')
     y_test['final_without_noise'] = y_test['final_without_noise'].map(level_cut.to_dict())
 
     cluster_names = get_cluster_names(mapping_level)
@@ -146,8 +148,8 @@ def score_predictions(train_test_iteration, mapping_level, model):
 
     print(overall_acc)
     print(f1s)
-    overall_acc.to_csv(f'/data/uscuni-eurofab-overture/processed_data/results/overall_acc_{mapping_level}_{train_test_iteration}.csv')
-    f1s.to_csv(f'/data/uscuni-eurofab-overture/processed_data/results/class_f1s_{mapping_level}_{train_test_iteration}.csv')
+    overall_acc.to_csv(f'{coredir}processed_data/results/overall_acc_{mapping_level}_{train_test_iteration}.csv')
+    f1s.to_csv(f'{coredir}processed_data/results/class_f1s_{mapping_level}_{train_test_iteration}.csv')
     
 
 def train_model(train_test_iteration, mapping_level, sample_size):
@@ -158,23 +160,30 @@ def train_model(train_test_iteration, mapping_level, sample_size):
     from sklearn.ensemble import HistGradientBoostingClassifier
     
     model = HistGradientBoostingClassifier(random_state=123, verbose=1,
-                                                learning_rate = 0.05,
+                                                learning_rate = 0.03,
                                                 max_depth = None, 
-                                                max_iter = 20, 
+                                                max_iter = 120, 
                                                 max_leaf_nodes=None,
                                                 max_features=.5
                                                )
     model.fit(X_resampled, y_resampled)
     print(model.score(X_resampled, y_resampled))
+
+
+    
     score_predictions(train_test_iteration, mapping_level, model)
 
 
 if __name__ == '__main__':
 
-    mapping_level = 4
+    mapping_level = 3
     sample_size = 600_000
     
-    # train_model(4, mapping_level, sample_size)
+    # for train_test_iteration in range(1, 8):
+    #     train_model(train_test_iteration, mapping_level, sample_size)
 
-    for train_test_iteration in range(1, 6):
-        train_model(train_test_iteration, mapping_level, sample_size)
+    train_model(7, 3, sample_size)
+    train_model(6, 3, sample_size)
+
+    train_model(7, 4, sample_size)
+    train_model(6, 4, sample_size)
