@@ -179,11 +179,6 @@ if __name__ == '__main__':
     mapping_level = 3
     sample_size = 600_000
     
-    # for train_test_iteration in range(1, 8):
-    #     train_model(train_test_iteration, mapping_level, sample_size)
+    for train_test_iteration in range(1, 8):
+        train_model(train_test_iteration, mapping_level, sample_size)
 
-    train_model(7, 3, sample_size)
-    train_model(6, 3, sample_size)
-
-    train_model(7, 4, sample_size)
-    train_model(6, 4, sample_size)

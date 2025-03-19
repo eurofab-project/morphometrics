@@ -112,7 +112,96 @@ def partial_mean_intb_dist(partial_focals, partial_higher, buildings, bgraph):
     )
     res.loc[mibd.index] = mibd.values
     return res
+
+def combine_regions_data(selected_regions, char_type='primary', spatial_lag=3,
+                        target_dir='/data/uscuni-eurofab-overture/processed_data/target_clusters/',
+                        hex_dir='/data/uscuni-eurofab-overture/processed_data/hexagons/'):
+    """Combine the morphometric data, target labels and hexagons from all of the 'selected_regions' into a single dataframe for model training."""
+    
+    all_data = []
+    all_labels = []
+    all_hexagons = []
+    
+    for trid in selected_regions:
         
+        if char_type == 'weighted_lag':
+            data = pd.read_parquet(f'/data/uscuni-eurofab/processed_data/chars/lag_chars_{trid}_{kernel}_{spatial_lag}_{bandwith_type}.parquet')
+            data = data.astype(np.float32)
+            data.index = data.index.astype(np.int32)
+        elif char_type == 'unweighted_lag':
+            data = pd.read_parquet(f'/data/uscuni-eurofab/processed_data/chars/lag_chars_{trid}_unweighted_{spatial_lag}.parquet')
+            data = data.astype(np.float32)
+            data.index = data.index.astype(np.int32)
+        elif char_type == 'primary':
+            data = pd.read_parquet(f'{data_dir}primary_chars_{trid}.parquet')
+        elif char_type == 'only_unweighted_lag':
+            data = pd.read_parquet(f'/data/uscuni-eurofab/processed_data/chars/lag_chars_{trid}_unweighted_{spatial_lag}.parquet')
+            data = data.astype(np.float32)
+            data.index = data.index.astype(np.int32)
+            iqr = pd.DataFrame(data.loc[:, data.columns.str.contains('_85')].values - data.loc[:, data.columns.str.contains('_15')].values, 
+                         index=data.index, 
+                         columns=data.columns[~data.columns.str.contains('_')] + '_iqr')
+            median = data.loc[:, data.columns.str.contains('_median')]
+            data = pd.merge(iqr, median, left_index=True, right_index=True)
+        
+        elif char_type == 'primary_overture':
+            # same as primary data, but add a data source column from the building parquet
+            data = pd.read_parquet(f'{data_dir}primary_chars_{trid}.parquet')
+            data_source = pd.read_parquet(f"{data_dir}buildings_chars_{trid}.parquet", columns=['source', 'class'])
+            data['source'] = data_source['source']
+        elif char_type == 'unweighted_lag_overture':
+            # same as unweighted lag, but add a data source column from the building parquet and only save the median
+            data = pd.read_parquet(f'/data/uscuni-eurofab-overture/processed_data/chars/lag_chars_{trid}_unweighted_{spatial_lag}.parquet')
+            data = data.astype(np.float32)
+            data.index = data.index.astype(np.int32)
+            data_source = pd.read_parquet(f"{data_dir}buildings_chars_{trid}.parquet", columns=['source', 'class'])
+            data['source'] = data_source['source']
+            data = data.loc[:, ~data.columns.str.contains('_') | data.columns.str.contains('_median')]
+        elif char_type == 'only_unweighted_lag_overture':
+            # keep only median and iqr from the lag, no primary chars
+            data = pd.read_parquet(f'/data/uscuni-eurofab-overture/processed_data/chars/lag_chars_{trid}_unweighted_{spatial_lag}.parquet')
+            data = data.astype(np.float32)
+            data.index = data.index.astype(np.int32)
+            iqr = pd.DataFrame(data.loc[:, data.columns.str.contains('_85')].values - data.loc[:, data.columns.str.contains('_15')].values, 
+                         index=data.index, 
+                         columns=data.columns[~data.columns.str.contains('_')] + '_iqr')
+            median = data.loc[:, data.columns.str.contains('_median')]
+            data = pd.merge(iqr, median, left_index=True, right_index=True)
+
+   
+
+        else:
+            raise Exception('Datatype does not exist')
+            
+        targets = pd.read_parquet(f'{target_dir}{trid}_target.pq').set_index('index')
+        hexagons = pd.read_parquet(f'{hex_dir}{trid}_hexagon.pq').set_index('index')
+
+        # drop empty tess to save some memory
+        targets = targets[targets.index > -1]
+    
+        common_index = data.index.join(targets.index, how='inner').join(hexagons.index, how='inner')
+        data = data.loc[common_index]
+        targets = targets.loc[common_index]
+        hexagons = hexagons.loc[common_index]
+    
+        # record region_id in the index
+        common_index = str(trid) + '_' + common_index.astype(str)
+        
+        data = data.set_index(common_index)
+        targets = targets.set_index(common_index)
+        hexagons = hexagons.set_index(common_index)
+    
+        all_data.append(data)
+        all_labels.append(targets)
+        all_hexagons.append(hexagons)
+    
+    
+    all_data = pd.concat(all_data)
+    all_labels = pd.concat(all_labels)
+    all_hexagons = pd.concat(all_hexagons)
+    
+    return all_data, all_labels, all_hexagons
+    
 
 char_names = {
     "sdbAre": "area of building",
