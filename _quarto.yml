@@ -25,7 +25,8 @@ website:
       - notebooks/3_assign_targets.ipynb
       - notebooks/4_assign_buildings_to_h3.ipynb
       - notebooks/5_train_test_split.ipynb
-      - notebooks/6_eurofab_model.ipynb
+      - notebooks/6_single_model_training.ipynb
+      - notebooks/7_figures_and_tables.ipynb
       - notebooks/interactive_exploration.ipynb
 
 format:
