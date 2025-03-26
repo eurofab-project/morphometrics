@@ -166,3 +166,6 @@ cython_debug/
 manual_deps/
 .pixi/
 *.geojson
+notebooks/*.pkl
+data/
+predictions.txt

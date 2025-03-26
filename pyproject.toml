@@ -1,9 +1,9 @@
 [project]
 authors = [{name = "Krasen Samardzhiev", email = "krasensam@gmail.com"}]
-dependencies = []
+dependencies = ["xgboost"]
 description = "Add a short description here"
 name = "core"
-requires-python = ">= 3.12.4"
+requires-python = "== 3.12.*"
 version = "0.1.0"
 
 [build-system]
@@ -58,3 +58,10 @@ contextily = ">=1.6.2,<2"
 h3 = ">=4.1.0,<5"
 h3-py = ">=4.1.1,<5"
 tobler = ">=0.12.0,<0.13"
+xgboost = "*"
+imbalanced-learn = ">=0.13.0,<0.14"
+pystack = "*"
+planetary-computer = "*"
+adlfs = ">=2024.12.0,<2025"
+tabulate = ">=0.9.0,<0.10"
+matplotlib-scalebar = ">=0.9.0,<0.10"

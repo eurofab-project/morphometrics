@@ -19,5 +19,6 @@ Morphometric modules of the EuroFab project
     - `notebooks/3_assign_targets.ipynb` to assign target labels to each generated element.
     - `notebooks/4_assign_buildings_to_h3.ipynb` to assign buildings to h3 hexagons, in preparation for train/test splitting.
     - `notebooks/5_train_test_split.ipynb` to split the data into 5 training and test sets, based on the country of origin.
-    - `notebooks/6_eurofab_model.ipynb` to train and test the model.
+    - `notebooks/6_single_model_training.ipynb` to train and test a specific model. Alternatively, you can run the `generate_predictions.py` file.
+    - `notebooks/7_figures_and_tables.ipynb` to generate paper/report figures and tables.
     - `notebooks/interactive_exploration.ipynb` to interactively explore the morphometric characters.
