@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Eurofab model training – Urban morphometrics | EuroFab</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ad12125f43b1cd0365d2f9404fbc2628.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Notebooks</li><li class="breadcrumb-item"><a href="../notebooks/6_single_model_training.html">Eurofab model training</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Urban morphometrics | EuroFab</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/eurofab-project/morphometrics" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">About</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://eurofab-project.github.io/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project homepage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://eurofab-project.github.io/talks/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Talks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Other work streams</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://eurofab-project.github.io/eo/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Earth observation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Notebooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">notebooks/1_download_data.ipynb</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2_process_regions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Morphometic processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/3_assign_targets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assign target labels from the cadastre-level classification to the tessellation cells</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/4_assign_buildings_to_h3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore assignment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/5_train_test_split.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train test split</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/6_single_model_training.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Eurofab model training</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/7_figures_and_tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SubRegions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/interactive_exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualize data on an interactive map</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#plot-predictions" id="toc-plot-predictions" class="nav-link active" data-scroll-target="#plot-predictions">Plot predictions</a>
+  <ul class="collapse">
+  <li><a href="#interactive-plot-for-a-specific-region" id="toc-interactive-plot-for-a-specific-region" class="nav-link" data-scroll-target="#interactive-plot-for-a-specific-region">Interactive plot for a specific region</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Notebooks</li><li class="breadcrumb-item"><a href="../notebooks/6_single_model_training.html">Eurofab model training</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Eurofab model training</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="51533fb7-1ff2-4a11-a1d0-e7be19d18287" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numba</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> libpysal.graph <span class="im">import</span> read_parquet</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PowerTransformer, RobustScaler, StandardScaler</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.utils <span class="im">import</span> used_keys</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palettable.colorbrewer.qualitative <span class="im">import</span> Set3_12</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> davies_bouldin_score, f1_score</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.calibration <span class="im">import</span> CalibratedClassifierCV</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> model_selection</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, balanced_accuracy_score, make_scorer</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_predictions <span class="im">import</span> read_train_test, get_cluster_names, get_level_cut</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="47e656ef-5246-42d4-a6ea-42dfa16a4823" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="st">'v3'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sample_size <span class="op">=</span> <span class="dv">600_000</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>mapping_level <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>train_test_iteration <span class="op">=</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate the train test data for the specified iteration and train the model</p>
+<div id="a31bee53-b228-4b2a-bd75-9c71193dfbcb" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>X_resampled, y_resampled <span class="op">=</span> read_train_test(train_test_iteration, mapping_level, sample_size)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> HistGradientBoostingClassifier</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> HistGradientBoostingClassifier(random_state<span class="op">=</span><span class="dv">123</span>, verbose<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                                            learning_rate <span class="op">=</span> <span class="fl">0.03</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                                            max_depth <span class="op">=</span> <span class="va">None</span>, </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                                            max_iter <span class="op">=</span> <span class="dv">120</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                                            max_leaf_nodes<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                                            max_features<span class="op">=</span><span class="fl">.5</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                                           )</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>model.fit(X_resampled, y_resampled)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.score(X_resampled, y_resampled))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>final_without_noise
+6     600000
+1     600000
+7     600000
+8     600000
+14    600000
+2     600000
+15    600000
+13    600000
+5     600000
+16    600000
+9     600000
+12    600000
+11    600000
+Name: count, dtype: int64
+Binning 8.087 GB of training data: 3.625 s
+Binning 0.899 GB of validation data: 0.393 s
+Fitting gradient boosted rounds:
+[1/120] 13 trees, 893629 leaves (68740 on avg), max depth = 59, train loss: 2.32222, val loss: 2.36821, in 129.254s
+[2/120] 13 trees, 3523422 leaves (271032 on avg), max depth = 157, train loss: 2.13320, val loss: 2.21806, in 366.993s
+[3/120] 13 trees, 3553717 leaves (273362 on avg), max depth = 152, train loss: 1.97650, val loss: 2.09519, in 373.911s
+[4/120] 13 trees, 3552116 leaves (273239 on avg), max depth = 176, train loss: 1.84211, val loss: 1.99092, in 377.135s
+[5/120] 13 trees, 3548134 leaves (272933 on avg), max depth = 151, train loss: 1.72445, val loss: 1.90045, in 376.539s
+[6/120] 13 trees, 3547731 leaves (272902 on avg), max depth = 164, train loss: 1.61958, val loss: 1.82023, in 377.085s
+[7/120] 13 trees, 3547447 leaves (272880 on avg), max depth = 147, train loss: 1.52518, val loss: 1.74856, in 378.116s
+[8/120] 13 trees, 3546411 leaves (272800 on avg), max depth = 148, train loss: 1.43953, val loss: 1.68391, in 378.931s
+[9/120] 13 trees, 3545132 leaves (272702 on avg), max depth = 144, train loss: 1.36107, val loss: 1.62483, in 378.053s
+[10/120] 13 trees, 3545586 leaves (272737 on avg), max depth = 152, train loss: 1.28891, val loss: 1.57076, in 377.779s
+[11/120] 13 trees, 3544338 leaves (272641 on avg), max depth = 145, train loss: 1.22210, val loss: 1.52069, in 378.350s
+[12/120] 13 trees, 3544490 leaves (272653 on avg), max depth = 145, train loss: 1.16011, val loss: 1.47441, in 380.143s
+[13/120] 13 trees, 3545625 leaves (272740 on avg), max depth = 129, train loss: 1.10232, val loss: 1.43133, in 380.879s
+[14/120] 13 trees, 3544251 leaves (272634 on avg), max depth = 146, train loss: 1.04834, val loss: 1.39104, in 381.777s
+[15/120] 13 trees, 3544744 leaves (272672 on avg), max depth = 146, train loss: 0.99778, val loss: 1.35346, in 381.633s
+[16/120] 13 trees, 3544013 leaves (272616 on avg), max depth = 140, train loss: 0.95035, val loss: 1.31827, in 381.941s
+[17/120] 13 trees, 3545107 leaves (272700 on avg), max depth = 131, train loss: 0.90571, val loss: 1.28509, in 380.251s
+[18/120] 13 trees, 3545243 leaves (272711 on avg), max depth = 136, train loss: 0.86369, val loss: 1.25399, in 383.591s
+[19/120] 13 trees, 3545469 leaves (272728 on avg), max depth = 118, train loss: 0.82398, val loss: 1.22455, in 384.120s
+[20/120] 13 trees, 3545363 leaves (272720 on avg), max depth = 166, train loss: 0.78651, val loss: 1.19675, in 385.436s
+[21/120] 13 trees, 3546150 leaves (272780 on avg), max depth = 127, train loss: 0.75105, val loss: 1.17043, in 385.135s
+[22/120] 13 trees, 3545906 leaves (272762 on avg), max depth = 125, train loss: 0.71745, val loss: 1.14549, in 384.697s
+[23/120] 13 trees, 3546285 leaves (272791 on avg), max depth = 121, train loss: 0.68560, val loss: 1.12183, in 384.964s
+[24/120] 13 trees, 3545721 leaves (272747 on avg), max depth = 137, train loss: 0.65540, val loss: 1.09940, in 386.259s
+[25/120] 13 trees, 3547225 leaves (272863 on avg), max depth = 131, train loss: 0.62670, val loss: 1.07798, in 386.087s
+[26/120] 13 trees, 3546474 leaves (272805 on avg), max depth = 127, train loss: 0.59944, val loss: 1.05761, in 387.003s
+[27/120] 13 trees, 3546956 leaves (272842 on avg), max depth = 126, train loss: 0.57350, val loss: 1.03825, in 386.453s
+[28/120] 13 trees, 3546961 leaves (272843 on avg), max depth = 119, train loss: 0.54881, val loss: 1.01974, in 388.014s
+[29/120] 13 trees, 3548322 leaves (272947 on avg), max depth = 131, train loss: 0.52532, val loss: 1.00217, in 388.306s
+[30/120] 13 trees, 3547040 leaves (272849 on avg), max depth = 132, train loss: 0.50294, val loss: 0.98530, in 386.288s
+[31/120] 13 trees, 3548367 leaves (272951 on avg), max depth = 118, train loss: 0.48159, val loss: 0.96917, in 388.236s
+[32/120] 13 trees, 3549004 leaves (273000 on avg), max depth = 127, train loss: 0.46125, val loss: 0.95380, in 388.696s
+[33/120] 13 trees, 3549247 leaves (273019 on avg), max depth = 131, train loss: 0.44185, val loss: 0.93913, in 387.675s
+[34/120] 13 trees, 3548727 leaves (272979 on avg), max depth = 136, train loss: 0.42334, val loss: 0.92506, in 389.091s
+[35/120] 13 trees, 3549713 leaves (273054 on avg), max depth = 125, train loss: 0.40565, val loss: 0.91154, in 389.230s
+[36/120] 13 trees, 3549362 leaves (273027 on avg), max depth = 121, train loss: 0.38876, val loss: 0.89856, in 387.581s
+[37/120] 13 trees, 3549728 leaves (273056 on avg), max depth = 114, train loss: 0.37265, val loss: 0.88617, in 391.615s
+[38/120] 13 trees, 3550534 leaves (273118 on avg), max depth = 126, train loss: 0.35725, val loss: 0.87429, in 392.228s
+[39/120] 13 trees, 3550237 leaves (273095 on avg), max depth = 134, train loss: 0.34254, val loss: 0.86290, in 392.463s
+[40/120] 13 trees, 3550816 leaves (273139 on avg), max depth = 113, train loss: 0.32848, val loss: 0.85204, in 391.219s
+[41/120] 13 trees, 3550844 leaves (273141 on avg), max depth = 118, train loss: 0.31504, val loss: 0.84155, in 393.043s
+[42/120] 13 trees, 3551307 leaves (273177 on avg), max depth = 125, train loss: 0.30218, val loss: 0.83148, in 390.421s
+[43/120] 13 trees, 3550584 leaves (273121 on avg), max depth = 118, train loss: 0.28987, val loss: 0.82175, in 396.341s
+[44/120] 13 trees, 3551836 leaves (273218 on avg), max depth = 122, train loss: 0.27809, val loss: 0.81238, in 397.013s
+[45/120] 13 trees, 3551863 leaves (273220 on avg), max depth = 118, train loss: 0.26681, val loss: 0.80339, in 394.360s
+[46/120] 13 trees, 3551294 leaves (273176 on avg), max depth = 117, train loss: 0.25604, val loss: 0.79481, in 395.175s
+[47/120] 13 trees, 3551400 leaves (273184 on avg), max depth = 116, train loss: 0.24573, val loss: 0.78656, in 397.259s
+[48/120] 13 trees, 3551399 leaves (273184 on avg), max depth = 116, train loss: 0.23586, val loss: 0.77865, in 399.250s
+[49/120] 13 trees, 3552174 leaves (273244 on avg), max depth = 112, train loss: 0.22641, val loss: 0.77098, in 396.697s
+[50/120] 13 trees, 3551382 leaves (273183 on avg), max depth = 113, train loss: 0.21734, val loss: 0.76362, in 396.233s
+[51/120] 13 trees, 3552454 leaves (273265 on avg), max depth = 112, train loss: 0.20867, val loss: 0.75651, in 393.356s
+[52/120] 13 trees, 3552122 leaves (273240 on avg), max depth = 116, train loss: 0.20037, val loss: 0.74967, in 394.411s
+[53/120] 13 trees, 3552395 leaves (273261 on avg), max depth = 112, train loss: 0.19241, val loss: 0.74307, in 395.038s
+[54/120] 13 trees, 3553077 leaves (273313 on avg), max depth = 119, train loss: 0.18478, val loss: 0.73671, in 395.145s
+[55/120] 13 trees, 3553441 leaves (273341 on avg), max depth = 112, train loss: 0.17747, val loss: 0.73058, in 396.733s
+[56/120] 13 trees, 3553053 leaves (273311 on avg), max depth = 122, train loss: 0.17046, val loss: 0.72464, in 396.646s
+[57/120] 13 trees, 3552633 leaves (273279 on avg), max depth = 117, train loss: 0.16375, val loss: 0.71895, in 397.845s
+[58/120] 13 trees, 3554456 leaves (273419 on avg), max depth = 115, train loss: 0.15731, val loss: 0.71345, in 397.741s
+[59/120] 13 trees, 3553810 leaves (273370 on avg), max depth = 126, train loss: 0.15114, val loss: 0.70817, in 396.939s
+[60/120] 13 trees, 3553886 leaves (273375 on avg), max depth = 112, train loss: 0.14523, val loss: 0.70306, in 396.179s
+[61/120] 13 trees, 3553906 leaves (273377 on avg), max depth = 109, train loss: 0.13955, val loss: 0.69814, in 395.085s
+[62/120] 13 trees, 3554587 leaves (273429 on avg), max depth = 112, train loss: 0.13411, val loss: 0.69335, in 398.457s
+[63/120] 13 trees, 3553701 leaves (273361 on avg), max depth = 125, train loss: 0.12889, val loss: 0.68878, in 401.568s
+[64/120] 13 trees, 3554137 leaves (273395 on avg), max depth = 122, train loss: 0.12388, val loss: 0.68431, in 402.053s
+[65/120] 13 trees, 3553766 leaves (273366 on avg), max depth = 113, train loss: 0.11908, val loss: 0.68003, in 401.556s
+[66/120] 13 trees, 3554696 leaves (273438 on avg), max depth = 122, train loss: 0.11447, val loss: 0.67587, in 401.360s
+[67/120] 13 trees, 3554903 leaves (273454 on avg), max depth = 109, train loss: 0.11004, val loss: 0.67183, in 402.173s
+[68/120] 13 trees, 3554957 leaves (273458 on avg), max depth = 109, train loss: 0.10580, val loss: 0.66801, in 402.843s
+[69/120] 13 trees, 3554710 leaves (273439 on avg), max depth = 114, train loss: 0.10173, val loss: 0.66433, in 403.002s
+[70/120] 13 trees, 3554676 leaves (273436 on avg), max depth = 108, train loss: 0.09782, val loss: 0.66072, in 403.448s
+[71/120] 13 trees, 3554488 leaves (273422 on avg), max depth = 109, train loss: 0.09407, val loss: 0.65724, in 403.679s
+[72/120] 13 trees, 3554866 leaves (273451 on avg), max depth = 113, train loss: 0.09047, val loss: 0.65385, in 404.623s
+[73/120] 13 trees, 3555466 leaves (273497 on avg), max depth = 113, train loss: 0.08701, val loss: 0.65062, in 402.190s
+[74/120] 13 trees, 3554944 leaves (273457 on avg), max depth = 129, train loss: 0.08370, val loss: 0.64749, in 403.485s
+[75/120] 13 trees, 3554835 leaves (273448 on avg), max depth = 116, train loss: 0.08051, val loss: 0.64447, in 404.000s
+[76/120] 13 trees, 3554684 leaves (273437 on avg), max depth = 115, train loss: 0.07745, val loss: 0.64156, in 402.361s
+[77/120] 13 trees, 3554047 leaves (273388 on avg), max depth = 112, train loss: 0.07451, val loss: 0.63871, in 401.778s
+[78/120] 13 trees, 3555476 leaves (273498 on avg), max depth = 118, train loss: 0.07168, val loss: 0.63592, in 405.132s
+[79/120] 13 trees, 3556083 leaves (273544 on avg), max depth = 109, train loss: 0.06897, val loss: 0.63330, in 403.025s
+[80/120] 13 trees, 3555077 leaves (273467 on avg), max depth = 115, train loss: 0.06637, val loss: 0.63078, in 405.793s
+[81/120] 13 trees, 3555728 leaves (273517 on avg), max depth = 120, train loss: 0.06386, val loss: 0.62834, in 404.846s
+[82/120] 13 trees, 3555683 leaves (273514 on avg), max depth = 116, train loss: 0.06146, val loss: 0.62600, in 403.964s
+[83/120] 13 trees, 3555347 leaves (273488 on avg), max depth = 107, train loss: 0.05916, val loss: 0.62372, in 403.931s
+[84/120] 13 trees, 3555362 leaves (273489 on avg), max depth = 113, train loss: 0.05694, val loss: 0.62152, in 403.907s
+[85/120] 13 trees, 3555445 leaves (273495 on avg), max depth = 114, train loss: 0.05481, val loss: 0.61940, in 403.666s
+[86/120] 13 trees, 3555369 leaves (273489 on avg), max depth = 107, train loss: 0.05276, val loss: 0.61734, in 405.019s
+[87/120] 13 trees, 3555200 leaves (273476 on avg), max depth = 109, train loss: 0.05079, val loss: 0.61536, in 404.703s
+[88/120] 13 trees, 3555591 leaves (273507 on avg), max depth = 110, train loss: 0.04890, val loss: 0.61348, in 405.277s
+[89/120] 13 trees, 3555534 leaves (273502 on avg), max depth = 116, train loss: 0.04708, val loss: 0.61166, in 405.436s
+[90/120] 13 trees, 3555090 leaves (273468 on avg), max depth = 121, train loss: 0.04533, val loss: 0.60990, in 405.089s
+[91/120] 13 trees, 3556039 leaves (273541 on avg), max depth = 111, train loss: 0.04365, val loss: 0.60817, in 406.238s
+[92/120] 13 trees, 3555579 leaves (273506 on avg), max depth = 119, train loss: 0.04203, val loss: 0.60652, in 404.628s
+[93/120] 13 trees, 3555924 leaves (273532 on avg), max depth = 107, train loss: 0.04048, val loss: 0.60491, in 406.020s
+[94/120] 13 trees, 3555315 leaves (273485 on avg), max depth = 120, train loss: 0.03898, val loss: 0.60331, in 406.914s
+[95/120] 13 trees, 3556460 leaves (273573 on avg), max depth = 105, train loss: 0.03754, val loss: 0.60183, in 408.578s
+[96/120] 13 trees, 3555297 leaves (273484 on avg), max depth = 114, train loss: 0.03616, val loss: 0.60038, in 408.850s
+[97/120] 13 trees, 3555891 leaves (273530 on avg), max depth = 113, train loss: 0.03483, val loss: 0.59898, in 409.125s
+[98/120] 13 trees, 3555591 leaves (273507 on avg), max depth = 112, train loss: 0.03355, val loss: 0.59763, in 407.951s
+[99/120] 13 trees, 3555537 leaves (273502 on avg), max depth = 105, train loss: 0.03232, val loss: 0.59637, in 406.495s
+[100/120] 13 trees, 3555783 leaves (273521 on avg), max depth = 110, train loss: 0.03114, val loss: 0.59514, in 407.627s
+[101/120] 13 trees, 3556060 leaves (273543 on avg), max depth = 108, train loss: 0.03000, val loss: 0.59393, in 405.682s
+[102/120] 13 trees, 3556198 leaves (273553 on avg), max depth = 105, train loss: 0.02890, val loss: 0.59280, in 407.439s
+[103/120] 13 trees, 3556003 leaves (273538 on avg), max depth = 114, train loss: 0.02785, val loss: 0.59166, in 406.388s
+[104/120] 13 trees, 3555528 leaves (273502 on avg), max depth = 108, train loss: 0.02684, val loss: 0.59064, in 407.533s
+[105/120] 13 trees, 3556125 leaves (273548 on avg), max depth = 103, train loss: 0.02586, val loss: 0.58962, in 407.553s
+[106/120] 13 trees, 3554873 leaves (273451 on avg), max depth = 111, train loss: 0.02492, val loss: 0.58868, in 407.946s
+[107/120] 13 trees, 3555562 leaves (273504 on avg), max depth = 105, train loss: 0.02402, val loss: 0.58776, in 407.907s
+[108/120] 13 trees, 3555250 leaves (273480 on avg), max depth = 98, train loss: 0.02315, val loss: 0.58688, in 405.583s
+[109/120] 13 trees, 3555734 leaves (273518 on avg), max depth = 111, train loss: 0.02232, val loss: 0.58608, in 406.225s
+[110/120] 13 trees, 3555938 leaves (273533 on avg), max depth = 105, train loss: 0.02151, val loss: 0.58526, in 408.091s
+[111/120] 13 trees, 3555400 leaves (273492 on avg), max depth = 99, train loss: 0.02074, val loss: 0.58448, in 406.325s
+[112/120] 13 trees, 3556474 leaves (273574 on avg), max depth = 98, train loss: 0.01999, val loss: 0.58371, in 408.967s
+[113/120] 13 trees, 3555713 leaves (273516 on avg), max depth = 97, train loss: 0.01927, val loss: 0.58300, in 408.737s
+[114/120] 13 trees, 3555699 leaves (273515 on avg), max depth = 109, train loss: 0.01858, val loss: 0.58236, in 409.570s
+[115/120] 13 trees, 3554598 leaves (273430 on avg), max depth = 107, train loss: 0.01791, val loss: 0.58171, in 408.524s
+[116/120] 13 trees, 3554971 leaves (273459 on avg), max depth = 94, train loss: 0.01727, val loss: 0.58107, in 406.443s
+[117/120] 13 trees, 3555144 leaves (273472 on avg), max depth = 98, train loss: 0.01665, val loss: 0.58051, in 406.198s
+[118/120] 13 trees, 3555954 leaves (273534 on avg), max depth = 101, train loss: 0.01606, val loss: 0.57994, in 406.120s
+[119/120] 13 trees, 3554978 leaves (273459 on avg), max depth = 99, train loss: 0.01548, val loss: 0.57945, in 405.640s
+[120/120] 13 trees, 3555301 leaves (273484 on avg), max depth = 94, train loss: 0.01493, val loss: 0.57896, in 405.478s
+Fit 1560 trees in 47338.352 s, (423577426 total leaves)
+Time spent computing histograms: 27154.602s
+Time spent finding best splits:  6091.597s
+Time spent applying splits:      8232.458s
+Time spent predicting:           205.419s
+0.9806842307692307
+CPU times: user 5d 15h 9min 8s, sys: 3h 17min 18s, total: 5d 18h 26min 27s
+Wall time: 13h 21min 7s</code></pre>
+</div>
+</div>
+<p>Store the model to disk</p>
+<div id="802f334f-8074-41d5-8525-bf487fcb28bc" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pickle <span class="im">import</span> dump</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"../data/model_</span><span class="sc">{</span>mapping_level<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>train_test_iteration<span class="sc">}</span><span class="ss">.pkl"</span>, <span class="st">"wb"</span>) <span class="im">as</span> f:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    dump(model, f, protocol<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 44.9 ms, sys: 11.9 s, total: 11.9 s
+Wall time: 12.6 s</code></pre>
+</div>
+</div>
+<p>Read the test data and measure the model performance</p>
+<div id="ae218f37-9cdd-4958-a86f-76b2c3ee852b" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>coredir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab-overture/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7daa73fc-cc8d-41c2-8ba6-e4540c525d2d" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>level_cut <span class="op">=</span> get_level_cut(mapping_level)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> pd.read_parquet(<span class="ss">f'</span><span class="sc">{</span>coredir<span class="sc">}</span><span class="ss">processed_data/train_test_data/testing_data</span><span class="sc">{</span>train_test_iteration<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> pd.read_parquet(<span class="ss">f'</span><span class="sc">{</span>coredir<span class="sc">}</span><span class="ss">processed_data/train_test_data/testing_labels</span><span class="sc">{</span>train_test_iteration<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>y_test[<span class="st">'final_without_noise'</span>] <span class="op">=</span> y_test[<span class="st">'final_without_noise'</span>].<span class="bu">map</span>(level_cut.to_dict())</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>cluster_names <span class="op">=</span> get_cluster_names(mapping_level)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_test.final_without_noise.isna().<span class="bu">sum</span>() <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> (X_test.index <span class="op">==</span> y_test.index).<span class="bu">all</span>()</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_test.final_without_noise.<span class="bu">map</span>(cluster_names).value_counts())</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'source'</span> <span class="kw">in</span> X_test.columns:</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we can do this because of random forest splitting</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    factorizer_dict <span class="op">=</span> pd.Series(np.arange(<span class="bu">len</span>(source_factorizer[<span class="dv">1</span>])), source_factorizer[<span class="dv">1</span>].values, ).to_dict()</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    X_test[<span class="st">'source'</span>] <span class="op">=</span> X_test[<span class="st">'source'</span>].<span class="bu">map</span>(factorizer_dict)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">## predictions</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>weighted <span class="op">=</span> f1_score(y_test, predictions, average<span class="op">=</span><span class="st">'weighted'</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>micro <span class="op">=</span> f1_score(y_test, predictions, average<span class="op">=</span><span class="st">'micro'</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>macro <span class="op">=</span> f1_score(y_test, predictions, average<span class="op">=</span><span class="st">'macro'</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>overall_acc <span class="op">=</span> pd.Series([weighted, micro, macro], index<span class="op">=</span>[<span class="st">'Weighted F1'</span>, <span class="st">'Micro F1'</span>, <span class="st">'Macro F1'</span>])</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>f1s_vals <span class="op">=</span> f1_score(y_test, predictions, average<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>f1s <span class="op">=</span> pd.Series(</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    f1s_vals,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    index <span class="op">=</span> [cluster_names[k] <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">sorted</span>(np.unique(predictions))]</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>f1s <span class="op">=</span> f1s.sort_values()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>final_without_noise
+Aligned Winding Streets               1911488
+Sparse Open Layout                    1901302
+Dense Connected Developments          1843043
+Compact Development                   1646066
+Sparse Road-Linked Development        1377693
+Cul-de-Sac Layout                     1362516
+Dense Standalone Buildings            1073182
+Sparse Rural Development               643288
+Linear Development                     464712
+Large Interconnected Blocks            218424
+Extensive Wide-Spaced Developments     186941
+Large Utilitarian Development          178777
+Dispersed Linear Development           167466
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="becdd701-4413-4619-9e53-9dde257fe721" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>overall_acc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Weighted F1    0.545135
+Micro F1       0.543666
+Macro F1       0.542424
+dtype: float64</code></pre>
+</div>
+</div>
+<div id="4e782522-6e69-499b-9a48-77f9bb753a6b" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>f1s.sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>Aligned Winding Streets               0.455454
+Compact Development                   0.548607
+Cul-de-Sac Layout                     0.512535
+Dense Connected Developments          0.584578
+Dense Standalone Buildings            0.565387
+Dispersed Linear Development          0.649112
+Extensive Wide-Spaced Developments    0.363151
+Large Interconnected Blocks           0.601881
+Large Utilitarian Development         0.435066
+Linear Development                    0.528131
+Sparse Open Layout                    0.607502
+Sparse Road-Linked Development        0.488297
+Sparse Rural Development              0.711807
+dtype: float64</code></pre>
+</div>
+</div>
+<p>Generate a confusion matrix.</p>
+<div id="419b08d3-be30-4b8e-b8c2-0bf38d760b2e" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> ConfusionMatrixDisplay </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8e0a4dd4-1a28-41d2-9f03-0d42b32ba82e" class="cell" data-execution_count="298">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'Dense Connected Developments'</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a> <span class="st">'Large Interconnected Blocks'</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a> <span class="st">'Dense Standalone Buildings'</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a> <span class="st">'Compact Development'</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a> <span class="st">'Cul-de-Sac Layout'</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a> <span class="st">'Aligned Winding Streets'</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a> <span class="st">'Sparse Rural Development'</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a> <span class="st">'Dispersed Linear Development'</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a> <span class="st">'Linear Development'</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a> <span class="st">'Sparse Open Layout'</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a> <span class="st">'Sparse Road-Linked Development'</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a> <span class="st">'Large Utilitarian Development'</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a> <span class="st">'Extensive Wide-Spaced Developments'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a5e75c26-2cbf-444e-a55b-27927610bb08" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test.final_without_noise.<span class="bu">map</span>(cluster_names), </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                      pd.Series(predictions).<span class="bu">map</span>(cluster_names), </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                      labels<span class="op">=</span>labels,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                      normalize<span class="op">=</span><span class="st">'true'</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                     )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="0ba71514-ae93-4e35-bd4d-0ea200003073" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>np.<span class="bu">round</span>(cm, decimals<span class="op">=</span><span class="dv">2</span>), </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                              display_labels<span class="op">=</span>labels</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="547bc9e2-b439-4ba5-8a3a-0cdf6d708838" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">12</span>), dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>disp.plot( xticks_rotation <span class="op">=</span> <span class="st">'vertical'</span>, ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_single_model_training_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="plot-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="plot-predictions">Plot predictions</h2>
+<div id="fd817d2c-beac-4685-989f-5d178a523182" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard <span class="im">import</span> SolidPolygonLayer, Map</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard.basemap <span class="im">import</span> CartoBasemap</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard.colormap <span class="im">import</span> apply_categorical_cmap</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palettable.colorbrewer.qualitative <span class="im">import</span> Set3_12</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.cluster_validation <span class="im">import</span> get_color</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.utils <span class="im">import</span> combine_regions_data</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.generate_predictions <span class="im">import</span> read_train_test, get_cluster_names, get_level_cut</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2ea6f973-8f3a-40ff-a613-fa439ea54853" class="cell" data-scrolled="true" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># regions_datadir = "/data/uscuni-eurofab-overture/"</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># region_hulls = gpd.read_parquet(</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#         regions_datadir + "regions/" + "ov_ce_region_hulls.parquet"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># region_hulls.explore()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Specify model parameters.</p>
+<div id="100d21e4-2f58-49af-95fc-cbe1e93c8de3" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>coredir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab-overture/'</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mapping_level <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>train_test_iteration <span class="op">=</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Read model and test data</p>
+<div id="9ad61fad-4674-4642-89f1-ea4b444d1dc4" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'../data/model_</span><span class="sc">{</span>mapping_level<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>train_test_iteration<span class="sc">}</span><span class="ss">.pkl'</span>, <span class="st">'rb'</span>) <span class="im">as</span> f:</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> pickle.load(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7714c6ce-69a6-4925-8414-13615a2acfb1" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>level_cut <span class="op">=</span> get_level_cut(mapping_level)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> pd.read_parquet(<span class="ss">f'</span><span class="sc">{</span>coredir<span class="sc">}</span><span class="ss">processed_data/train_test_data/testing_labels</span><span class="sc">{</span>train_test_iteration<span class="sc">}</span><span class="ss">.pq'</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>y_test[<span class="st">'final_without_noise'</span>] <span class="op">=</span> y_test[<span class="st">'final_without_noise'</span>].<span class="bu">map</span>(level_cut.to_dict())</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>cluster_names <span class="op">=</span> get_cluster_names(mapping_level)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate predictions for specific regions.</p>
+<div id="124e1d34-56a3-4558-bf34-e7b9eb82ea1f" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_buildings_and_predictions(region_id):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" for a specific reigon, generate the data for the predictions and index the test data"""</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    all_data, all_labels, _ <span class="op">=</span> combine_regions_data([region_id], char_type<span class="op">=</span><span class="st">'only_unweighted_lag_overture'</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    predicted_index <span class="op">=</span> all_data.index.<span class="bu">str</span>.split(<span class="st">'_'</span>).<span class="bu">str</span>[<span class="op">-</span><span class="dv">1</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    region_test_labels <span class="op">=</span> all_labels.index.isin(y_test.index)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># predict the whole region</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    regional_predictions <span class="op">=</span> model.predict(all_data)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># map the original predictions and whether the test cases are accurate</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    region_test_labels <span class="op">=</span> y_test.index.isin(all_labels.index)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># accurate = predictions[region_test_labels] == y_test[region_test_labels].final_without_noise</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># accurate.index = accurate.index.str.split('_').str[-1].astype(int)</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># read the building polygons and assign the new predictions</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    buildings <span class="op">=</span> gpd.read_parquet(<span class="ss">f'/data/uscuni-eurofab-overture/processed_data/buildings/buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet'</span>)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    buildings <span class="op">=</span> buildings.loc[predicted_index]</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    buildings[<span class="st">'prediction'</span>] <span class="op">=</span> regional_predictions.astype(<span class="bu">int</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    buildings[<span class="st">'in_testset'</span>] <span class="op">=</span> all_labels.index.isin(y_test.index)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># buildings['accurate'] = accurate</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> buildings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="291c20c4-dfac-4944-9f90-929cf2d0897b" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>vienna_buildings <span class="op">=</span> get_buildings_and_predictions(<span class="dv">84568</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>brno_buildings <span class="op">=</span> get_buildings_and_predictions(<span class="dv">90996</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>munich_buildings <span class="op">=</span> get_buildings_and_predictions(<span class="dv">36769</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>wroclaw_buildings <span class="op">=</span> get_buildings_and_predictions(<span class="dv">91484</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 17min 48s, sys: 10.9 s, total: 17min 59s
+Wall time: 1min 55s</code></pre>
+</div>
+</div>
+<p>Plot the prediction results for the four regions on one figure.</p>
+<div id="20006485-5529-46f2-8bc9-2d9c16748b51" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shapely</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> to_hex</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> colormaps</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_scalebar.scalebar <span class="im">import</span> ScaleBar</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c2c3b028-1bd6-46a5-9001-19603161e32f" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> [to_hex(c) <span class="cf">for</span> c <span class="kw">in</span> colormaps.get_cmap(<span class="st">'tab20b'</span>).colors]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="038b51f8-a1d4-4363-9e96-c34663ffd237" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_predictions(buildings, ax,  cmap, name<span class="op">=</span><span class="st">''</span>):</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Plot the buildings with a specifc colormap on a specifc axes."""</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    buildings_centre <span class="op">=</span> shapely.box(<span class="op">*</span>shapely.Point(buildings.centroid.x.mean(), buildings.centroid.y.mean()).<span class="bu">buffer</span>(<span class="dv">10_000</span>).bounds)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    to_plot <span class="op">=</span> buildings[buildings.intersects(buildings_centre)]</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cluster <span class="kw">in</span> to_plot.prediction.unique():</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        to_plot[to_plot.prediction <span class="op">==</span> cluster].plot(ax<span class="op">=</span>ax, color<span class="op">=</span>cmap[cluster])</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    ax.set_axis_off()</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    ax.set_title(name)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    cx.add_basemap(ax, crs<span class="op">=</span>buildings.crs, source<span class="op">=</span>cx.providers.CartoDB.PositronNoLabels)</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    ax.add_artist(ScaleBar(<span class="dv">1</span>, location<span class="op">=</span><span class="st">"upper right"</span>))</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8a71177d-663f-4d6a-91eb-4085501baf4d" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">16</span>), dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>h1 <span class="op">=</span> plot_predictions(vienna_buildings, ax[<span class="dv">0</span>][<span class="dv">0</span>], cmap, <span class="st">'Vienna'</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>h2 <span class="op">=</span> plot_predictions(munich_buildings, ax[<span class="dv">0</span>][<span class="dv">1</span>], cmap, <span class="st">'Munich'</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>h3 <span class="op">=</span> plot_predictions(wroclaw_buildings, ax[<span class="dv">1</span>][<span class="dv">0</span>], cmap, <span class="st">'Wroclaw'</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>h4 <span class="op">=</span> plot_predictions(brno_buildings, ax[<span class="dv">1</span>][<span class="dv">1</span>], cmap, <span class="st">'Brno'</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>legend_patches <span class="op">=</span> [mpatches.Patch(color<span class="op">=</span>cmap[cluster], label<span class="op">=</span>cluster_names[<span class="bu">str</span>(cluster)]) <span class="cf">for</span> cluster <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">17</span>)]</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>legend_patches, loc<span class="op">=</span><span class="st">'lower right'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_single_model_training_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="interactive-plot-for-a-specific-region" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-plot-for-a-specific-region">Interactive plot for a specific region</h3>
+<div id="03e846c9-85ab-45fd-aa45-2614af0ac3b5" class="cell" data-execution_count="225">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>plot_buildings <span class="op">=</span> wroclaw_buildings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="efc2fb46-9557-48ef-8db2-63d4218ad03a" class="cell" data-execution_count="226">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>layer <span class="op">=</span> SolidPolygonLayer.from_geopandas(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    gdf<span class="op">=</span>plot_buildings, opacity<span class="op">=</span><span class="fl">0.15</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/krasen/morphometrics/.pixi/envs/default/lib/python3.12/site-packages/lonboard/_geoarrow/ops/reproject.py:97: UserWarning: Input being reprojected to EPSG:4326 CRS
+  warnings.warn("Input being reprojected to EPSG:4326 CRS")</code></pre>
+</div>
+</div>
+<div id="de728090-63db-4e53-870c-8944017db1e9" class="cell" data-execution_count="227">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>np.unique(plot_buildings[<span class="st">'prediction'</span>].values.astype(<span class="bu">int</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="227">
+<pre><code>array([ 1,  2,  5,  6,  7,  8,  9, 11, 12, 13, 14, 15, 16])</code></pre>
+</div>
+</div>
+<div id="ee6a52b3-02df-45b6-b4ed-c3a875c58724" class="cell" data-execution_count="228">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(layer, basemap_style<span class="op">=</span>CartoBasemap.DarkMatter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="24c0a7bc-895f-4dbe-ba2d-3b38b5590392" class="cell" data-execution_count="229">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sidecar <span class="im">import</span> Sidecar</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> Sidecar(title<span class="op">=</span><span class="st">'buildings'</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sc:</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    display(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="008d377e-4321-4e31-a42a-8b452a118275" class="cell" data-execution_count="230">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>final_colors <span class="op">=</span> get_color(np.arange(<span class="dv">0</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="84f59c1d-d439-4ef8-82cd-6aa02af13638" class="cell" data-execution_count="231">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>layer.get_fill_color <span class="op">=</span> final_colors[plot_buildings[<span class="st">'prediction'</span>].astype(<span class="bu">int</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b33532b7-58f6-4239-813a-71973014f704" class="cell" data-execution_count="171">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>layer.get_fill_color <span class="op">=</span> final_colors[plot_buildings[<span class="st">'accurate'</span>].astype(<span class="bu">int</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

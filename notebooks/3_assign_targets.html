@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a5f7c7d3e14c0249f40a958cfc36173a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ad12125f43b1cd0365d2f9404fbc2628.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/3_assign_targets.html">Assign target labels from the cadastre-level classification to the tessellation cells</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Notebooks</li><li class="breadcrumb-item"><a href="../notebooks/3_assign_targets.html">Assign target labels from the cadastre-level classification to the tessellation cells</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -195,11 +195,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notebooks/1_download_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Download country MS buildings</span></a>
-  </div>
-</li>
+ <span class="menu-text">notebooks/1_download_data.ipynb</span>
+  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/2_process_regions.html" class="sidebar-item-text sidebar-link">
@@ -226,8 +223,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/6_eurofab_model.html" class="sidebar-item-text sidebar-link">
+  <a href="../notebooks/6_single_model_training.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Eurofab model training</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/7_figures_and_tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SubRegions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -255,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/3_assign_targets.html">Assign target labels from the cadastre-level classification to the tessellation cells</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Notebooks</li><li class="breadcrumb-item"><a href="../notebooks/3_assign_targets.html">Assign target labels from the cadastre-level classification to the tessellation cells</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Assign target labels from the cadastre-level classification to the tessellation cells</h1>
 </div>
@@ -274,31 +277,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="496085ac-e1f8-4477-89c0-c450a29786d3" class="cell" data-execution_count="3">
+<div id="496085ac-e1f8-4477-89c0-c450a29786d3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="59ce1202-588b-45fd-ba76-390dee99933e" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>regions_datadir <span class="op">=</span> <span class="st">"/data/uscuni-eurofab/"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tessellations_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/tessellations/'</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>buildings_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab/processed_data/buildings/'</span></span>
+<div id="59ce1202-588b-45fd-ba76-390dee99933e" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>regions_datadir <span class="op">=</span> <span class="st">"/data/uscuni-eurofab-overture/"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tessellations_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab-overture/processed_data/tessellations/'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>buildings_dir <span class="op">=</span> <span class="st">'/data/uscuni-eurofab-overture/processed_data/buildings/'</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>region_hulls <span class="op">=</span> gpd.read_parquet(</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        regions_datadir <span class="op">+</span> <span class="st">"regions/"</span> <span class="op">+</span> <span class="st">"ms_ce_region_hulls.parquet"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        regions_datadir <span class="op">+</span> <span class="st">"regions/"</span> <span class="op">+</span> <span class="st">"ov_ce_region_hulls.parquet"</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>region_hulls.shape</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>cadastre_hulls <span class="op">=</span> gpd.read_parquet(<span class="st">'/data/uscuni-ulce/regions/cadastre_regions_hull.parquet'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>cadastre_hulls <span class="op">=</span> gpd.read_parquet(<span class="st">'/data/uscuni-ulce/regions/cadastre_regions_hull.parquet'</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="st">'v3'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="0e307e3b-7ec8-41f1-bba4-53c8160f805a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_region_targets(region_id, region_hull):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Match cadastre regions to a specific MS region, and the assign each building in the MS region a label based on spatial intersection."""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># read all buildings that intersect with this data</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># read all buildings that intersect with this ms region</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    cadastre_regions_to_read <span class="op">=</span> cadastre_hulls[cadastre_hulls.intersects(region_hull.iloc[<span class="dv">0</span>])].index</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    cluster_data <span class="op">=</span> pd.concat(</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            gpd.read_parquet(<span class="ss">f'/data/uscuni-ulce/processed_data/clusters/</span><span class="sc">{</span>rid<span class="sc">}</span><span class="ss">_clusters.pq'</span>, columns<span class="op">=</span>[<span class="st">'final_without_noise'</span>, <span class="st">'geometry'</span>]) </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            gpd.read_parquet(<span class="ss">f'/data/uscuni-ulce/processed_data/clusters/clusters_</span><span class="sc">{</span>rid<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">.pq'</span>, columns<span class="op">=</span>[<span class="st">'final_without_noise'</span>, <span class="st">'geometry'</span>]) </span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> rid <span class="kw">in</span> cadastre_regions_to_read</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        ], ignore_index<span class="op">=</span><span class="va">True</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    )</span>
@@ -313,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    target_clusters <span class="op">=</span> cluster_data.iloc[blg_idxs, <span class="dv">0</span>].groupby(tess_idxs).agg(<span class="kw">lambda</span> x: pd.Series.mode(x)[<span class="dv">0</span>])</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># go from tessellation ilocs to locs</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    target_clusters.index <span class="op">=</span> region_tessellations.index[target_clusters.index]</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    target_clusters.reset_index().to_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/target_clusters/</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">_target.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    target_clusters.reset_index().to_parquet(<span class="ss">f'/data/uscuni-eurofab-overture/processed_data/target_clusters/</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">_target.pq'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Run the assignment funciton for every region.</p>
 <div id="02c80419-7b69-4c5f-a38a-21a3c07925d7" class="cell" data-scrolled="true" data-execution_count="7">
@@ -322,504 +327,740 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(region_id)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    process_region_targets(region_id, region_hull)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>19
-24
-33
-478
-754
-817
+<pre><code>4
+5
+20
+356
+401
+646
+687
+810
+1014
 1049
-1485
-1677
-2415
-2513
-2707
-2785
-2790
-2820
-3228
-3307
-3313
-3357
-3540
-3661
-3762
-3806
-4271
-4285
-4640
-4763
-5175
-5189
-5320
-5429
-5874
-6337
-6351
-6477
-6858
-6881
-7113
-7381
-7411
-7640
-7693
-7728
-7921
-7924
-8014
-8087
-8147
-8440
-8659
-8927
-8960
-9560
-9840
-9887
-10197
-10283
-10600
-10673
-10764
-10875
-11024
-11178
-11550
-11623
-11640
-12080
-12222
-12247
-12347
-12401
-12546
-12614
-12649
-12695
-12736
-13285
-13496
-13497
-14086
-14327
-14383
-14605
-14836
-15151
-15308
-15362
-15415
-15540
-15560
-15646
-16446
-16582
-16687
-17219
-17720
-17763
-17808
-17857
-17874
-17951
-18006
-18143
-18215
-19325
-19474
-20008
-20063
-20356
-20573
-20597
-20811
-21128
-22022
-22398
-22633
-22770
-23227
-23621
-23941
-24079
-24141
-24683
-24737
-25065
-25497
-25588
-25814
-25964
-26146
-26642
-26773
-27374
-27700
-27783
-27997
-28059
-28060
-28237
-28601
-28751
-28795
-28961
-29387
-30259
-30571
-30662
-30938
-31101
-31696
-31807
-32671
-32890
-33094
-33150
-33415
-33718
-33769
-33803
-34553
-34902
-36043
-36064
-36227
-36327
-36396
-36457
-37246
-37360
-37371
-37637
-37789
-37937
-38374
-38429
-38584
-38606
-38877
-39130
-39903
-40933
-41257
-41618
-41686
-42224
-42437
-42465
-42570
-43084
-44353
-44577
-44580
-44676
-44853
-44980
-45035
-45263
-45342
-45356
-45491
-45681
-45951
-45966
-46050
-46338
-46835
-47308
-47311
-47899
-48569
-48590
-50170
-50415
-50466
-50669
-51186
-51454
-51525
-51553
-51595
-52243
-53006
-53082
-53490
-53658
-54059
-54551
-54724
-55117
-55544
-56004
-56381
-56860
-57118
-57279
-57491
-57959
-57961
-58553
-58714
-59253
-60585
-60752
-60840
-60950
-61323
-61799
-61852
-62599
-62847
-63185
-63950
-64170
-64620
-64720
-64762
-64900
-65086
-65153
-65186
-65204
-65806
-66259
-66807
-66864
-67836
-68214
-68368
-68705
-68900
-69027
-70379
-70515
-70529
-70612
-70786
-71286
-71490
-72623
-73070
-73089
-73094
-73296
-73452
-74302
-74923
-75752
-75990
-76214
-77130
-77145
-77166
-77454
-78090
-78925
-79739
-79783
-80776
-81352
-81530
-81666
-81810
-82184
-82214
-82385
-82403
-83044
-83798
-84160
-84183
-84268
-84986
-85331
-86349
-87058
-87257
-87464
-87553
-87669
-88485
-89034
-89093
-89706
-90747
-90960
-91242
-92304
-92816
-94055
-94482
-95277
-95332
-95578
-95656
-96235
-97027
-97307
-97413
-97707
-97848
-97855
-98159
-98760
-98887
-99047
-99125
-99281
-99430
-99460
-99507
-99758
-99898
-100224
-100304
-100594
-100635
-100722
-100975
-101123
-101252
-101332
-101518
-101969
-102322
-102334
-102389
-102490
-102508
-102938
-103001
-103298
-103643
-103658
-103698
-103735
-103818
-104251
-104358
-104396
-104415
-104653
-105293
-105313
-105392
-105846
-105995
-106753
-106930
-106999
-107265
-107428
-107916
-108140
-108308
-108376
-108648
-109005
-109050
-109585
-109676
-109949
-110157
-110373
-111252
-111314
-111594
-111672
-111683
-111801
-112098
-112842
-112966
-113249
-113487
-114261
-114334
-114685
-114948
-115294
-115954
-116035
-116242
-116830
-117162
-117200
-118465
-118956
-119645
-119966
-119991
-120673
-120825
-121214
-122230
-122372
-122404
-122529
-122904
-122940
-123004
-123370
-123547
-124008
-124022
-124219
-124768
-125010
-125294
-125389
-125591
-125840
-126119
-126381
-126542
-126723
-127149
-127562
-128338
-129117
-129193
-129335
-129409
-129600
-130732
-131498
-131560
-132469
-132728
-132805
-133611
-133765
-133801
-134054
-134356
-CPU times: user 43min 40s, sys: 2min 38s, total: 46min 18s
-Wall time: 45min 7s</code></pre>
+1054
+1117
+1321
+1476
+1598
+1642
+1827
+1940
+2110
+2112
+2268
+2304
+2485
+2779
+2846
+2885
+2997
+3086
+3147
+3256
+3335
+3408
+3415
+3462
+3631
+3751
+3758
+3770
+3888
+3892
+3907
+4040
+4066
+4347
+4356
+4798
+4833
+5084
+5388
+5513
+5832
+6004
+6037
+6085
+6090
+6108
+6574
+6612
+6738
+6918
+7098
+7111
+7125
+7355
+7607
+7634
+7674
+7688
+7823
+7867
+7962
+8160
+8213
+8245
+8272
+8320
+8360
+8438
+8854
+9048
+9147
+9310
+9353
+9656
+9678
+9728
+9754
+9830
+9871
+9981
+10078
+10135
+10196
+10385
+10446
+10454
+10574
+10771
+10846
+10939
+10957
+10962
+11055
+11196
+11282
+11345
+11633
+11700
+11785
+11818
+11855
+11860
+11944
+12041
+12214
+12311
+12363
+12458
+12493
+12502
+12511
+12551
+12590
+12647
+12815
+13347
+13348
+13385
+13475
+13566
+13633
+13928
+14064
+14137
+14242
+14328
+14404
+14459
+14496
+14663
+14759
+14766
+14946
+15176
+15241
+15338
+15351
+15406
+15416
+15882
+16414
+16430
+16439
+17204
+17373
+17744
+17780
+17846
+17892
+17933
+18116
+18127
+18230
+19263
+19442
+19537
+19811
+19906
+20034
+20332
+20490
+20556
+20796
+20861
+21115
+21229
+21365
+21811
+22026
+22246
+22417
+22543
+22552
+23103
+23108
+23891
+24036
+24098
+24121
+24362
+24609
+24665
+25001
+25412
+25423
+25542
+25779
+25875
+25924
+25945
+25951
+26132
+26568
+26659
+26798
+27160
+27223
+27224
+27423
+27610
+27765
+27832
+27846
+28020
+28131
+28132
+28318
+28858
+28907
+29070
+29520
+29591
+29595
+30057
+30339
+30406
+30718
+30802
+30879
+30976
+31083
+31361
+31466
+31810
+31952
+32398
+32484
+32698
+32854
+32928
+33078
+33284
+33413
+33475
+33559
+33710
+33764
+33899
+33954
+33987
+34203
+34239
+34737
+34746
+34842
+34910
+34995
+35093
+35245
+35381
+35747
+36318
+36322
+36469
+36518
+36673
+36704
+36769
+36937
+37025
+37052
+37215
+37507
+37680
+37901
+37959
+38118
+38266
+38404
+38689
+38711
+38834
+38944
+39222
+39227
+39379
+39679
+40159
+40279
+40343
+40994
+41074
+41392
+41479
+41553
+41592
+41720
+42149
+42217
+42778
+42900
+43046
+43163
+43358
+43697
+43706
+44026
+44124
+44296
+44370
+44818
+44954
+45036
+45229
+45232
+45255
+45287
+45693
+45712
+45927
+45982
+46007
+46134
+46356
+46617
+47043
+47145
+47182
+47309
+47986
+48005
+48597
+48608
+48627
+48972
+49034
+49124
+49274
+49375
+49577
+50118
+50194
+50358
+50553
+50899
+50990
+51150
+51204
+51394
+51406
+51741
+51847
+51931
+52205
+53023
+53391
+53395
+53644
+53674
+53811
+53816
+54043
+54449
+54500
+54902
+55045
+55183
+55255
+55407
+55421
+55554
+55981
+56018
+56155
+57071
+57160
+57400
+57642
+57659
+57923
+58459
+58597
+59055
+59218
+59744
+60257
+60384
+60640
+60988
+61019
+61065
+61071
+61320
+61437
+61563
+62171
+62297
+62341
+62562
+62749
+62764
+63344
+63357
+63677
+63758
+63855
+63960
+64539
+64546
+64638
+64807
+65014
+65057
+65198
+65371
+65565
+65630
+65680
+66292
+66335
+66753
+67169
+67491
+67612
+68353
+68706
+68876
+68882
+69134
+69159
+69198
+69502
+70724
+70832
+70993
+71005
+71006
+71021
+71935
+72129
+72807
+72892
+73061
+73516
+73704
+73741
+74731
+75342
+75509
+75745
+76136
+76353
+76485
+77286
+77565
+77791
+78483
+78714
+79306
+80132
+80151
+80175
+80385
+80622
+80892
+81218
+81675
+81914
+82077
+82594
+82632
+82799
+83254
+83289
+83458
+83752
+84131
+84201
+84232
+84542
+84568
+85004
+85118
+85345
+86120
+86197
+86533
+86686
+86688
+86691
+86878
+86974
+86999
+87377
+87722
+87781
+87987
+88191
+88233
+88782
+89293
+89298
+89686
+89824
+90010
+90283
+90357
+90905
+90996
+91132
+91199
+91484
+92200
+92570
+93688
+94293
+94722
+94733
+95532
+95556
+95625
+95783
+95833
+95876
+96460
+96489
+96543
+96840
+97391
+97581
+97670
+97733
+97783
+98043
+98105
+98208
+98254
+98402
+98561
+99170
+99298
+99449
+99663
+99840
+99844
+99890
+99973
+100065
+100273
+100502
+100588
+100668
+100886
+100951
+101004
+101076
+101276
+101333
+101468
+101479
+101552
+101573
+101868
+102307
+102483
+102649
+102660
+102728
+102951
+103240
+103310
+103669
+103701
+103757
+103841
+103955
+103995
+104650
+104689
+104700
+104774
+104942
+105139
+105549
+105598
+105620
+106235
+106236
+106409
+106603
+106690
+106876
+106891
+106928
+106972
+107132
+107471
+107621
+107675
+107744
+108119
+108129
+108805
+108885
+108886
+108938
+109204
+109339
+109648
+109769
+109915
+110149
+110569
+110785
+111027
+111785
+111990
+112303
+112689
+112750
+113056
+113175
+113257
+113603
+113842
+114614
+114684
+115038
+115302
+115459
+115629
+116188
+116245
+116433
+116665
+117011
+117344
+117715
+117754
+117987
+118186
+118968
+119151
+119682
+119838
+120289
+120682
+120707
+121047
+121247
+121367
+121511
+121543
+121638
+121880
+122862
+123006
+123161
+123183
+123496
+123530
+123553
+123931
+124010
+124188
+124343
+124658
+124693
+125382
+125435
+125595
+125714
+125931
+126020
+126123
+126342
+126817
+126919
+127339
+127965
+128383
+129133
+129633
+129657
+129981
+130016
+130054
+130057
+130435
+130457
+130576
+130652
+131601
+131732
+132082
+132096
+132420
+132991
+133341
+133415
+133506
+133629
+133675
+133728
+134690
+134697
+134988
+135194
+135398
+CPU times: user 44min 28s, sys: 2min 45s, total: 47min 13s
+Wall time: 45min 41s</code></pre>
 </div>
 </div>
 <section id="explore-assignment" class="level2">
 <h2 class="anchored" data-anchor-id="explore-assignment">Explore assignment</h2>
-<div id="c03ea031-845b-4770-819a-585b3b533605" class="cell" data-execution_count="5">
+<div id="c03ea031-845b-4770-819a-585b3b533605" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>region_id <span class="op">=</span> <span class="dv">65806</span> <span class="co"># prague</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>region_id <span class="op">=</span> <span class="dv">66292</span> <span class="co"># prague</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard <span class="im">import</span> SolidPolygonLayer, Map</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard.basemap <span class="im">import</span> CartoBasemap</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard.colormap <span class="im">import</span> apply_categorical_cmap</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palettable.colorbrewer.qualitative <span class="im">import</span> Set3_12</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.cluster_validation <span class="im">import</span> get_color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard <span class="im">import</span> SolidPolygonLayer, Map</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard.basemap <span class="im">import</span> CartoBasemap</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lonboard.colormap <span class="im">import</span> apply_categorical_cmap</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palettable.colorbrewer.qualitative <span class="im">import</span> Set3_12</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> core.cluster_validation <span class="im">import</span> get_color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2d8cfd25-0c84-47d3-b63f-53562442a710" class="cell" data-execution_count="6">
+<div id="2d8cfd25-0c84-47d3-b63f-53562442a710" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>region_buildings <span class="op">=</span> gpd.read_parquet(buildings_dir <span class="op">+</span> <span class="ss">f'buildings_</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">.parquet'</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>target_clusters <span class="op">=</span> pd.read_parquet(<span class="ss">f'/data/uscuni-eurofab/processed_data/target_clusters/</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">_target.pq'</span>).set_index(<span class="st">'index'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>target_clusters <span class="op">=</span> pd.read_parquet(<span class="ss">f'/data/uscuni-eurofab-overture/processed_data/target_clusters/</span><span class="sc">{</span>region_id<span class="sc">}</span><span class="ss">_target.pq'</span>).set_index(<span class="st">'index'</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>building_targets <span class="op">=</span> target_clusters[target_clusters.index <span class="op">&gt;=</span> <span class="dv">0</span>]</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>region_buildings[<span class="st">'label'</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>region_buildings.loc[building_targets.index, <span class="st">'label'</span>] <span class="op">=</span> building_targets.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="092fb027-c10b-4370-98bb-f7684f7c0b2c" class="cell" data-execution_count="7">
+<div id="092fb027-c10b-4370-98bb-f7684f7c0b2c" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plotting <span class="op">=</span> region_buildings.iloc[target_clusters.index]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plotting[<span class="st">'geometry'</span>] <span class="op">=</span> region_buildings.simplify(<span class="dv">1</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -827,15 +1068,22 @@ Wall time: 45min 7s</code></pre>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    gdf<span class="op">=</span>plotting[[<span class="st">"geometry"</span>, <span class="st">"label"</span>]], get_fill_color<span class="op">=</span>get_color(plotting[<span class="st">'label'</span>].values.astype(<span class="bu">int</span>)), opacity<span class="op">=</span><span class="fl">0.15</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/home/krasen/eurofab_morphometrics/.pixi/envs/default/lib/python3.12/site-packages/geopandas/geodataframe.py:1819: SettingWithCopyWarning: 
+<pre><code>/home/krasen/morphometrics/.pixi/envs/default/lib/python3.12/site-packages/geopandas/geodataframe.py:1819: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   super().__setitem__(key, value)
-/home/krasen/eurofab_morphometrics/.pixi/envs/default/lib/python3.12/site-packages/lonboard/_geoarrow/ops/reproject.py:97: UserWarning: Input being reprojected to EPSG:4326 CRS
+/home/krasen/morphometrics/.pixi/envs/default/lib/python3.12/site-packages/lonboard/_geoarrow/ops/reproject.py:97: UserWarning: Input being reprojected to EPSG:4326 CRS
   warnings.warn("Input being reprojected to EPSG:4326 CRS")</code></pre>
 </div>
+</div>
+<div id="f127557f-8c9c-46e4-80ec-dfcdd64473a0" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(layer, basemap_style<span class="op">=</span>CartoBasemap.Positron)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="76fb2b99-aa82-42dc-890f-7b447651d740" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>layer.get_fill_color <span class="op">=</span> get_color(plotting[<span class="st">'label'</span>].values.astype(<span class="bu">int</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
