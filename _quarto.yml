@@ -20,7 +20,8 @@ website:
           href:  https://eurofab-project.github.io/eo/
     - section: "Notebooks"
       contents:
-      - notebooks/1_download_data.ipynb
+      - notebooks/1_download_ms_data.ipynb
+      - notebooks/1_download_ov_data.ipynb
       - notebooks/2_process_regions.ipynb
       - notebooks/3_assign_targets.ipynb
       - notebooks/4_assign_buildings_to_h3.ipynb
