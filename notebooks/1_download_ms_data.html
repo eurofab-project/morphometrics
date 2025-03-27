@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Download country MS buildings – Urban morphometrics | EuroFab</title>
+<title>Download MS-based data - buildings and streets – Urban morphometrics | EuroFab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -120,9 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Urban morphometrics | EuroFab
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_ms_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/1_download_ms_data.html">Download MS-based data - buildings and streets</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -200,8 +198,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">notebooks/1_download_data.ipynb</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/1_download_ms_data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Download MS-based data - buildings and streets</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/1_download_ov_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download Overture-based data buildigns and streets</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/2_process_regions.html" class="sidebar-item-text sidebar-link">
@@ -211,13 +218,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/3_assign_targets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Assign target labels from the cadastre-level classification to the tessellation cells</span></a>
+ <span class="menu-text">Assign target labels</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/4_assign_buildings_to_h3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Explore assignment</span></a>
+ <span class="menu-text">Assign ETCs to hexagons</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -235,7 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/7_figures_and_tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SubRegions</span></a>
+ <span class="menu-text">Generate figures and tables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -264,9 +271,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/1_download_ms_data.html">Notebooks</a></li><li class="breadcrumb-item"><a href="../notebooks/1_download_ms_data.html">Download MS-based data - buildings and streets</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Download country MS buildings</h1>
+<h1 class="title">Download MS-based data - buildings and streets</h1>
 </div>
 
 
@@ -283,6 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Define functions to download the raw data from Microsoft blob storage. If the data is not available it might work to replace <em>.blob.</em> with <em>.z5.web.</em> in all urls. There should be no difference in the data.</p>
+<p>Note: At the bottom of the notebook i try to download the same data from planatery computer and its 1:1, but there are still missing buildings in for example the centre of prague, which are there in the microsoft planetary computer explorer.</p>
 <div id="3fb60778-35c8-4164-a5f0-c33f681bbe67" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -290,8 +299,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="2d3a7c0f-fdc2-4c27-abf7-99e3f8572c7b" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>countries <span class="op">=</span> [<span class="st">'Czechia'</span>, <span class="st">'CzechRepublic'</span>, <span class="st">'Poland'</span>, <span class="st">'Germany'</span>, <span class="st">'Austria'</span>, <span class="st">'Slovakia'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Define functions to download the raw data from Microsoft blob storage. If the data is not available it might work to replace <em>.blob.</em> with <em>.z5.web.</em> in all urls. There should be no difference in the data.</p>
-<p>Note: At the bottom of the notebook i try to download the same data from planatery computer and its 1:1, but there are still missing buildings in for example the centre of prague, which are there in the microsoft planetary computer explorer.</p>
 <div id="a5d61da4-6c54-49de-930c-5711bdd71e5a" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_ms_buildings(url):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Read the data from the blob url, convert to a geodataframe and change to european planar coordinates"""</span></span>
@@ -3737,8 +3744,8 @@ Wall time: 2min 5s</code></pre>
 <pre><code>(23332865, 21)</code></pre>
 </div>
 </div>
-<section id="planatery-computer-cache-try" class="level4">
-<h4 class="anchored" data-anchor-id="planatery-computer-cache-try">Planatery computer cache try</h4>
+<section id="planatery-computer-cache-this-data-is-not-used-but-ms-has-a-dump-of-old-versions-on-the-stack-api" class="level4">
+<h4 class="anchored" data-anchor-id="planatery-computer-cache-this-data-is-not-used-but-ms-has-a-dump-of-old-versions-on-the-stack-api">Planatery computer cache (this data is not used, but MS has a dump of old versions on the stack API)</h4>
 <div id="79519c08-93a3-4b99-8a0a-f1a6e7ce21d7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> planetary_computer</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystac_client</span>
