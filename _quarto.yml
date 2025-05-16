@@ -16,6 +16,8 @@ website:
         href:  https://eurofab-project.github.io/technical-notes/
       - text: Talks
         href:  https://eurofab-project.github.io/talks/
+      - text: Data product
+        href:  https://eurofab.org/data.html
       - section: "Other work streams"
         contents:
         - text: Earth observation
