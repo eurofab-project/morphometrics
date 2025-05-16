@@ -4,6 +4,8 @@ title: "EuroFab research project - Morphometrics work stream"
 
 This site contains rendered Jupyter notebooks of the Morphometrics work stream of the EuroFab research project. For full access to the source code, refer to the [GitHub repository](https://github.com/eurofab-project/morphometrics).
 
+The details are outlined in the relevant [Technical Notes](https://eurofab-project.github.io/technical-notes/).
+
 ## Project overview
 
 The _“EuroFab: European Urban Fabric Classification using Artificial Intelligence”_
