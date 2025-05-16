@@ -1,7 +1,44 @@
 ---
-title: "EuroFab research project"
+title: "EuroFab research project - Morphometrics work stream"
 ---
 
-The landing page of the EuroFab project.
+This site contains rendered Jupyter notebooks of the Morphometrics work stream of the EuroFab research project. For full access to the source code, refer to the [GitHub repository](https://github.com/eurofab-project/morphometrics).
+
+## Project overview
+
+The _“EuroFab: European Urban Fabric Classification using Artificial Intelligence”_
+project brings an innovative perspective to understanding the
+**structure of human settlements** by capturing their physical composition using explainable data science in
+combination with Earth Observation (EO), and through state-of-the-art AI, uncovering their
+temporal dimension.
+
+Specifically, the solutions develop a two-step system combining
+**mathematical characterisation of built-up fabric** using techniques known as urban
+morphometrics, providing a rich hierarchical classification backed by rich interpretable
+numerical descriptions, and state-of-the-art **neural networks** to recognise such classification
+from open optical satellite imagery (**Sentinel 2**), allowing both the detection of individual types
+in areas with ground data of lesser quality and the unfolding of such classification over time,
+providing a unique temporal look at how human settlements evolve.
+
+The  output
+paves the way to map urban development in the European continent over both space and time,
+covering every building from the smallest hamlet to the largest metropolis.
+
+EuroFab helps
+us understand the habitats we built and efficiently affect policy at European, national and local
+levels ensuring the future of “urban” is sustainable, resilient and data driven.
+
+The proposed project is an initiation of a more ambitious undertaking. It focuses on
+developing scientific and technical solutions based on novel AI methods, in conjunction with
+strategically shaping the outputs and framework to serve various stakeholders directly involved
+in policy, planning, and research.
+
+For more details, please refer to individual [Technical Notes](https://eurofab-project.github.io/technical-notes/).
 
 ![](assets/logos.png)
+
+
+_The activities reported in this document were carried under a programme of, and funded by, the European Space Agency. View expressed in the publication can in no way be taken to reflect the official opinion of the European Space Agency._
+
+
+![](assets/esa.jpg){width=300}

@@ -12,6 +12,8 @@ website:
       contents:
       - text: Project homepage
         href:  https://eurofab-project.github.io/
+      - text: Technical Notes
+        href:  https://eurofab-project.github.io/technical-notes/
       - text: Talks
         href:  https://eurofab-project.github.io/talks/
       - section: "Other work streams"
